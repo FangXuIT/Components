@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{1F57
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpcUaClientTest", "OpcUaClientTest\OpcUaClientTest.csproj", "{2AB8B6BE-16B7-499C-B821-EB92A6D8B06D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLC.Drive.S7.NetCore", "PLC.Drive.S7.NetCore\PLC.Drive.S7.NetCore.csproj", "{DE2797D9-AB53-47DD-BEE6-B5D681A0D6AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PLC.Drive.S7.NetCore", "PLC.Drive.S7.NetCore\PLC.Drive.S7.NetCore.csproj", "{DE2797D9-AB53-47DD-BEE6-B5D681A0D6AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelSampleTest", "ParallelSampleTest\ParallelSampleTest.csproj", "{C18B040A-6AE3-4833-BED9-A70EBDCB232E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParallelSampleTest", "ParallelSampleTest\ParallelSampleTest.csproj", "{C18B040A-6AE3-4833-BED9-A70EBDCB232E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator", "DataGenerator\DataGenerator.csproj", "{888DF44B-0E0C-47E4-909E-132E61778E73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{C18B040A-6AE3-4833-BED9-A70EBDCB232E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C18B040A-6AE3-4833-BED9-A70EBDCB232E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C18B040A-6AE3-4833-BED9-A70EBDCB232E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{888DF44B-0E0C-47E4-909E-132E61778E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{888DF44B-0E0C-47E4-909E-132E61778E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{888DF44B-0E0C-47E4-909E-132E61778E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{888DF44B-0E0C-47E4-909E-132E61778E73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2AB8B6BE-16B7-499C-B821-EB92A6D8B06D} = {1F572C5C-734C-401F-9081-F713FC7E417D}
 		{C18B040A-6AE3-4833-BED9-A70EBDCB232E} = {1F572C5C-734C-401F-9081-F713FC7E417D}
+		{888DF44B-0E0C-47E4-909E-132E61778E73} = {1F572C5C-734C-401F-9081-F713FC7E417D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4409729-5968-47D0-B488-C99CD92E1B9D}

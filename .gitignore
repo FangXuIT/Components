@@ -4,3 +4,7 @@
 
 /BaseSolution/ParallelSampleTest/bin/Debug/netcoreapp3.1
 /BaseSolution/ParallelSampleTest/obj
+/BaseSolution/DataGenerator/bin/Debug/netcoreapp3.1
+/BaseSolution/DataGenerator/obj/Debug/netcoreapp3.1
+/BaseSolution/DataGenerator/obj/Release/netcoreapp3.1
+/BaseSolution/DataGenerator/obj

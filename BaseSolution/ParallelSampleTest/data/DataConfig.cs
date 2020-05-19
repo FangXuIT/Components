@@ -14,17 +14,15 @@ namespace ParallelSampleTest.data
 
         public string BaseDirectory { private set; get; }
 
-        public List<string> AreaDirectorys { private set; get; }
 
-        public List<string> DataFilePaths { private set; get; }
+        public List<AreaDirectory> AreaDirectorys { private set; get; }
 
         public Random GlobalRandom { private set; get; }
 
         private DataConfig()
         {
             GlobalRandom = new Random();
-            AreaDirectorys = new List<string>();
-            DataFilePaths = new List<string>();
+            AreaDirectorys = new List<AreaDirectory>();
 
             BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
@@ -47,25 +45,29 @@ namespace ParallelSampleTest.data
             
             for (var idx = 1; idx <= 50; idx++)
             {
-                var ad = string.Format("{0}\\data\\{1}\\", BaseDirectory, idx);
-                AreaDirectorys.Add(ad);
+                var adPath = string.Format("{0}data\\{1}\\", BaseDirectory, idx);
+                var ad = new AreaDirectory(adPath);
+                ad.DataFilePaths=await InitDataDirectoryAsync(adPath);
 
-                await InitDataDirectoryAsync(ad);
+                AreaDirectorys.Add(ad);
             }
         }
 
-        private async Task InitDataDirectoryAsync(string ad)
+        private async Task<List<string>> InitDataDirectoryAsync(string ad)
         {
             if (Directory.Exists(ad)) Directory.Delete(ad, true);
             Directory.CreateDirectory(ad);
 
+            var result = new List<string>();
             for (var idy = 1; idy <= 100; idy++)
             {
                 var fp = string.Format("{0}{1}.txt", ad, idy);
-                DataFilePaths.Add(fp);
-
                 await InitDataFileAsync(fp);
+
+                result.Add(fp);
             }
+
+            return result;
         }
 
         private async Task InitDataFileAsync(string filePath)
