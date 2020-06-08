@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6gRGdL+Nntw8X5pltMWJSEasXlLRdiql6+OXfEgzFd7/EyXx8RdwOxlTBV7Cd3WIHNgs9AaeWfRGZvRLsrNiTQ==",
+  "dgSpecHash": "/uULKn7FVFBaDeq07j3+7ATMuSoaXBPaVSN0m2l9XrYMrQQU5hBNcNyvEku/tDeSlGP3mVyBn98CfE4o0RxRGw==",
   "success": true,
   "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\OpcUaClientTest\\OpcUaClientTest.csproj",
   "expectedPackageFiles": [
@@ -142,7 +142,8 @@
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
   ],
   "logs": []
 }
