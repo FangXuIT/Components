@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "NMxMQFxlznEUBHUy3AJiDq6dP7bd/8XLga4H8DG7W+stnhA8yrcFJrn3Jg+oDN1UMe1/h+UJUiqptMT/Fi9LqA==",
+  "success": true,
+  "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Core\\Terminal.Collector.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tzjac\\.nuget\\packages\\s7netplus\\0.4.0\\s7netplus.0.4.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

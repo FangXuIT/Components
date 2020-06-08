@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataGenerator", "DataGenera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S7.Test", "S7.Test\S7.Test.csproj", "{8C4C715C-88B7-47E3-BD0B-9F8978916B3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.Service", "Terminal.Collector.Service\Terminal.Collector.Service.csproj", "{D8931278-7BD8-4588-95DF-CDD5C92B4A6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.Core", "Terminal.Collector.Core\Terminal.Collector.Core.csproj", "{FA03398B-C847-4256-B30B-C2C5E09A8EF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{8C4C715C-88B7-47E3-BD0B-9F8978916B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C4C715C-88B7-47E3-BD0B-9F8978916B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C4C715C-88B7-47E3-BD0B-9F8978916B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8931278-7BD8-4588-95DF-CDD5C92B4A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8931278-7BD8-4588-95DF-CDD5C92B4A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8931278-7BD8-4588-95DF-CDD5C92B4A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8931278-7BD8-4588-95DF-CDD5C92B4A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA03398B-C847-4256-B30B-C2C5E09A8EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA03398B-C847-4256-B30B-C2C5E09A8EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA03398B-C847-4256-B30B-C2C5E09A8EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA03398B-C847-4256-B30B-C2C5E09A8EF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

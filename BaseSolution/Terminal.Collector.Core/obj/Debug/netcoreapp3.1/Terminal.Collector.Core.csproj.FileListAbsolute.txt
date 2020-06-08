@@ -1,0 +1,4 @@
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.Core.deps.json
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.Core.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.AssemblyInfoInputs.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.AssemblyInfo.cs
