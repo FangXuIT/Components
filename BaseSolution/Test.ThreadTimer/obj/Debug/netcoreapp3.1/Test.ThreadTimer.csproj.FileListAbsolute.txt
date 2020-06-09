@@ -1,0 +1,12 @@
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.exe
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.deps.json
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.runtimeconfig.json
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.runtimeconfig.dev.json
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.dll
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Test.ThreadTimer.pdb
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.AssemblyInfoInputs.cache
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.AssemblyInfo.cs
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.csproj.CoreCompileInputs.cache
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.dll
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.pdb
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.genruntimeconfig.cache

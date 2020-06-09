@@ -10,6 +10,30 @@ namespace Terminal.Collector.Core
     /// </summary>
     public class Target: DataItem
     {
-        public string Name { set; get; }
+        /// <summary>
+        ///采集点编号 (唯一标识)
+        /// </summary>
+        public Int64 Id { private set; get; }
+
+        /// <summary>
+        /// 采集点名称
+        /// </summary>
+        public string Name { private set; get; }
+
+        /// <summary>
+        /// 扫描频率(默认值：1000,单位：毫秒)
+        /// </summary>
+        public int Interval { set; get; }
+
+        private Target()
+        {
+        }
+
+        public Target(Int64 id,string name)
+            :base()
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }
