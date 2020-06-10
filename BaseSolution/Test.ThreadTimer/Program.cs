@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Terminal.Collector.Store;
 using Test.ThreadTimer.Scan;
 
 namespace Test.ThreadTimer
@@ -8,22 +9,26 @@ namespace Test.ThreadTimer
     {
         static void Main(string[] args)
         {
-            CollectorPool pool = new CollectorPool();
-            int idx = 1;
-            while (true)
+            using (var db=DBContext.Client())
             {
-                var key = Console.ReadKey().Key.ToString();
-                switch(key)
-                {
-                    case "r":
-                    case "R":
-                        Console.WriteLine("");
-                        Console.WriteLine("------------------------------");
-                        Regist(pool, idx);
-                        idx += 1;
-                        break;
-                }
+                db.DbFirst.CreateClassFile("E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Entites\\", "Terminal.Collector.Store.Entites");
             }
+            //CollectorPool pool = new CollectorPool();
+            //int idx = 1;
+            //while (true)
+            //{
+            //    var key = Console.ReadKey().Key.ToString();
+            //    switch(key)
+            //    {
+            //        case "r":
+            //        case "R":
+            //            Console.WriteLine("");
+            //            Console.WriteLine("------------------------------");
+            //            Regist(pool, idx);
+            //            idx += 1;
+            //            break;
+            //    }
+            //}
         }
 
         static void Regist(CollectorPool pool,int idx)

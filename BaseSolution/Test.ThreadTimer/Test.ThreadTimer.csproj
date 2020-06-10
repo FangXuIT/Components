@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Terminal.Collector.Store\Terminal.Collector.Store.csproj" />
+  </ItemGroup>
+
 </Project>

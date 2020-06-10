@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.ThreadTimer", "Test.Th
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.OpcUa", "Terminal.Collector.OpcUa\Terminal.Collector.OpcUa.csproj", "{583AD1C1-812C-4AED-85DB-4951CDFC5919}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.IStore", "Terminal.Collector.IStore\Terminal.Collector.IStore.csproj", "{A0AAE7AA-11D8-4AC4-B0E0-786286FE7B2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.Store", "Terminal.Collector.Store\Terminal.Collector.Store.csproj", "{1223331F-55B7-41F4-8B25-43029F871C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,14 @@ Global
 		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0AAE7AA-11D8-4AC4-B0E0-786286FE7B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0AAE7AA-11D8-4AC4-B0E0-786286FE7B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0AAE7AA-11D8-4AC4-B0E0-786286FE7B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0AAE7AA-11D8-4AC4-B0E0-786286FE7B2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1223331F-55B7-41F4-8B25-43029F871C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1223331F-55B7-41F4-8B25-43029F871C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1223331F-55B7-41F4-8B25-43029F871C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1223331F-55B7-41F4-8B25-43029F871C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

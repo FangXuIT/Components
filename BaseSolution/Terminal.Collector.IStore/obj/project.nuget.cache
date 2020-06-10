@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LRIxsrETovWZwAVy4Q9gJYY/yfao2lyqM50gyoIhYcMS1d87hz41UrnT8Q3FDGQBQlAj+Kyd2Hj91LvLTULkKw==",
+  "success": true,
+  "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

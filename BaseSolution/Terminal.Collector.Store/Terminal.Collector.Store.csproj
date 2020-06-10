@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entites\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.20" />
+    <PackageReference Include="sqlSugarCore" Version="5.0.0.15" />
+  </ItemGroup>
+
+</Project>

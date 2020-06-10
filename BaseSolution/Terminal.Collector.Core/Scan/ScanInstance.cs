@@ -88,11 +88,6 @@ namespace Terminal.Collector.Core.Scan
         /// <param name="stateInfo"></param>
         void TimeCall(Object stateInfo)
         {
-            TimeCallBackAsync();
-        }
-
-        async Task TimeCallBackAsync()
-        {
             if (this.Channel.IsConnected)
             {
                 foreach (var item in DataItems.Values)
@@ -104,7 +99,9 @@ namespace Terminal.Collector.Core.Scan
 
         async Task ReadItemValueAsync(Target item)
         {
-            item.Value = await this.Channel.ReadAsync(item.DataType, item.DB, item.StartByteAdr, item.VarType, item.Count, item.BitAdr);
+            var time = System.DateTime.UtcNow;
+            var value = await this.Channel.ReadAsync(item.DataType, item.DB, item.StartByteAdr, item.VarType, item.Count, item.BitAdr);
+            await item.FlushValue(value, time);
         }
     }
 }
