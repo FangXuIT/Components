@@ -43,6 +43,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "OPCFoundation.NetStandard.Opc.Ua": {
+              "target": "Package",
+              "version": "[1.4.361.39, )"
+            },
             "S7netplus": {
               "target": "Package",
               "version": "[0.4.0, )"

@@ -88,16 +88,23 @@ namespace Terminal.Collector.Core.Scan
         /// <param name="stateInfo"></param>
         void TimeCall(Object stateInfo)
         {
-            if(this.Channel.IsAvailable && DataItems.Count > 0)
+            TimeCallBackAsync();
+        }
+
+        async Task TimeCallBackAsync()
+        {
+            if (this.Channel.IsConnected)
             {
-                if(this.Channel.IsConnected)
+                foreach (var item in DataItems.Values)
                 {
-                    foreach(var item in DataItems.Values)
-                    {
-                        item.Value = this.Channel.Read(item.DataType, item.DB, item.StartByteAdr, item.VarType, item.Count, item.BitAdr);
-                    }
+                    ReadItemValueAsync(item);
                 }
             }
+        }
+
+        async Task ReadItemValueAsync(Target item)
+        {
+            item.Value = await this.Channel.ReadAsync(item.DataType, item.DB, item.StartByteAdr, item.VarType, item.Count, item.BitAdr);
         }
     }
 }

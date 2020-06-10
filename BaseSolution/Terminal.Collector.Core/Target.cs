@@ -27,6 +27,7 @@ namespace Terminal.Collector.Core
 
         private Target()
         {
+            Interval = 1000;
         }
 
         public Target(Int64 id,string name)
@@ -34,6 +35,7 @@ namespace Terminal.Collector.Core
         {
             Id = id;
             Name = name;
+            Interval = 1000;
         }
     }
 }

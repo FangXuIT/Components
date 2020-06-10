@@ -24,7 +24,7 @@ namespace Terminal.Collector.Core.Scan
         public bool Regist(Channel _channel,Target _target)
         {
             bool result = false;
-            bool addChannel = false;
+            bool hasIns = false;
 
             foreach(var ins in Instances.Where(p=>p.Channel.Id ==_channel.Id))
             {
@@ -37,8 +37,8 @@ namespace Terminal.Collector.Core.Scan
                     else
                     {
                         result = true;
-                        addChannel = true;
                     }
+                    hasIns = true;
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace Terminal.Collector.Core.Scan
                 }
             }
 
-            if(!addChannel)
+            if(!hasIns)
             {
                 ScanInstance ins = new ScanInstance(_channel);
                 ins.Interval = _target.Interval;

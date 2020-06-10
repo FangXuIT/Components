@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.Service"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.Core", "Terminal.Collector.Core\Terminal.Collector.Core.csproj", "{FA03398B-C847-4256-B30B-C2C5E09A8EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.ThreadTimer", "Test.ThreadTimer\Test.ThreadTimer.csproj", "{9C438F8B-5713-4C0F-98F8-93AD49ED8DCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.ThreadTimer", "Test.ThreadTimer\Test.ThreadTimer.csproj", "{9C438F8B-5713-4C0F-98F8-93AD49ED8DCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.OpcUa", "Terminal.Collector.OpcUa\Terminal.Collector.OpcUa.csproj", "{583AD1C1-812C-4AED-85DB-4951CDFC5919}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{9C438F8B-5713-4C0F-98F8-93AD49ED8DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C438F8B-5713-4C0F-98F8-93AD49ED8DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C438F8B-5713-4C0F-98F8-93AD49ED8DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{583AD1C1-812C-4AED-85DB-4951CDFC5919}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

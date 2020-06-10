@@ -10,3 +10,4 @@ E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreap
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.dll
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.pdb
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.genruntimeconfig.cache
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.csprojAssemblyReference.cache
