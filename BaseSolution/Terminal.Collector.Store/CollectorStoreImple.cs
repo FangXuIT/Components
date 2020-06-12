@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,15 +38,18 @@ namespace Terminal.Collector.Store
                     {
                         DB = s.DB,
                         DataType = s.DataType,
-                        BitAdr = (byte)s.BitAdr,
+                        BitAdr = s.BitAdr,
                         Count = 1,
                         Id = s.Id,
                         Interval = s.Interval,
                         IsStoreTarget = s.SaveHistory == 1,
-                        Name = s.TagName,
+                        Name = s.Tag,
                         PlcId = s.PlcId,
                         StartByteAdr = s.StartByteAdr,
-                        VarType = s.VarType
+                        VarType = s.VarType,
+                        Address = s.Address,
+                        OpcNodeType = s.OpcNodeType,
+                        Tag = s.Tag
                     }).ToListAsync();
             }
         }

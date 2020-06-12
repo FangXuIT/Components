@@ -9,7 +9,9 @@
       "Terminal.Collector.Service/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Hosting": "3.1.4",
-          "Terminal.Collector.Core": "1.0.0"
+          "Terminal.Collector.Core": "1.0.0",
+          "Terminal.Collector.IStore": "1.0.0",
+          "Terminal.Collector.Store": "1.0.0"
         },
         "runtime": {
           "Terminal.Collector.Service.dll": {}

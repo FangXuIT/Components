@@ -177,6 +177,12 @@
             "projectReferences": {
               "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Core\\Terminal.Collector.Core.csproj": {
                 "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Core\\Terminal.Collector.Core.csproj"
+              },
+              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
+                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
+              },
+              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
+                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj"
               }
             }
           }

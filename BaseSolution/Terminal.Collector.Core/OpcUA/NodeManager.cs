@@ -3,6 +3,13 @@ using Opc.Ua.Server;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Terminal.Collector.Core.Data;
+using System.Linq;
+using Terminal.Collector.Core.Util;
+using System.Threading.Tasks;
+using Terminal.Collector.IStore.Models;
+using Terminal.Collector.Core.Scan;
+using Terminal.Collector.Store.Entites;
 
 namespace Terminal.Collector.Core.OpcUA
 {
@@ -11,13 +18,13 @@ namespace Terminal.Collector.Core.OpcUA
     /// </summary>
     public class NodeManager : CustomNodeManager2
     {
-        private ServerDataSource DataSource;
+        private PlcExtension plc;
 
         #region Constructors
         /// <summary>
         /// Initializes the node manager.
         /// </summary>
-        public NodeManager(IServerInternal server, ApplicationConfiguration configuration)
+        public NodeManager(IServerInternal server, ApplicationConfiguration configuration, PlcExtension _plc)
         :
             base(server, configuration, Namespaces.OpcUA)
         {
@@ -31,7 +38,7 @@ namespace Terminal.Collector.Core.OpcUA
             {
                 m_configuration = new OpcUAServerConfiguration();
             }
-            DataSource = new ServerDataSource();
+            plc = _plc;
         }
         #endregion
 
@@ -74,7 +81,7 @@ namespace Terminal.Collector.Core.OpcUA
                 BaseObjectState trigger = new BaseObjectState(null);
 
                 trigger.NodeId = new NodeId(1, NamespaceIndex);
-                trigger.BrowseName = new QualifiedName("Trigger", NamespaceIndex);
+                trigger.BrowseName = new QualifiedName(plc.Name, NamespaceIndex);
                 trigger.DisplayName = trigger.BrowseName.Name;
                 trigger.TypeDefinitionId = ObjectTypeIds.BaseObjectType;
 
@@ -88,17 +95,7 @@ namespace Terminal.Collector.Core.OpcUA
                 trigger.AddReference(ReferenceTypeIds.Organizes, true, ObjectIds.ObjectsFolder);
                 references.Add(new NodeStateReference(ReferenceTypeIds.Organizes, false, trigger.NodeId));
 
-                //var manager = new TargetsManager();
-                //var targetDir = manager.GetAllTargets();
-                //foreach (var item in targetDir)
-                //{
-                //    var targetName = item.Key;
-                //    var targetSimpleName = targetName.Substring(targetName.LastIndexOf('.') + 1, targetName.Length - targetName.LastIndexOf('.') - 1);
-                //    var dataTypeId = DataTypeHelper.GetDataTypeId(item.Value);
-
-                //    PropertyState property = BuildPropertyState(trigger, targetName, targetSimpleName, dataTypeId, manager);
-                //    trigger.AddChild(property);
-                //}
+                LoadNodeList(trigger);
 
                 // save in dictionary. 
                 AddPredefinedNode(SystemContext, trigger);
@@ -119,13 +116,21 @@ namespace Terminal.Collector.Core.OpcUA
                 trigger.AddReference(referenceType.NodeId, false, ObjectIds.Server);
                 references.Add(new NodeStateReference(referenceType.NodeId, true, trigger.NodeId));
 
-                DataSource.NamespaceIndex = NamespaceIndex;
-                DataSource.Trigger = trigger;
-                DataSource.SystemContext = this.SystemContext;
-                //DataSource.StartFlashValue();
-
                 // save in dictionary. 
                 AddPredefinedNode(SystemContext, referenceType);
+            }
+        }
+
+        private void LoadNodeList(BaseObjectState trigger)
+        {
+            foreach(var node in plc.Nodes.Values)
+            {
+                node.SystemContext = this.SystemContext;
+                node.NamespaceIndex = NamespaceIndex;
+                node.Trigger = trigger;
+
+                PropertyState property = BuildPropertyState(trigger, node.Key, node.Name, DataTypeHelper.GetDataTypeId(node.OpcNodeType));
+                trigger.AddChild(property);
             }
         }
 
@@ -149,17 +154,18 @@ namespace Terminal.Collector.Core.OpcUA
             property.DataType = dataTypeId;
             property.OnWriteValue = Property_NodeValueEventHandler;
 
-            //object value = DataSource.ParseTargetValue(dataTypeId, manager.GetTargetValue(string.Format("ns=2;s={0}", targetName)));
-            //if (value != null) property.Value = value;
-
             return property;
         }
 
         public ServiceResult Property_NodeValueEventHandler(ISystemContext context, NodeState node, NumericRange indexRange, QualifiedName dataEncoding, ref object value, ref StatusCode statusCode, ref DateTime timestamp)
         {
             ServiceResult result = new ServiceResult(statusCode);
-            //var manager = new TargetsManager();
-            //manager.SetTargetValue(node.NodeId.Identifier.ToString(), value);
+            if(plc.IsConnected)
+            {
+                var target = plc.Nodes[node.NodeId.Identifier.ToString()];
+                target.Value = value;
+                plc.WriteAsync(target);
+            }
 
             return result;
         }
@@ -189,7 +195,6 @@ namespace Terminal.Collector.Core.OpcUA
                 }
 
                 NodeState node = null;
-
                 if (!PredefinedNodes.TryGetValue(nodeId, out node))
                 {
                     return null;

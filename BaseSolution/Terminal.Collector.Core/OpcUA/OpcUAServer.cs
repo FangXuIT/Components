@@ -3,6 +3,7 @@ using Opc.Ua.Server;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Terminal.Collector.Core.Scan;
 
 namespace Terminal.Collector.Core.OpcUA
 {
@@ -20,6 +21,17 @@ namespace Terminal.Collector.Core.OpcUA
     /// </remarks>
     public partial class OpcUAServer : StandardServer
     {
+        private CollectorServer collector;
+        private OpcUAServer()
+        {
+        }
+
+        public OpcUAServer(CollectorServer _collector)
+            :base()
+        {
+            collector = _collector;
+        }
+
         #region Overridden Methods
         /// <summary>
         /// Creates the node managers for the server.
@@ -36,7 +48,10 @@ namespace Terminal.Collector.Core.OpcUA
             List<INodeManager> nodeManagers = new List<INodeManager>();
 
             // create the custom node managers.
-            nodeManagers.Add(new NodeManager(server, configuration));
+            foreach(var plc in collector.PlcList)
+            {
+                nodeManagers.Add(new NodeManager(server, configuration, plc));
+            }
 
             // create master node manager.
             return new MasterNodeManager(server, configuration, null, nodeManagers.ToArray());
@@ -53,8 +68,8 @@ namespace Terminal.Collector.Core.OpcUA
             ServerProperties properties = new ServerProperties();
 
             properties.ManufacturerName = "OPC Foundation";
-            properties.ProductName = "Quickstart OpcUA Server";
-            properties.ProductUri = "http://opcfoundation.org/Quickstart/SimulateServer/v1.0";
+            properties.ProductName = "ZEQP OpcUA Server";
+            properties.ProductUri = "http://opcfoundation.org/ZEQP/OpcUAServer/v1.0";
             properties.SoftwareVersion = Utils.GetAssemblySoftwareVersion();
             properties.BuildNumber = Utils.GetAssemblyBuildNumber();
             properties.BuildDate = Utils.GetAssemblyTimestamp();

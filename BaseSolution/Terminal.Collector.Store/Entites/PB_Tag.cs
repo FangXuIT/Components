@@ -98,6 +98,20 @@ namespace Terminal.Collector.Store.Entites
            public int? RWType {get;set;}
 
            /// <summary>
+           /// Desc:
+           /// Default:
+           /// Nullable:False
+           /// </summary>           
+           public string Address {get;set;}
+
+           /// <summary>
+           /// Desc:
+           /// Default:
+           /// Nullable:False
+           /// </summary>           
+           public string OpcNodeType {get;set;}
+
+           /// <summary>
            /// Desc:是否保存历史数据
            /// Default:
            /// Nullable:False

@@ -11,5 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Terminal.Collector.Core\Terminal.Collector.Core.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.Store\Terminal.Collector.Store.csproj" />
   </ItemGroup>
 </Project>

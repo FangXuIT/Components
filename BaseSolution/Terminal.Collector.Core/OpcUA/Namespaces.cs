@@ -9,6 +9,6 @@ namespace Terminal.Collector.Core.OpcUA
         /// <summary>
         /// The namespace for the nodes provided by the server.
         /// </summary>
-        public const string OpcUA = "http://opcfoundation.org/Opc/UA";
+        public const string OpcUA = "http://opcfoundation.org/ZEQP/OpcUA";
     }
 }

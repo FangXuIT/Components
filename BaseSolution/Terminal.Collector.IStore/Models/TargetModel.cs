@@ -17,6 +17,16 @@ namespace Terminal.Collector.IStore.Models
         public Int64 PlcId { set; get; }
 
         /// <summary>
+        /// 采集点
+        /// </summary>
+        public string Tag { set; get; }
+
+        /// <summary>
+        /// 采集点Opc地址
+        /// </summary>
+        public string Address { set; get; }
+
+        /// <summary>
         /// 采集点名称
         /// </summary>
         public string Name { set; get; }
@@ -46,7 +56,12 @@ namespace Terminal.Collector.IStore.Models
         /// </summary>
         public int DB { get; set; }
         public int StartByteAdr { get; set; }
-        public byte BitAdr { get; set; }
+        public int BitAdr { get; set; }
         public int Count { get; set; }
+
+        /// <summary>
+        /// NodeType
+        /// </summary>
+        public string OpcNodeType { set; get; }
     }
 }
