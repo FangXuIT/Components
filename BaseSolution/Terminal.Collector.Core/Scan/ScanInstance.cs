@@ -23,9 +23,11 @@ namespace Terminal.Collector.Core.Scan
         /// <summary>
         /// Plc
         /// </summary>
-        public PlcExtension Channel { private set; get; }
+        public Channel Channel { private set; get; }
 
         public LogicGroup Group { private set; get; }
+
+        public List<DataItem> DataList { private set; get; }
 
         /// <summary>
         /// 扫描频率(默认值：1000,单位：毫秒)
@@ -41,12 +43,20 @@ namespace Terminal.Collector.Core.Scan
         {
         }
 
-        public ScanInstance(PlcExtension _channel, LogicGroup _group,int _interval)
+        public ScanInstance(Channel _channel, LogicGroup _group,int _interval)
         {
             ScanEnabled = false;
             Channel = _channel;
             Group = _group;
             Interval = _interval;
+            DataList = new List<DataItem>();
+
+            var keys = Group.TargetNodeIdList.GetValueOrDefault(Interval);
+            foreach (var key in keys)
+            {
+                var node = Channel.Nodes[key];
+                DataList.Add((DataItem)Channel.Nodes[key]);
+            }
         }
 
         /// <summary>
@@ -54,7 +64,7 @@ namespace Terminal.Collector.Core.Scan
         /// </summary>
         public void Start()
         {
-            if(!ScanEnabled)
+            if (!ScanEnabled)
             {
                 ScanEnabled = true;
                 if (timerScan == null)
@@ -94,25 +104,41 @@ namespace Terminal.Collector.Core.Scan
         /// <param name="stateInfo"></param>
         void TimeCall(Object stateInfo)
         {
-            if(this.Channel.IsAvailable && this.Channel.IsConnected)
-            {
-                var keys = Group.TargetNodeIdList.GetValueOrDefault(Interval);
-                if (keys == null)
-                {
-                    foreach (var key in keys)
-                    {
-                        var node = Channel.Nodes[key];
-                        ReadItemValueAsync(node);
-                    }
-                }
-            }
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Bit select u).ToList());
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Word select u).ToList());
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Int select u).ToList());
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.DInt select u).ToList());
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Real select u).ToList());
+            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.String select u).ToList());
+            FlushValueAsync();
         }
 
-        private async Task ReadItemValueAsync(TargetNode node)
+        private async Task FlushValueAsync()
         {
             var time = System.DateTime.UtcNow;
-            var value = await this.Channel.ReadAsync(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
-            await node.FlushValueAsync(value, time);
+            try
+            {
+                foreach(var data in DataList)
+                {
+                    foreach(var node in Channel.Nodes.Values)
+                    {
+                        if(node.DataType==data.DataType
+                            && node.VarType==data.VarType
+                            && node.BitAdr==data.BitAdr
+                            && node.Count==data.Count
+                            && node.DB==data.DB
+                            && node.StartByteAdr==data.StartByteAdr)
+                        {
+                            await node.FlushValueAsync(data.Value, time);
+                        }
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

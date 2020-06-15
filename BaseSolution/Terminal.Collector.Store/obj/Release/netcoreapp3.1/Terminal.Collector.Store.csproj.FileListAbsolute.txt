@@ -1,0 +1,12 @@
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Release\netcoreapp3.1\Terminal.Collector.Store.deps.json
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Release\netcoreapp3.1\Terminal.Collector.Store.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Release\netcoreapp3.1\Terminal.Collector.Store.pdb
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Release\netcoreapp3.1\Terminal.Collector.IStore.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Release\netcoreapp3.1\Terminal.Collector.IStore.pdb
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.csprojAssemblyReference.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.AssemblyInfoInputs.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.AssemblyInfo.cs
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.csproj.CoreCompileInputs.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.csproj.CopyComplete
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Release\netcoreapp3.1\Terminal.Collector.Store.pdb

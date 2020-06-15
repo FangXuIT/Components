@@ -39,7 +39,7 @@ namespace Terminal.Collector.Store
                         DB = s.DB,
                         DataType = s.DataType,
                         BitAdr = s.BitAdr,
-                        Count = 1,
+                        Count = s.Count,
                         Id = s.Id,
                         Interval = s.Interval,
                         IsStoreTarget = s.SaveHistory == 1,

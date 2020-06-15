@@ -46,7 +46,7 @@ namespace Terminal.Collector.Core.Util
             }
         }
 
-        public static object ParseVarValue(VarType type,object value)
+        public static object ParseVarValue(VarType type,object value,int length)
         {
             if (value == null) return null;
 
@@ -97,6 +97,8 @@ namespace Terminal.Collector.Core.Util
         public static NodeId GetDataTypeId(string dataType)
         {
             NodeId result;
+            if (string.IsNullOrWhiteSpace(dataType)) return DataTypeIds.Int32;
+
             switch (dataType.ToLower().Trim())
             {
                 case "long":

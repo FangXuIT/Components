@@ -14,8 +14,6 @@ namespace Terminal.Collector.Core
 {
     public sealed class CollectorServer
     {
-        public List<PlcExtension> PlcList { private set; get; }
-
         public List<ScanInstance> InstanceList { private set; get; }
 
         private ApplicationInstance application;
@@ -29,7 +27,6 @@ namespace Terminal.Collector.Core
 
         public CollectorServer(ICollectorStore _store)
         {
-            PlcList = new List<PlcExtension>();
             InstanceList = new List<ScanInstance>();
 
             application = new ApplicationInstance();
@@ -41,31 +38,36 @@ namespace Terminal.Collector.Core
 
         public async Task InitScanServerAsync()
         {
-            var plcs = await store.GetPlcListAsync();
             var targets = await store.GetTargetListAsync();
 
-            foreach(var plc in plcs)
+            foreach (var ext in TerminalClient.Instance.ChannelList)
             {
-                PlcExtension ext;
-                
                 try
                 {
-                    //PLC实例
-                    if (plc.Port > 0) ext = new PlcExtension(plc.Id, plc.Name, DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Rack, plc.Slot);
-                    else ext = new PlcExtension(plc.Id, plc.Name, DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Rack, plc.Slot);
 
                     //PLC实例下所有节点
-                    var nodes = (from u in targets where u.PlcId == plc.Id select new TargetNode(u.Address,u.Name,u.Id,u.Interval,u.IsStoreTarget) { }).ToList();
-                    foreach(var node in nodes)
+                    var nodes = (from u in targets
+                                 where u.PlcId == ext.Id
+                                 select new TargetNode(u.Address, u.Name, u.Id, u.Interval, u.IsStoreTarget)
+                                 {
+                                     DataType = (S7.Net.DataType)u.DataType,
+                                     VarType = (S7.Net.VarType)u.VarType,
+                                     DB = u.DB,
+                                     StartByteAdr = u.StartByteAdr,
+                                     BitAdr = (byte)u.BitAdr,
+                                     Count = u.Count
+                                 }).ToList();
+
+                    foreach (var node in nodes)
                     {
                         ext.Nodes.Add(node.Key, node);
                     }
 
                     //逻辑分组
-                    LogicGroup logic = new LogicGroup(plc.Name);
+                    LogicGroup logic = new LogicGroup(ext.Name);
                     logic.IntervalList = (from u in nodes select u.Interval).Distinct().ToList();
-                    
-                    foreach(var inter in logic.IntervalList)
+
+                    foreach (var inter in logic.IntervalList)
                     {
                         var keys = (from u in nodes where u.Interval == inter select u.Key).ToList();
                         logic.TargetNodeIdList.Add(inter, keys);
@@ -74,9 +76,8 @@ namespace Terminal.Collector.Core
                         InstanceList.Add(instance);
                     }
                     ext.LogicGroups.Add(logic);
-                    await ext.OpenAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -107,11 +108,12 @@ namespace Terminal.Collector.Core
 
         public void Stop()
         {
-            application.Stop();
+            application.Stop();            
             foreach (var ins in InstanceList)
             {
                 ins.Close();
             }
+            TerminalClient.Instance.Close();
         }
     }
 }

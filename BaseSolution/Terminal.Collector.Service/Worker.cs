@@ -41,7 +41,7 @@ namespace Terminal.Collector.Service
             {
                 await _collector.InitScanServerAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -50,7 +50,7 @@ namespace Terminal.Collector.Service
             {
                 await _collector.StartOpcUAServerAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }

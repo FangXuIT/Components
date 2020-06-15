@@ -48,9 +48,9 @@ namespace Terminal.Collector.Core.OpcUA
             List<INodeManager> nodeManagers = new List<INodeManager>();
 
             // create the custom node managers.
-            foreach(var plc in collector.PlcList)
+            foreach(var channel in TerminalClient.Instance.ChannelList)
             {
-                nodeManagers.Add(new NodeManager(server, configuration, plc));
+                nodeManagers.Add(new NodeManager(server, configuration, channel));
             }
 
             // create master node manager.

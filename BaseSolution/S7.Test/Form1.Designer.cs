@@ -41,6 +41,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbVarValue = new System.Windows.Forms.ListBox();
             this.nudVarLength = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.nudDB = new System.Windows.Forms.NumericUpDown();
@@ -50,7 +51,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.cbDataType = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.lbVarValue = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudRack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSlot)).BeginInit();
             this.panel1.SuspendLayout();
@@ -196,6 +196,15 @@
             this.panel1.Size = new System.Drawing.Size(770, 364);
             this.panel1.TabIndex = 12;
             // 
+            // lbVarValue
+            // 
+            this.lbVarValue.FormattingEnabled = true;
+            this.lbVarValue.ItemHeight = 12;
+            this.lbVarValue.Location = new System.Drawing.Point(10, 51);
+            this.lbVarValue.Name = "lbVarValue";
+            this.lbVarValue.Size = new System.Drawing.Size(744, 304);
+            this.lbVarValue.TabIndex = 9;
+            // 
             // nudVarLength
             // 
             this.nudVarLength.Enabled = false;
@@ -217,8 +226,13 @@
             // 
             this.nudDB.Enabled = false;
             this.nudDB.Location = new System.Drawing.Point(349, 15);
+            this.nudDB.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudDB.Name = "nudDB";
-            this.nudDB.Size = new System.Drawing.Size(42, 21);
+            this.nudDB.Size = new System.Drawing.Size(54, 21);
             this.nudDB.TabIndex = 6;
             // 
             // label9
@@ -295,15 +309,6 @@
             this.label7.Size = new System.Drawing.Size(59, 12);
             this.label7.TabIndex = 0;
             this.label7.Text = "DataType:";
-            // 
-            // lbVarValue
-            // 
-            this.lbVarValue.FormattingEnabled = true;
-            this.lbVarValue.ItemHeight = 12;
-            this.lbVarValue.Location = new System.Drawing.Point(10, 51);
-            this.lbVarValue.Name = "lbVarValue";
-            this.lbVarValue.Size = new System.Drawing.Size(744, 304);
-            this.lbVarValue.TabIndex = 9;
             // 
             // Form1
             // 

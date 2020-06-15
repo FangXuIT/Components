@@ -96,32 +96,30 @@ namespace Terminal.Collector.Core.Scan
         public async Task FlushValueAsync(object value, System.DateTime time)
         {
             Timestamp = time;
-            if (this.Value != value)
+            Console.WriteLine(Name+":"+value);
+
+            this.Value = DataTypeHelper.ParseVarValue(VarType, value, Count);
+
+            //当值有变化时，修改OpcUA Node Value
+            var browseName = new QualifiedName(Name, NamespaceIndex);
+            var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
+            if (node != null)
             {
-                this.Value = DataTypeHelper.ParseVarValue(VarType, value);
-                Console.WriteLine(System.DateTime.Now.ToString("HH:mm:ss") + ":" + DataTypeHelper.ParseVarValue(VarType, value).ToString());
-                ;
-                //当值有变化时，修改OpcUA Node Value
-                var browseName = new QualifiedName(Name, NamespaceIndex);
-                var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
-                if (node != null)
-                {
-                    node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
-                    node.StatusCode = StatusCodes.Good;
-                    node.Timestamp = time;
-                    node.ClearChangeMasks(SystemContext, false);
-                }
-
-                if (IsStoreTarget)
-                {//如果需要执行化数据，则加入数据保存队列
-                    TargetData data = new TargetData();
-                    data.Time = time;
-                    data.TargetId = ConfigId;
-                    data.Value = value;
-
-                    await DataCenter.Instance().AddQueueAsync(data);
-                }
+                node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                node.StatusCode = StatusCodes.Good;
+                node.Timestamp = time;
+                node.ClearChangeMasks(SystemContext, false);
             }
+
+            //if (IsStoreTarget)
+            //{//如果需要执行化数据，则加入数据保存队列
+            //    TargetData data = new TargetData();
+            //    data.Time = time;
+            //    data.TargetId = ConfigId;
+            //    data.Value = value;
+
+            //    await DataCenter.Instance().AddQueueAsync(data);
+            //}
         }
     }
 }

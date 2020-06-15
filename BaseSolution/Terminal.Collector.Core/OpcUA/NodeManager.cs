@@ -18,13 +18,13 @@ namespace Terminal.Collector.Core.OpcUA
     /// </summary>
     public class NodeManager : CustomNodeManager2
     {
-        private PlcExtension plc;
+        private Scan.Channel channel;
 
         #region Constructors
         /// <summary>
         /// Initializes the node manager.
         /// </summary>
-        public NodeManager(IServerInternal server, ApplicationConfiguration configuration, PlcExtension _plc)
+        public NodeManager(IServerInternal server, ApplicationConfiguration configuration, Scan.Channel _channel)
         :
             base(server, configuration, Namespaces.OpcUA)
         {
@@ -38,7 +38,7 @@ namespace Terminal.Collector.Core.OpcUA
             {
                 m_configuration = new OpcUAServerConfiguration();
             }
-            plc = _plc;
+            channel = _channel;
         }
         #endregion
 
@@ -81,7 +81,7 @@ namespace Terminal.Collector.Core.OpcUA
                 BaseObjectState trigger = new BaseObjectState(null);
 
                 trigger.NodeId = new NodeId(1, NamespaceIndex);
-                trigger.BrowseName = new QualifiedName(plc.Name, NamespaceIndex);
+                trigger.BrowseName = new QualifiedName(channel.Name, NamespaceIndex);
                 trigger.DisplayName = trigger.BrowseName.Name;
                 trigger.TypeDefinitionId = ObjectTypeIds.BaseObjectType;
 
@@ -123,7 +123,7 @@ namespace Terminal.Collector.Core.OpcUA
 
         private void LoadNodeList(BaseObjectState trigger)
         {
-            foreach(var node in plc.Nodes.Values)
+            foreach(var node in channel.Nodes.Values)
             {
                 node.SystemContext = this.SystemContext;
                 node.NamespaceIndex = NamespaceIndex;
@@ -160,12 +160,9 @@ namespace Terminal.Collector.Core.OpcUA
         public ServiceResult Property_NodeValueEventHandler(ISystemContext context, NodeState node, NumericRange indexRange, QualifiedName dataEncoding, ref object value, ref StatusCode statusCode, ref DateTime timestamp)
         {
             ServiceResult result = new ServiceResult(statusCode);
-            if(plc.IsConnected)
-            {
-                var target = plc.Nodes[node.NodeId.Identifier.ToString()];
-                target.Value = value;
-                plc.WriteAsync(target);
-            }
+            var target = channel.Nodes[node.NodeId.Identifier.ToString()];
+            target.Value = value;
+            TerminalClient.Instance.Write(channel.Id, target);
 
             return result;
         }

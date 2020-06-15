@@ -132,7 +132,7 @@ namespace S7.Test
             try
             {
                 lbVarValue.Items.Clear();
-                plc = new Plc(GetPlcType(), txtIP.Text.Trim(), Convert.ToInt16(nudRack.Value), Convert.ToInt16(nudSlot.Value));
+                plc = new Plc(GetPlcType(), txtIP.Text.Trim(),102, Convert.ToInt16(nudRack.Value), Convert.ToInt16(nudSlot.Value));
                 plc.Open();
 
                 if (!plc.IsConnected)
@@ -193,13 +193,12 @@ namespace S7.Test
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            lbVarValue.Items.Add("test result");
             try
             {
                 if (plc.IsConnected)
                 {
-                    var result = plc.Read(GetDataType(), Convert.ToInt32(nudDB.Value), 0, GetVarType(), Convert.ToInt32(nudVarLength.Value));
-                    lbVarValue.Items.Add(result.ToString());
+                    var result = plc.Read(GetDataType(), Convert.ToInt32(nudDB.Value), 45, GetVarType(), Convert.ToInt32(nudVarLength.Value));
+                    lbVarValue.Items.Add("test result:" + result.ToString());
                 }
                 else
                 {
