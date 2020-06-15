@@ -64,7 +64,7 @@ namespace Terminal.Collector.Core.Scan
         /// </summary>
         public void Start()
         {
-            if (!ScanEnabled)
+            if (!ScanEnabled && Interval>0)
             {
                 ScanEnabled = true;
                 if (timerScan == null)
