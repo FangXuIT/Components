@@ -123,3 +123,6 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\obj\Relea
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\obj\Release\netcoreapp3.1\Terminal.Collector.Service.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\obj\Release\netcoreapp3.1\Terminal.Collector.Service.pdb
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\obj\Release\netcoreapp3.1\Terminal.Collector.Service.genruntimeconfig.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Release\netcoreapp3.1\Microsoft.Extensions.Hosting.WindowsServices.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Release\netcoreapp3.1\System.ServiceProcess.ServiceController.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll

@@ -1,0 +1,27 @@
+﻿<mah:MetroWindow x:Class="Terminal.Collector.HMI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:view="clr-namespace:Terminal.Collector.HMI.View"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:local="clr-namespace:Terminal.Collector.HMI"
+        mc:Ignorable="d"
+        Title="数据采集工具" 
+                 MinHeight="600" 
+                 MinWidth="1000"
+                 Height="600" 
+                 Width="1000"
+                 BorderThickness="1" 
+                 ResizeMode="CanResizeWithGrip"
+                 WindowStartupLocation="CenterScreen">
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="中南智能">
+                <iconPacks:PackIconModern Width="18" Height="18" Kind="SocialGithubOctocat" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <view:HamburgerMenu DataContext="{Binding}" />
+</mah:MetroWindow>

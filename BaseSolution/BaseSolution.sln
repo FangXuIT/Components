@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.IStore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.Store", "Terminal.Collector.Store\Terminal.Collector.Store.csproj", "{1223331F-55B7-41F4-8B25-43029F871C69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.HMI", "Terminal.Collector.HMI\Terminal.Collector.HMI.csproj", "{67666164-F629-43B3-944B-7D1DBF4C9071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{1223331F-55B7-41F4-8B25-43029F871C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1223331F-55B7-41F4-8B25-43029F871C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1223331F-55B7-41F4-8B25-43029F871C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67666164-F629-43B3-944B-7D1DBF4C9071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67666164-F629-43B3-944B-7D1DBF4C9071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67666164-F629-43B3-944B-7D1DBF4C9071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67666164-F629-43B3-944B-7D1DBF4C9071}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

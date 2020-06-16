@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Terminal.Collector.HMI.View.HamburgerMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:Terminal.Collector.HMI.View"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/HamburgerMenuTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  This is the template for all menu items. In this sample we use the glyph items.  -->
+            <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
+                <DockPanel Height="48" LastChildFill="True">
+                    <Grid x:Name="IconPart"
+                          Width="48"
+                          DockPanel.Dock="Left">
+                        <Image Margin="12"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Source="{Binding Glyph}"
+                               Stretch="UniformToFill" />
+                    </Grid>
+                    <TextBlock x:Name="TextPart"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding Label}" />
+                </DockPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                        <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <!--  This is the template for the option menu item  -->
+            <DataTemplate x:Key="HamburgerOptionsMenuItem" DataType="{x:Type Controls:HamburgerMenuIconItem}">
+                <DockPanel Height="48" LastChildFill="True">
+                    <ContentControl x:Name="IconPart"
+                                    Width="48"
+                                    Content="{Binding Icon}"
+                                    DockPanel.Dock="Left"
+                                    Focusable="False"
+                                    IsTabStop="False" />
+                    <TextBlock x:Name="TextPart"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding Label}" />
+                </DockPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                        <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <ObjectDataProvider x:Key="PanePlacementEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type Controls:SplitViewPanePlacement}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Controls:SplitViewPanePlacement" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="DisplayModeEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type Controls:SplitViewDisplayMode}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Controls:SplitViewDisplayMode" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="VisibilityEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type Visibility}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Visibility" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
+
+            <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                    DisplayMode="CompactOverlay"
+                                    HamburgerWidth="48"
+                                    IsPaneOpen="{Binding IsHamburgerMenuPaneOpen}"
+                                    ItemInvoked="HamburgerMenuControl_OnItemInvoked"
+                                    ItemTemplate="{StaticResource HamburgerMenuItem}"
+                                    OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}"
+                                    SelectedIndex="1"
+                                    PaneBackground="LightSkyBlue"
+                                    VerticalScrollBarOnLeftSide="False">
+                <!--  Items  -->
+                <Controls:HamburgerMenu.ItemsSource>
+                    <Controls:HamburgerMenuItemCollection>
+                        <Controls:HamburgerMenuImageItem Label="首页"></Controls:HamburgerMenuImageItem>
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/BigFourSummerHeat.png" Label="Big four summer heat" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/BisonBadlandsChillin.png" Label="Bison badlands Chillin" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/GiantSlabInOregon.png" Label="Giant slab in Oregon" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/LakeAnnMushroom.png" Label="Lake Ann Mushroom" />
+                    </Controls:HamburgerMenuItemCollection>
+                </Controls:HamburgerMenu.ItemsSource>
+                <!--  Content  -->
+                <Controls:HamburgerMenu.ContentTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="ContentGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Controls:TransitioningContentControl Grid.Row="1"
+                                                                  Content="{Binding}"
+                                                                  RestartTransitionOnContentChange="True"
+                                                                  Transition="Default">
+                                <Controls:TransitioningContentControl.Resources>
+                                    <DataTemplate DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
+                                        <Image Source="{Binding Glyph, Mode=OneWay, Converter={converters:NullToUnsetValueConverter}}" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type Controls:HamburgerMenuIconItem}">
+                                        <ContentControl Content="{Binding Tag, Mode=OneWay}"
+                                                        Focusable="True"
+                                                        IsTabStop="False" />
+                                    </DataTemplate>
+                                </Controls:TransitioningContentControl.Resources>
+                            </Controls:TransitioningContentControl>
+                        </Grid>
+                    </DataTemplate>
+                </Controls:HamburgerMenu.ContentTemplate>
+            </Controls:HamburgerMenu>
+
+        </Border>
+    </Grid>
+</UserControl>

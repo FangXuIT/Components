@@ -29,7 +29,7 @@ namespace Terminal.Collector.Service
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while(true)
-            {
+            {                
                 Console.WriteLine("Check Status:"+DateTime.Now.ToString("HH:mm:ss"));
                 await Task.Delay(60000);
             }
@@ -37,32 +37,11 @@ namespace Terminal.Collector.Service
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-                await _collector.InitScanServerAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            _logger.LogInformation("Collector Service Start...");
 
-            try
-            {
-                await _collector.StartOpcUAServerAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                _collector.StartScan();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _collector.InitScanServerAsync();
+            await _collector.StartOpcUAServerAsync();
+            _collector.StartScan();
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)

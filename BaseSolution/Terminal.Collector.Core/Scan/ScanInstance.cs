@@ -27,7 +27,7 @@ namespace Terminal.Collector.Core.Scan
 
         public LogicGroup Group { private set; get; }
 
-        public List<DataItem> DataList { private set; get; }
+        public Dictionary<S7.Net.VarType,List<DataItem>> DataList { private set; get; }
 
         /// <summary>
         /// 扫描频率(默认值：1000,单位：毫秒)
@@ -49,13 +49,16 @@ namespace Terminal.Collector.Core.Scan
             Channel = _channel;
             Group = _group;
             Interval = _interval;
-            DataList = new List<DataItem>();
+            DataList = new Dictionary<S7.Net.VarType, List<DataItem>>();
 
             var keys = Group.TargetNodeIdList.GetValueOrDefault(Interval);
             foreach (var key in keys)
             {
                 var node = Channel.Nodes[key];
-                DataList.Add((DataItem)Channel.Nodes[key]);
+
+                if (!DataList.ContainsKey(node.VarType)) DataList.Add(node.VarType, new List<DataItem>());
+
+                DataList[node.VarType].Add((DataItem)Channel.Nodes[key]);
             }
         }
 
@@ -104,12 +107,10 @@ namespace Terminal.Collector.Core.Scan
         /// <param name="stateInfo"></param>
         void TimeCall(Object stateInfo)
         {
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Bit select u).ToList());
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Word select u).ToList());
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Int select u).ToList());
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.DInt select u).ToList());
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.Real select u).ToList());
-            TerminalClient.Instance.ReadMultipleVars(Channel.Id, (from u in DataList where u.VarType == S7.Net.VarType.String select u).ToList());
+            foreach(var dic in DataList)
+            {
+                TerminalClient.Instance.ReadMultipleVars(Channel.Id, dic.Value);
+            }
             FlushValueAsync();
         }
 
@@ -118,18 +119,21 @@ namespace Terminal.Collector.Core.Scan
             var time = System.DateTime.UtcNow;
             try
             {
-                foreach(var data in DataList)
+                foreach(var dir in DataList)
                 {
-                    foreach(var node in Channel.Nodes.Values)
+                    foreach(var data in dir.Value)
                     {
-                        if(node.DataType==data.DataType
-                            && node.VarType==data.VarType
-                            && node.BitAdr==data.BitAdr
-                            && node.Count==data.Count
-                            && node.DB==data.DB
-                            && node.StartByteAdr==data.StartByteAdr)
+                        foreach (var node in Channel.Nodes.Values)
                         {
-                            await node.FlushValueAsync(data.Value, time);
+                            if (node.DataType == data.DataType
+                                && node.VarType == data.VarType
+                                && node.BitAdr == data.BitAdr
+                                && node.Count == data.Count
+                                && node.DB == data.DB
+                                && node.StartByteAdr == data.StartByteAdr)
+                            {
+                                await node.FlushValueAsync(data.Value, time);
+                            }
                         }
                     }
                 }
