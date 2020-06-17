@@ -8,6 +8,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Terminal.Collector.HMI.View"
              mc:Ignorable="d">
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,13 +29,13 @@
                     </Grid>
                     <TextBlock x:Name="TextPart"
                                VerticalAlignment="Center"
-                               FontSize="16"
+                               FontSize="14"
                                Text="{Binding Label}" />
                 </DockPanel>
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
                         <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
-                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="10 0 0 0" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -50,13 +51,13 @@
                                     IsTabStop="False" />
                     <TextBlock x:Name="TextPart"
                                VerticalAlignment="Center"
-                               FontSize="16"
+                               FontSize="14"
                                Text="{Binding Label}" />
                 </DockPanel>
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
                         <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
-                        <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                        <Setter TargetName="TextPart" Property="Margin" Value="10 0 0 0" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -96,51 +97,29 @@
 
         <Border Grid.Column="0"
                 BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
-
             <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
                                     DisplayMode="CompactOverlay"
-                                    HamburgerWidth="48"
+                                    HamburgerWidth="48"                                    
                                     IsPaneOpen="{Binding IsHamburgerMenuPaneOpen}"
                                     ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                                     ItemTemplate="{StaticResource HamburgerMenuItem}"
                                     OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}"
-                                    SelectedIndex="1"
+                                    SelectedIndex="0"
                                     PaneBackground="LightSkyBlue"
                                     VerticalScrollBarOnLeftSide="False">
                 <!--  Items  -->
                 <Controls:HamburgerMenu.ItemsSource>
                     <Controls:HamburgerMenuItemCollection>
-                        <Controls:HamburgerMenuImageItem Label="首页"></Controls:HamburgerMenuImageItem>
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/BigFourSummerHeat.png" Label="Big four summer heat" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/BisonBadlandsChillin.png" Label="Bison badlands Chillin" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/GiantSlabInOregon.png" Label="Giant slab in Oregon" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Photos/LakeAnnMushroom.png" Label="Lake Ann Mushroom" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-s-video-100.png"  Label="实例连接状态" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-video-card-100.png" Label="点位数据监控" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-event-log-96.png" Label="服务运行日志" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-settings-100.png" Label="数据采集配置" />
+                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-info-100.png" Label="程序版本信息" />
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.ItemsSource>
                 <!--  Content  -->
                 <Controls:HamburgerMenu.ContentTemplate>
-                    <DataTemplate>
-                        <Grid x:Name="ContentGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="48" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Controls:TransitioningContentControl Grid.Row="1"
-                                                                  Content="{Binding}"
-                                                                  RestartTransitionOnContentChange="True"
-                                                                  Transition="Default">
-                                <Controls:TransitioningContentControl.Resources>
-                                    <DataTemplate DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
-                                        <Image Source="{Binding Glyph, Mode=OneWay, Converter={converters:NullToUnsetValueConverter}}" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type Controls:HamburgerMenuIconItem}">
-                                        <ContentControl Content="{Binding Tag, Mode=OneWay}"
-                                                        Focusable="True"
-                                                        IsTabStop="False" />
-                                    </DataTemplate>
-                                </Controls:TransitioningContentControl.Resources>
-                            </Controls:TransitioningContentControl>
-                        </Grid>
+                    <DataTemplate>                        
                     </DataTemplate>
                 </Controls:HamburgerMenu.ContentTemplate>
             </Controls:HamburgerMenu>

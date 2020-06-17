@@ -8,19 +8,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:Terminal.Collector.HMI"
         mc:Ignorable="d"
-        Title="数据采集工具" 
+        Title="中南智能数据采集服务" 
                  MinHeight="600" 
                  MinWidth="1000"
                  Height="600" 
                  Width="1000"
                  BorderThickness="1" 
                  ResizeMode="CanResizeWithGrip"
-                 WindowStartupLocation="CenterScreen">
+                 WindowStartupLocation="CenterScreen"
+                 ShowCloseButton="False">
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
-            <Button ToolTip="中南智能">
-                <iconPacks:PackIconModern Width="18" Height="18" Kind="SocialGithubOctocat" />
-            </Button>
+            <Image Width="24" Height="24" Margin="10 0 10 0" Source="/Favorites/icons8-pinterest-100.png"></Image>
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <view:HamburgerMenu DataContext="{Binding}" />

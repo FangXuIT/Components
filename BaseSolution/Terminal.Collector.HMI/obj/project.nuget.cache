@@ -1,13 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "wKHwgC85H/mf0dsd0h0CFkpACXCJhqez0jh0t4vmDj0j5hvkUGXkkyzhfstV71B+ufhITi8TafaCrpqv67aNQg==",
+  "dgSpecHash": "Lmzdtx77m/7AahSYHG4V7HyLDHbKVUfgB0Q3nLGMht9ankTW8Ob+Zp0Ct/GPHdyv61SKh3JtxsD55jdS4rFiyw==",
   "success": true,
   "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.HMI\\Terminal.Collector.HMI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tzjac\\.nuget\\packages\\controlzex\\4.3.0\\controlzex.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\mahapps.metro\\2.0.1\\mahapps.metro.2.0.1.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\mahapps.metro.iconpacks\\4.2.0\\mahapps.metro.iconpacks.4.2.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
   ],
