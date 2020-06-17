@@ -39,16 +39,14 @@ namespace Terminal.Collector.Service
         {
             _logger.LogInformation("Collector Service Start...");
 
-            await _collector.InitScanServerAsync();
-            await _collector.StartOpcUAServerAsync();
-            _collector.StartScan();
+            await _collector.StartAsync();
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             try
             {
-                await Task.Run(() => { _collector.Stop(); });
+                await _collector.StopAsync();
             }
             catch (Exception e)
             {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Threading;
 using System.Windows;
 
 namespace Terminal.Collector.HMI
@@ -13,24 +10,27 @@ namespace Terminal.Collector.HMI
     /// </summary>
     public partial class App : Application
     {
-        System.Threading.Mutex mutex;
+        private static Semaphore singleInstanceWatcher;
+        private static bool createdNew;
 
         public App()
-        {
-            this.Startup += new StartupEventHandler(App_Startup);
+        {            
         }
 
-        void App_Startup(object sender, StartupEventArgs e)
+        static App()
         {
-            bool ret;
-            mutex = new System.Threading.Mutex(true, "ElectronicNeedleTherapySystem", out ret);
+            // Ensure other instances of this application are not running.
+            singleInstanceWatcher = new Semaphore(
+                0, // Initial count.
+                1, // Maximum count.
+                Assembly.GetExecutingAssembly().GetName().Name,
+                out createdNew);
 
-            if (!ret)
+            if (!createdNew)
             {
-                MessageBox.Show("已有一个程序实例运行");
-                Environment.Exit(0);
+                MessageBox.Show("已有一个实例在运行!");
+                Environment.Exit(-2);
             }
-
         }
     }
 }

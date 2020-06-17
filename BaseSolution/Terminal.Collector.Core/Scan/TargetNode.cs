@@ -100,15 +100,18 @@ namespace Terminal.Collector.Core.Scan
 
             this.Value = DataTypeHelper.ParseVarValue(VarType, value, Count);
 
-            //当值有变化时，修改OpcUA Node Value
-            var browseName = new QualifiedName(Name, NamespaceIndex);
-            var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
-            if (node != null)
+            if(SystemContext!=null)
             {
-                node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
-                node.StatusCode = StatusCodes.Good;
-                node.Timestamp = time;
-                node.ClearChangeMasks(SystemContext, false);
+                //当值有变化时，修改OpcUA Node Value
+                var browseName = new QualifiedName(Name, NamespaceIndex);
+                var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
+                if (node != null)
+                {
+                    node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                    node.StatusCode = StatusCodes.Good;
+                    node.Timestamp = time;
+                    node.ClearChangeMasks(SystemContext, false);
+                }
             }
 
             //if (IsStoreTarget)

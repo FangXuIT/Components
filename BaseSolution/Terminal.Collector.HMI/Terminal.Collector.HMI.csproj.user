@@ -10,12 +10,42 @@
     <Compile Update="View\HamburgerMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\InfoPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\InstancePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\LogPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\SettingsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TargetPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\HamburgerMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\InfoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\InstancePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\LogPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TargetPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -101,25 +101,61 @@
                                     DisplayMode="CompactOverlay"
                                     HamburgerWidth="48"                                    
                                     IsPaneOpen="{Binding IsHamburgerMenuPaneOpen}"
-                                    ItemInvoked="HamburgerMenuControl_OnItemInvoked"
+                                    ItemInvoked="HamburgerMenuControl_OnItemInvoked"                                    
                                     ItemTemplate="{StaticResource HamburgerMenuItem}"
                                     OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}"
                                     SelectedIndex="0"
                                     PaneBackground="LightSkyBlue"
                                     VerticalScrollBarOnLeftSide="False">
+                <!--  Header  -->
+                <Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Foreground="White"
+                                   Text="菜单" />
+                    </DataTemplate>
+                </Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <!--  Items  -->
                 <Controls:HamburgerMenu.ItemsSource>
                     <Controls:HamburgerMenuItemCollection>
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-s-video-100.png"  Label="实例连接状态" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-video-card-100.png" Label="点位数据监控" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-event-log-96.png" Label="服务运行日志" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-settings-100.png" Label="数据采集配置" />
-                        <Controls:HamburgerMenuGlyphItem Glyph="/Favorites/icons8-info-100.png" Label="程序版本信息" />
+                        <Controls:HamburgerMenuGlyphItem x:Name="ins" Tag="InstancePage.xaml" Glyph="/Favorites/icons8-s-video-100.png"  Label="实例连接状态" />
+                        <Controls:HamburgerMenuGlyphItem x:Name="tag" Tag="TargetPage.xaml" Glyph="/Favorites/icons8-video-card-100.png" Label="点位数据监控" />
+                        <Controls:HamburgerMenuGlyphItem x:Name="log" Tag="LogPage.xaml" Glyph="/Favorites/icons8-event-log-96.png" Label="服务运行日志" />
+                        <Controls:HamburgerMenuGlyphItem x:Name="set" Tag="SettingsPage.xaml" Glyph="/Favorites/icons8-settings-100.png" Label="数据采集配置" />
+                        <Controls:HamburgerMenuGlyphItem x:Name="info" Tag="InfoPage.xaml" Glyph="/Favorites/icons8-info-100.png" Label="程序版本信息" />
                     </Controls:HamburgerMenuItemCollection>
                 </Controls:HamburgerMenu.ItemsSource>
                 <!--  Content  -->
                 <Controls:HamburgerMenu.ContentTemplate>
-                    <DataTemplate>                        
+                    <DataTemplate>
+                        <Grid x:Name="ContentGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="28" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0"
+                                    Margin="-1 0 -1 0"
+                                    Background="#7A7A7A">
+                                <TextBlock x:Name="Header"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="14"
+                                           Foreground="White"
+                                           Text="{Binding Label}" />
+                            </Border>
+                            <Controls:TransitioningContentControl Grid.Row="1" 
+                                                                  Content="{Binding}"
+                                                                  RestartTransitionOnContentChange="True"
+                                                                  Transition="Default">
+                                <Controls:TransitioningContentControl.Resources>
+                                    <DataTemplate DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
+                                        <Frame Source="{Binding Tag}" NavigationUIVisibility="Hidden" BorderBrush="AliceBlue"  />
+                                    </DataTemplate>
+                                </Controls:TransitioningContentControl.Resources>
+                            </Controls:TransitioningContentControl>
+                        </Grid>                                                
                     </DataTemplate>
                 </Controls:HamburgerMenu.ContentTemplate>
             </Controls:HamburgerMenu>

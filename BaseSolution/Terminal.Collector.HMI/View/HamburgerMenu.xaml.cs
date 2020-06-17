@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlzEx.Standard;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -23,9 +24,15 @@ namespace Terminal.Collector.HMI.View
             InitializeComponent();
         }
 
-        private void HamburgerMenuControl_OnItemInvoked(object sender, MahApps.Metro.Controls.HamburgerMenuItemInvokedEventArgs args)
+        private void HamburgerMenuControl_OnItemInvoked(object sender, MahApps.Metro.Controls.HamburgerMenuItemInvokedEventArgs e)
         {
+            this.HamburgerMenuControl.Content = e.InvokedItem;
 
+            if (!e.IsItemOptions && this.HamburgerMenuControl.IsPaneOpen)
+            {
+                // close the menu if a item was selected
+                this.HamburgerMenuControl.IsPaneOpen = false;
+            }
         }
     }
 }

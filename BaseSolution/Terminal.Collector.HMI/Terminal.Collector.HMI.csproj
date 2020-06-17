@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
     <None Remove="favicon.ico" />
     <None Remove="Favorites\icons8-100.png" />
     <None Remove="Favorites\icons8-about-100.png" />
@@ -154,12 +156,30 @@
     <None Remove="Favorites\icons8-web-camera-100.png" />
     <None Remove="Favorites\icons8-webcam-100.png" />
     <None Remove="Favorites\icons8-workspace-100.png" />
+    <None Remove="ZEQP.OpcUAServer.Config.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.0.1" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.2.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Terminal.Collector.Core\Terminal.Collector.Core.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.Store\Terminal.Collector.Store.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -317,6 +337,9 @@
     <Resource Include="Favorites\icons8-web-camera-100.png" />
     <Resource Include="Favorites\icons8-webcam-100.png" />
     <Resource Include="Favorites\icons8-workspace-100.png" />
+    <Resource Include="ZEQP.OpcUAServer.Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

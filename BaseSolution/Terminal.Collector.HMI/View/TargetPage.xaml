@@ -1,0 +1,14 @@
+﻿<Page x:Class="Terminal.Collector.HMI.View.TargetPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Terminal.Collector.HMI.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TargetPage">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" Margin="161,0,0,0" Text="Target" TextWrapping="Wrap" VerticalAlignment="Center"/>
+    </Grid>
+</Page>

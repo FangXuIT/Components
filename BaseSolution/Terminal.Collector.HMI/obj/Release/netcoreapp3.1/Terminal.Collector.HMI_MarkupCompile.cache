@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\App.xaml
-2-366500655
-
-4-691931105
-2191157372034
-MainWindow.xaml;View\HamburgerMenu.xaml;
+7-1257677772
+2-1935306999
+9-547575558
+284902957635
+MainWindow.xaml;View\HamburgerMenu.xaml;View\InfoPage.xaml;View\InstancePage.xaml;View\LogPage.xaml;View\SettingsPage.xaml;View\TargetPage.xaml;
 
 True
 

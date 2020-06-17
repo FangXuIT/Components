@@ -20,6 +20,8 @@ namespace Terminal.Collector.Core
 
         private ICollectorStore store;
 
+        public bool IsRuning { private set; get; }
+
         private CollectorServer()
         {
 
@@ -36,7 +38,29 @@ namespace Terminal.Collector.Core
             store = _store;
         }
 
-        public async Task InitScanServerAsync()
+        public async Task StartAsync()
+        {
+            await InitScanServerAsync();
+            await StartOpcUAServerAsync();
+            StartScan();
+            IsRuning = true;
+        }
+
+        public async Task StopAsync()
+        {
+            await Task.Run(() =>
+            {
+                application.Stop();
+                foreach (var ins in InstanceList)
+                {
+                    ins.Close();
+                }
+                TerminalClient.Instance.Close();
+                IsRuning = false;
+            });
+        }
+
+        private async Task InitScanServerAsync()
         {
             var targets = await store.GetTargetListAsync();
 
@@ -84,7 +108,7 @@ namespace Terminal.Collector.Core
             }
         }
 
-        public async Task StartOpcUAServerAsync()
+        private async Task StartOpcUAServerAsync()
         {
             try
             {
@@ -98,22 +122,12 @@ namespace Terminal.Collector.Core
             }
         }
 
-        public void StartScan()
+        private void StartScan()
         {
             foreach(var ins in InstanceList)
             {
                 ins.Start();
             }
-        }
-
-        public void Stop()
-        {
-            application.Stop();            
-            foreach (var ins in InstanceList)
-            {
-                ins.Close();
-            }
-            TerminalClient.Instance.Close();
         }
     }
 }

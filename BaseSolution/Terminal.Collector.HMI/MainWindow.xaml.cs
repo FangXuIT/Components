@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Terminal.Collector.Core;
+using Terminal.Collector.Store;
 
 namespace Terminal.Collector.HMI
 {
@@ -26,21 +28,25 @@ namespace Terminal.Collector.HMI
         //实例化notifyIOC控件最小化托盘
         private NotifyIcon _notifyIcon = null;
 
+        public CollectorServer Server { set; get; }
+
         public MainWindow()
         {
             InitializeComponent();
             InitialTray();
+
+            this.DataContext= new CollectorServer(new CollectorStoreImple());
         }
 
         #region 最小化系统托盘
         private void InitialTray()
         {
             //隐藏主窗体
-            this.Visibility = Visibility.Hidden;
+            //this.Visibility = Visibility.Hidden;
             //设置托盘的各个属性
             _notifyIcon = new NotifyIcon();
             _notifyIcon.BalloonTipText = "服务运行中...";//托盘气泡显示内容
-            _notifyIcon.Text = "ServerApp";
+            _notifyIcon.Text = "数据采集服务";
             _notifyIcon.Visible = true;//托盘按钮是否可见
             _notifyIcon.Icon = new Icon(@"favicon.ico");//托盘中显示的图标
             _notifyIcon.ShowBalloonTip(2000);//托盘气泡显示时间
@@ -63,7 +69,7 @@ namespace Terminal.Collector.HMI
 
         #region 托盘图标鼠标单击事件
         private void _notifyIcon_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
+        {            
             if (e.Button == MouseButtons.Left)
             {
                 if (this.Visibility == Visibility.Visible)
