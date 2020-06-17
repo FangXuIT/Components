@@ -40,7 +40,6 @@ namespace Terminal.Collector.Core
 
         public async Task StartAsync()
         {
-            await InitScanServerAsync();
             await StartOpcUAServerAsync();
             StartScan();
             IsRuning = true;
@@ -60,7 +59,7 @@ namespace Terminal.Collector.Core
             });
         }
 
-        private async Task InitScanServerAsync()
+        public async Task InitScanServerAsync()
         {
             var targets = await store.GetTargetListAsync();
 

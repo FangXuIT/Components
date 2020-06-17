@@ -35,7 +35,10 @@ namespace Terminal.Collector.HMI
             InitializeComponent();
             InitialTray();
 
-            this.DataContext= new CollectorServer(new CollectorStoreImple());
+            Server= new CollectorServer(new CollectorStoreImple());
+            Server.InitScanServerAsync().Wait();
+
+            this.DataContext = Server;
         }
 
         #region 最小化系统托盘

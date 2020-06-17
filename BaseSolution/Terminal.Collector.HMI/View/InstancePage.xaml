@@ -9,6 +9,6 @@
       Title="InstancePage">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Instance" TextWrapping="Wrap" />
+        <DataGrid x:Name="gdIntance" IsReadOnly="True" AutoGenerateColumns="True" />
     </Grid>
 </Page>
