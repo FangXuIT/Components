@@ -9,6 +9,17 @@
       Title="InstancePage">
 
     <Grid>
-        <DataGrid x:Name="gdIntance" IsReadOnly="True" AutoGenerateColumns="True" />
+        <DataGrid x:Name="gdIntance" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PLC名称" Width="100" Binding="{ Binding Path=Name}" />
+                <DataGridTextColumn Header="PLC类型" Width="100" Binding="{ Binding Path=CpuType}" />
+                <DataGridTextColumn Header="IP" Width="100" Binding="{ Binding Path=IP}" />
+                <DataGridTextColumn Header="Port" Width="100" Binding="{ Binding Path=Port}" />
+                <DataGridTextColumn Header="Slot" Width="100" Binding="{ Binding Path=Slot}" />
+                <DataGridTextColumn Header="Rack" Width="100" Binding="{ Binding Path=Rack}" />
+                <DataGridCheckBoxColumn Header="连接状态" Width="100" Binding="{ Binding Path=IsConnected}" />
+                <DataGridTextColumn Header="备注信息" Width="100" Binding="{ Binding Path=Message}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

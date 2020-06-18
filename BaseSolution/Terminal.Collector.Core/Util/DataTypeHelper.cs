@@ -1,5 +1,5 @@
 ﻿using Opc.Ua;
-using S7.Net;
+using PLC.Drive.S7.NetCore;
 using System;
 using System.Collections.Generic;
 using System.Text;

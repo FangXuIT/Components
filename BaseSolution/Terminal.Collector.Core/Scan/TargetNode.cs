@@ -1,6 +1,6 @@
 ﻿using Opc.Ua;
 using Opc.Ua.Server;
-using S7.Net.Types;
+using PLC.Drive.S7.NetCore.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -96,10 +96,6 @@ namespace Terminal.Collector.Core.Scan
         public async Task FlushValueAsync(object value, System.DateTime time)
         {
             Timestamp = time;
-            Console.WriteLine(Name+":"+value);
-
-            this.Value = DataTypeHelper.ParseVarValue(VarType, value, Count);
-
             if(SystemContext!=null)
             {
                 //当值有变化时，修改OpcUA Node Value
@@ -113,16 +109,6 @@ namespace Terminal.Collector.Core.Scan
                     node.ClearChangeMasks(SystemContext, false);
                 }
             }
-
-            //if (IsStoreTarget)
-            //{//如果需要执行化数据，则加入数据保存队列
-            //    TargetData data = new TargetData();
-            //    data.Time = time;
-            //    data.TargetId = ConfigId;
-            //    data.Value = value;
-
-            //    await DataCenter.Instance().AddQueueAsync(data);
-            //}
         }
     }
 }

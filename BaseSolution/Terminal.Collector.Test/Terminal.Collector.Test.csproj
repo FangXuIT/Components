@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sharp7" Version="1.1.69" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PLC.Drive.S7.NetCore\PLC.Drive.S7.NetCore.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.Core\Terminal.Collector.Core.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
+  </ItemGroup>
+
+</Project>

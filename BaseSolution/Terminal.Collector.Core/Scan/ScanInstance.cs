@@ -1,4 +1,5 @@
-﻿using S7.Net.Types;
+﻿using PLC.Drive.S7.NetCore;
+using PLC.Drive.S7.NetCore.Types;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Terminal.Collector.Core.Scan
 
         public LogicGroup Group { private set; get; }
 
-        public Dictionary<S7.Net.VarType,List<DataItem>> DataList { private set; get; }
+        public Dictionary<VarType,Dictionary<int, List<DataItem>>> DataList { private set; get; }
 
         /// <summary>
         /// 扫描频率(默认值：1000,单位：毫秒)
@@ -49,24 +50,62 @@ namespace Terminal.Collector.Core.Scan
             Channel = _channel;
             Group = _group;
             Interval = _interval;
-            DataList = new Dictionary<S7.Net.VarType, List<DataItem>>();
+            DataList = new Dictionary<VarType, Dictionary<int, List<DataItem>>>();
 
             var keys = Group.TargetNodeIdList.GetValueOrDefault(Interval);
             foreach (var key in keys)
             {
                 var node = Channel.Nodes[key];
 
-                if (!DataList.ContainsKey(node.VarType)) DataList.Add(node.VarType, new List<DataItem>());
+                if (!DataList.ContainsKey(node.VarType))
+                {
+                    var pageData = new Dictionary<int, List<DataItem>>();
+                    pageData.Add(1, new List<DataItem>());
+                    pageData[1].Add((DataItem)Channel.Nodes[key]);
 
-                DataList[node.VarType].Add((DataItem)Channel.Nodes[key]);
+                    DataList.Add(node.VarType, pageData);
+                }
+                else
+                {
+                    if(node.VarType== VarType.String || node.VarType==VarType.StringEx)
+                    {
+                        var iPageIndex = DataList[node.VarType].Keys.Last();
+                        if (DataList[node.VarType][iPageIndex].Count >= 1)
+                        {
+                            var iNewPage = iPageIndex + 1;
+                            DataList[node.VarType].Add(iNewPage, new List<DataItem>());
+                            DataList[node.VarType][iNewPage].Add((DataItem)Channel.Nodes[key]);
+                        }
+                        else
+                        {
+                            DataList[node.VarType][iPageIndex].Add((DataItem)Channel.Nodes[key]);
+                        }
+                    }
+                    else
+                    {
+                        var iPageIndex = DataList[node.VarType].Keys.Last();
+                        if (DataList[node.VarType][iPageIndex].Count >= 10)
+                        {
+                            var iNewPage = iPageIndex + 1;
+                            DataList[node.VarType].Add(iNewPage, new List<DataItem>());
+                            DataList[node.VarType][iNewPage].Add((DataItem)Channel.Nodes[key]);
+                        }
+                        else
+                        {
+                            DataList[node.VarType][iPageIndex].Add((DataItem)Channel.Nodes[key]);
+                        }
+                    }
+                    
+                }
             }
         }
 
         /// <summary>
         /// 开始扫描
         /// </summary>
-        public void Start()
+        public async Task StartAsync()
         {
+            await TerminalClient.Instance.ConnectAsync(Channel);
             if (!ScanEnabled && Interval>0)
             {
                 ScanEnabled = true;
@@ -109,7 +148,18 @@ namespace Terminal.Collector.Core.Scan
         {
             foreach(var dic in DataList)
             {
-                TerminalClient.Instance.ReadMultipleVars(Channel.Id, dic.Value);
+                foreach(var page in dic.Value)
+                {
+                    if(page.Value.Count==1)
+                    {
+                        var item = page.Value[0];
+                        item.Value = TerminalClient.Instance.Read(Channel.Id, item);
+                    }
+                    else
+                    {
+                        TerminalClient.Instance.ReadMultipleVars(Channel.Id, page.Value);
+                    }                    
+                }
             }
             FlushValueAsync();
         }
@@ -121,23 +171,42 @@ namespace Terminal.Collector.Core.Scan
             {
                 foreach(var dir in DataList)
                 {
-                    foreach(var data in dir.Value)
+                    foreach(var page in dir.Value)
                     {
-                        foreach (var node in Channel.Nodes.Values)
+                        foreach (var data in page.Value)
                         {
-                            if (node.DataType == data.DataType
-                                && node.VarType == data.VarType
-                                && node.BitAdr == data.BitAdr
-                                && node.Count == data.Count
-                                && node.DB == data.DB
-                                && node.StartByteAdr == data.StartByteAdr)
+                            foreach (var node in Channel.Nodes.Values)
                             {
-                                await node.FlushValueAsync(data.Value, time);
+                                if (node.DataType == data.DataType
+                                    && node.VarType == data.VarType
+                                    && node.BitAdr == data.BitAdr
+                                    && node.Count == data.Count
+                                    && node.DB == data.DB
+                                    && node.StartByteAdr == data.StartByteAdr)
+                                {
+                                    await node.FlushValueAsync(data.Value, time);
+                                    
+                                    if(CascadeConfig.Instance.Relations.ContainsKey(node.Key))
+                                    {
+                                        var rel = CascadeConfig.Instance.Relations[node.Key];
+                                        if (rel.OldValue!=data.Value)
+                                        {
+                                            if(rel.LimitValue != data.Value)
+                                            {
+                                                foreach(var relkey in rel.CascadeTargetKey)
+                                                {
+                                                    var target = Channel.Nodes[relkey];
+                                                    TerminalClient.Instance.Read(Channel.Id, target);
+                                                }
+                                            }
+                                            rel.OldValue = data.Value;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
-
             }
             catch(Exception ex)
             {

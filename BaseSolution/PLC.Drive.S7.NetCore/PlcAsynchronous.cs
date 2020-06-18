@@ -21,24 +21,27 @@ namespace PLC.Drive.S7.NetCore
         {
             await ConnectAsync();
 
-            await stream.WriteAsync(ConnectionRequest.GetCOTPConnectionRequest(CPU, Rack, Slot), 0, 22);
-            var response = await COTP.TPDU.ReadAsync(stream);
-            if (response.PDUType != 0xd0) //Connect Confirm
+            lock (streamLock)
             {
-                throw new InvalidDataException("Error reading Connection Confirm", response.TPkt.Data, 1, 0x0d);
+                stream.Write(ConnectionRequest.GetCOTPConnectionRequest(CPU, Rack, Slot), 0, 22);
+                var response = COTP.TPDU.Read(stream);
+                if (response.PDUType != 0xd0) //Connect Confirm
+                {
+                    throw new InvalidDataException("Error reading Connection Confirm", response.TPkt.Data, 1, 0x0d);
+                }
+
+                stream.Write(GetS7ConnectionSetup(), 0, 25);
+
+                var s7data = COTP.TSDU.Read(stream);
+                if (s7data == null)
+                    throw new WrongNumberOfBytesException("No data received in response to Communication Setup");
+
+                //Check for S7 Ack Data
+                if (s7data[1] != 0x03)
+                    throw new InvalidDataException("Error reading Communication Setup response", s7data, 1, 0x03);
+
+                MaxPDUSize = (short)(s7data[18] * 256 + s7data[19]);
             }
-
-            await stream.WriteAsync(GetS7ConnectionSetup(), 0, 25);
-
-            var s7data = await COTP.TSDU.ReadAsync(stream);
-            if (s7data == null)
-                throw new WrongNumberOfBytesException("No data received in response to Communication Setup");
-
-            //Check for S7 Ack Data
-            if (s7data[1] != 0x03)
-                throw new InvalidDataException("Error reading Communication Setup response", s7data, 1, 0x03);
-
-            MaxPDUSize = (short)(s7data[18] * 256 + s7data[19]);
         }
 
         private async Task ConnectAsync()
@@ -46,7 +49,10 @@ namespace PLC.Drive.S7.NetCore
             tcpClient = new TcpClient();
             ConfigureConnection();
             await tcpClient.ConnectAsync(IP, Port);
-            stream = tcpClient.GetStream();
+            lock (streamLock)
+            {
+                stream = tcpClient.GetStream();
+            }
         }
 
         /// <summary>
@@ -203,42 +209,45 @@ namespace PLC.Drive.S7.NetCore
         /// DataItems must not be more than 20 (protocol restriction) and bytes must not be more than 200 + 22 of header (protocol restriction).
         /// </summary>
         /// <param name="dataItems">List of dataitems that contains the list of variables that must be read. Maximum 20 dataitems are accepted.</param>
-        public async Task<List<DataItem>> ReadMultipleVarsAsync(List<DataItem> dataItems)
-        {
-            //Snap7 seems to choke on PDU sizes above 256 even if snap7 
-            //replies with bigger PDU size in connection setup.
-            AssertPduSizeForRead(dataItems);
+        //public async Task<List<DataItem>> ReadMultipleVarsAsync(List<DataItem> dataItems)
+        //{
+        //    //Snap7 seems to choke on PDU sizes above 256 even if snap7 
+        //    //replies with bigger PDU size in connection setup.
+        //    AssertPduSizeForRead(dataItems);
             
-            try
-            {
-                // first create the header
-                int packageSize = 19 + (dataItems.Count * 12);
-                ByteArray package = new ByteArray(packageSize);
-                package.Add(ReadHeaderPackage(dataItems.Count));
-                // package.Add(0x02);  // datenart
-                foreach (var dataItem in dataItems)
-                {
-                    package.Add(CreateReadDataRequestPackage(dataItem.DataType, dataItem.DB, dataItem.StartByteAdr, VarTypeToByteLength(dataItem.VarType, dataItem.Count)));
-                }
+        //    try
+        //    {
+        //        // first create the header
+        //        int packageSize = 19 + (dataItems.Count * 12);
+        //        ByteArray package = new ByteArray(packageSize);
+        //        package.Add(ReadHeaderPackage(dataItems.Count));
+        //        // package.Add(0x02);  // datenart
+        //        foreach (var dataItem in dataItems)
+        //        {
+        //            package.Add(CreateReadDataRequestPackage(dataItem.DataType, dataItem.DB, dataItem.StartByteAdr, VarTypeToByteLength(dataItem.VarType, dataItem.Count)));
+        //        }
 
-                await stream.WriteAsync(package.Array, 0, package.Array.Length);
+        //        lock(streamLock)
+        //        {
+        //            stream.Write(package.Array, 0, package.Array.Length);
 
-                var s7data = await COTP.TSDU.ReadAsync(stream); //TODO use Async
-                if (s7data == null || s7data[14] != 0xff)
-                    throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+        //            var s7data = COTP.TSDU.Read(stream); //TODO use Async
+        //            if (s7data == null || s7data[14] != 0xff)
+        //                throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
 
-                ParseDataIntoDataItems(s7data, dataItems);
-            }
-            catch (SocketException socketException)
-            {
-                throw new PlcException(ErrorCode.ReadData, socketException);
-            }
-            catch (Exception exc)
-            {
-                throw new PlcException(ErrorCode.ReadData, exc);
-            }
-            return dataItems;
-        }
+        //            ParseDataIntoDataItems(s7data, dataItems);
+        //        }
+        //    }
+        //    catch (SocketException socketException)
+        //    {
+        //        throw new PlcException(ErrorCode.ReadData, socketException);
+        //    }
+        //    catch (Exception exc)
+        //    {
+        //        throw new PlcException(ErrorCode.ReadData, exc);
+        //    }
+        //    return dataItems;
+        //}
 
         /// <summary>
         /// Write a number of bytes from a DB starting from a specified index. This handles more than 200 bytes with multiple requests.

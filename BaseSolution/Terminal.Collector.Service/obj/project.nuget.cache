@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kRCnQOYwz7YjlkQ58ZlJYZZc6qx1G5o2k6z9XZVNcc1Re2MB3QO3CPohyCQ3+bB0toBYZNkEf7/ZY8wU3Vx0hg==",
+  "dgSpecHash": "AEiA1HPSKcMPAtRZaSt0sRcEmrooJYeBWp00CvxekX159pSTyE4UlJ9DXXPYcOaI5vfFhXp9gBDw1h+nT4nFSw==",
   "success": true,
   "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
   "expectedPackageFiles": [
@@ -87,7 +87,6 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "C:\\Users\\tzjac\\.nuget\\packages\\s7netplus\\0.4.0\\s7netplus.0.4.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\sqlitepclraw.bundle_green\\1.1.12\\sqlitepclraw.bundle_green.1.1.12.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\sqlitepclraw.core\\1.1.12\\sqlitepclraw.core.1.1.12.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3.linux\\1.1.12\\sqlitepclraw.lib.e_sqlite3.linux.1.1.12.nupkg.sha512",

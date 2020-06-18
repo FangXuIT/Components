@@ -8,7 +8,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TargetPage">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" Margin="161,0,0,0" Text="Target" TextWrapping="Wrap" VerticalAlignment="Center"/>
+    <Grid Margin="3 3 3 3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0">
+            <ComboBox x:Name="cbChannelList" Width="300" 
+                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  SelectionChanged="cbChannelList_SelectionChanged"/>
+        </Border>
+
+        <DataGrid Grid.Row="1" x:Name="dgTargetList" IsReadOnly="True" Margin="0 30 0 0"></DataGrid>
     </Grid>
 </Page>

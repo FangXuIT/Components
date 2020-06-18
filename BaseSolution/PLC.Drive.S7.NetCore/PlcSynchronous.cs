@@ -10,6 +10,7 @@ namespace PLC.Drive.S7.NetCore
 {
     public partial class Plc
     {
+        private readonly object streamLock = new object();
         /// <summary>
         /// Connects to the PLC and performs a COTP ConnectionRequest and S7 CommunicationSetup.
         /// </summary>
@@ -19,24 +20,27 @@ namespace PLC.Drive.S7.NetCore
 
             try
             {
-                stream.Write(ConnectionRequest.GetCOTPConnectionRequest(CPU, Rack, Slot), 0, 22);
-                var response = COTP.TPDU.Read(stream);
-                if (response.PDUType != 0xd0) //Connect Confirm
+                lock(streamLock)
                 {
-                    throw new InvalidDataException("Error reading Connection Confirm", response.TPkt.Data, 1, 0x0d);
+                    stream.Write(ConnectionRequest.GetCOTPConnectionRequest(CPU, Rack, Slot), 0, 22);
+                    var response = COTP.TPDU.Read(stream);
+                    if (response.PDUType != 0xd0) //Connect Confirm
+                    {
+                        throw new InvalidDataException("Error reading Connection Confirm", response.TPkt.Data, 1, 0x0d);
+                    }
+
+                    stream.Write(GetS7ConnectionSetup(), 0, 25);
+
+                    var s7data = COTP.TSDU.Read(stream);
+                    if (s7data == null)
+                        throw new WrongNumberOfBytesException("No data received in response to Communication Setup");
+
+                    //Check for S7 Ack Data
+                    if (s7data[1] != 0x03)
+                        throw new InvalidDataException("Error reading Communication Setup response", s7data, 1, 0x03);
+
+                    MaxPDUSize = (short)(s7data[18] * 256 + s7data[19]);
                 }
-
-                stream.Write(GetS7ConnectionSetup(), 0, 25);
-
-                var s7data = COTP.TSDU.Read(stream);
-                if (s7data == null)
-                    throw new WrongNumberOfBytesException("No data received in response to Communication Setup");
-
-                //Check for S7 Ack Data
-                if (s7data[1] != 0x03)
-                    throw new InvalidDataException("Error reading Communication Setup response", s7data, 1, 0x03);
-
-                MaxPDUSize = (short)(s7data[18] * 256 + s7data[19]);
             }
             catch (Exception exc)
             {
@@ -52,7 +56,10 @@ namespace PLC.Drive.S7.NetCore
                 tcpClient = new TcpClient();
                 ConfigureConnection();
                 tcpClient.Connect(IP, Port);
-                stream = tcpClient.GetStream();
+                lock(streamLock)
+                {
+                    stream = tcpClient.GetStream();
+                }
             }
             catch (SocketException sex)
             {
@@ -349,17 +356,19 @@ namespace PLC.Drive.S7.NetCore
                 package.Add(ReadHeaderPackage());
                 // package.Add(0x02);  // datenart
                 package.Add(CreateReadDataRequestPackage(dataType, db, startByteAdr, count));
+                lock (streamLock)
+                {
+                    stream.Write(package.Array, 0, package.Array.Length);
 
-                stream.Write(package.Array, 0, package.Array.Length);
+                    var s7data = COTP.TSDU.Read(stream);
+                    if (s7data == null || s7data[14] != 0xff)
+                        throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
 
-                var s7data = COTP.TSDU.Read(stream);
-                if (s7data == null || s7data[14] != 0xff)
-                    throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                    for (int cnt = 0; cnt < count; cnt++)
+                        bytes[cnt] = s7data[cnt + 18];
 
-                for (int cnt = 0; cnt < count; cnt++)
-                    bytes[cnt] = s7data[cnt + 18];
-
-                return bytes;
+                    return bytes;
+                }
             }
             catch (Exception exc)
             {
@@ -378,10 +387,14 @@ namespace PLC.Drive.S7.NetCore
 
             var message = new ByteArray();
             var length = S7WriteMultiple.CreateRequest(message, dataItems);
-            stream.Write(message.Array, 0, length);
+            lock (streamLock)
+            {
+                stream.Write(message.Array, 0, length);
 
-            var response = COTP.TSDU.Read(stream);
-            S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
+                var response = COTP.TSDU.Read(stream);
+                S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
+            }
+                
         }
 
         private void WriteBytesWithASingleRequest(DataType dataType, int db, int startByteAdr, byte[] value)
@@ -413,13 +426,15 @@ namespace PLC.Drive.S7.NetCore
 
                 // now join the header and the data
                 package.Add(value);
-
-                stream.Write(package.Array, 0, package.Array.Length);
-
-                var s7data = COTP.TSDU.Read(stream);
-                if (s7data == null || s7data[14] != 0xff)
+                lock (streamLock)
                 {
-                    throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                    stream.Write(package.Array, 0, package.Array.Length);
+
+                    var s7data = COTP.TSDU.Read(stream);
+                    if (s7data == null || s7data[14] != 0xff)
+                    {
+                        throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                    }
                 }
             }
             catch (Exception exc)
@@ -459,11 +474,14 @@ namespace PLC.Drive.S7.NetCore
                 // now join the header and the data
                 package.Add(value);
 
-                stream.Write(package.Array, 0, package.Array.Length);
+                lock(streamLock)
+                {
+                    stream.Write(package.Array, 0, package.Array.Length);
 
-                var s7data = COTP.TSDU.Read(stream);
-                if (s7data == null || s7data[14] != 0xff)
-                    throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                    var s7data = COTP.TSDU.Read(stream);
+                    if (s7data == null || s7data[14] != 0xff)
+                        throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                }
             }
             catch (Exception exc)
             {
@@ -497,13 +515,16 @@ namespace PLC.Drive.S7.NetCore
                     package.Add(CreateReadDataRequestPackage(dataItem.DataType, dataItem.DB, dataItem.StartByteAdr, VarTypeToByteLength(dataItem.VarType, dataItem.Count)));
                 }
 
-                stream.Write(package.Array, 0, package.Array.Length);
+                lock(streamLock)
+                {
+                    stream.Write(package.Array, 0, package.Array.Length);
 
-                var s7data = COTP.TSDU.Read(stream); //TODO use Async
-                if (s7data == null || s7data[14] != 0xff)
-                    throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
+                    var s7data = COTP.TSDU.Read(stream); //TODO use Async
+                    if (s7data == null || s7data[14] != 0xff)
+                        throw new PlcException(ErrorCode.WrongNumberReceivedBytes);
 
-                ParseDataIntoDataItems(s7data, dataItems);
+                    ParseDataIntoDataItems(s7data, dataItems);
+                }
             }
             catch (Exception exc)
             {

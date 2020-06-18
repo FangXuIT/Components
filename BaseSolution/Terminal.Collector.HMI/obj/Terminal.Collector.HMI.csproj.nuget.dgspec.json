@@ -4,6 +4,69 @@
     "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.HMI\\Terminal.Collector.HMI.csproj": {}
   },
   "projects": {
+    "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
+        "projectName": "PLC.Drive.S7.NetCore",
+        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
+        "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
+        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tzjac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Core\\Terminal.Collector.Core.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -32,6 +95,9 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {
+                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj"
+              },
               "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
                 "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
               },
@@ -53,10 +119,6 @@
             "OPCFoundation.NetStandard.Opc.Ua": {
               "target": "Package",
               "version": "[1.4.361.39, )"
-            },
-            "S7netplus": {
-              "target": "Package",
-              "version": "[0.4.0, )"
             }
           },
           "imports": [

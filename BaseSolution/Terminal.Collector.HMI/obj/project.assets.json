@@ -1071,15 +1071,6 @@
           }
         }
       },
-      "S7netplus/0.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/S7.Net.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/S7.Net.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.1.12": {
         "type": "package",
         "dependencies": {
@@ -2901,12 +2892,22 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "PLC.Drive.S7.NetCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/PLC.Drive.S7.NetCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PLC.Drive.S7.NetCore.dll": {}
+        }
+      },
       "Terminal.Collector.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "OPCFoundation.NetStandard.Opc.Ua": "1.4.361.39",
-          "S7netplus": "0.4.0",
+          "PLC.Drive.S7.NetCore": "1.0.0",
           "Terminal.Collector.IStore": "1.0.0",
           "Terminal.Collector.Store": "1.0.0"
         },
@@ -4671,23 +4672,6 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
-      ]
-    },
-    "S7netplus/0.4.0": {
-      "sha512": "RTna3gtkiqLuqF5m5G0Q6B2VHXzlz7AIoWGS3YkMXX779iMxh47dHGNOC+BOEtv4a23yQrPIoA4I7fcSn+welQ==",
-      "type": "package",
-      "path": "s7netplus/0.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net452/S7.Net.dll",
-        "lib/net452/S7.Net.pdb",
-        "lib/netstandard1.3/S7.Net.dll",
-        "lib/netstandard1.3/S7.Net.pdb",
-        "lib/netstandard2.0/S7.Net.dll",
-        "lib/netstandard2.0/S7.Net.pdb",
-        "s7netplus.0.4.0.nupkg.sha512",
-        "s7netplus.nuspec"
       ]
     },
     "SQLitePCLRaw.bundle_green/1.1.12": {
@@ -9678,6 +9662,11 @@
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "PLC.Drive.S7.NetCore/1.0.0": {
+      "type": "project",
+      "path": "../PLC.Drive.S7.NetCore/PLC.Drive.S7.NetCore.csproj",
+      "msbuildProject": "../PLC.Drive.S7.NetCore/PLC.Drive.S7.NetCore.csproj"
     },
     "Terminal.Collector.Core/1.0.0": {
       "type": "project",

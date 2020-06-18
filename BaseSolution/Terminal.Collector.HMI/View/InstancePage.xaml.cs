@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Terminal.Collector.Core;
+using System.Linq;
 
 namespace Terminal.Collector.HMI.View
 {
@@ -24,7 +25,7 @@ namespace Terminal.Collector.HMI.View
             InitializeComponent();
 
             var server = (CollectorServer)Application.Current.MainWindow.DataContext;
-            gdIntance.ItemsSource = server.InstanceList;
+            gdIntance.ItemsSource = (from u in server.InstanceList select u.Channel).ToList();
         }
     }
 }

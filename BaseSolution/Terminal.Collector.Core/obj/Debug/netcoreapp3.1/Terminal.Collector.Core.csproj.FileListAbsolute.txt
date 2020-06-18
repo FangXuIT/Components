@@ -6,9 +6,11 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\ne
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csprojAssemblyReference.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.pdb
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CoreCompileInputs.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.IStore.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.Store.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.IStore.pdb
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.Store.pdb
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CopyComplete
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CoreCompileInputs.cache

@@ -1,7 +1,9 @@
 ﻿using Opc.Ua;
 using Opc.Ua.Configuration;
+using PLC.Drive.S7.NetCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +43,7 @@ namespace Terminal.Collector.Core
         public async Task StartAsync()
         {
             await StartOpcUAServerAsync();
-            StartScan();
+            await StartScanAsync();
             IsRuning = true;
         }
 
@@ -67,14 +69,13 @@ namespace Terminal.Collector.Core
             {
                 try
                 {
-
                     //PLC实例下所有节点
                     var nodes = (from u in targets
                                  where u.PlcId == ext.Id
                                  select new TargetNode(u.Address, u.Name, u.Id, u.Interval, u.IsStoreTarget)
                                  {
-                                     DataType = (S7.Net.DataType)u.DataType,
-                                     VarType = (S7.Net.VarType)u.VarType,
+                                     DataType = (PLC.Drive.S7.NetCore.DataType)u.DataType,
+                                     VarType = (VarType)u.VarType,
                                      DB = u.DB,
                                      StartByteAdr = u.StartByteAdr,
                                      BitAdr = (byte)u.BitAdr,
@@ -109,23 +110,16 @@ namespace Terminal.Collector.Core
 
         private async Task StartOpcUAServerAsync()
         {
-            try
-            {
-                await application.LoadApplicationConfiguration(false);
-                await application.CheckApplicationInstanceCertificate(false, 0);
-                await application.Start(new OpcUAServer(this));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            await application.LoadApplicationConfiguration(false);
+            await application.CheckApplicationInstanceCertificate(false, 0);
+            await application.Start(new OpcUAServer(this));
         }
 
-        private void StartScan()
+        private async Task StartScanAsync()
         {
             foreach(var ins in InstanceList)
             {
-                ins.Start();
+                await ins.StartAsync();
             }
         }
     }

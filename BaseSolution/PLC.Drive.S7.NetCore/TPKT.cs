@@ -24,7 +24,11 @@ namespace PLC.Drive.S7.NetCore
         {
             var buf = new byte[4];
             int len = stream.Read(buf, 0, 4);
-            if (len < 4) throw new TPKTInvalidException("TPKT is incomplete / invalid");
+            if (len < 4)
+            {
+                throw new TPKTInvalidException("TPKT is incomplete / invalid");
+            }
+
             var pkt = new TPKT
             {
                 Version = buf[0],
@@ -36,7 +40,9 @@ namespace PLC.Drive.S7.NetCore
                 pkt.Data = new byte[pkt.Length - 4];
                 len = stream.Read(pkt.Data, 0, pkt.Length - 4);
                 if (len < pkt.Length - 4)
+                {
                     throw new TPKTInvalidException("TPKT is incomplete / invalid");
+                }
             }
             return pkt;
         }

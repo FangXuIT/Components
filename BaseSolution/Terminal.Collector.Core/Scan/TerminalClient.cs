@@ -1,6 +1,4 @@
 ﻿using Opc.Ua;
-using S7.Net;
-using S7.Net.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +7,8 @@ using System.Threading.Tasks;
 using Terminal.Collector.Core.Util;
 using Terminal.Collector.IStore;
 using Terminal.Collector.Store;
+using PLC.Drive.S7.NetCore;
+using PLC.Drive.S7.NetCore.Types;
 
 namespace Terminal.Collector.Core.Scan
 {
@@ -35,129 +35,110 @@ namespace Terminal.Collector.Core.Scan
             PlcDic = new Dictionary<Int64, Plc>();
             ChannelList = new List<Channel>();
 
-            var plcs = store.GetPlcListAsync().Result;
+            var list = store.GetPlcListAsync().Result;
 
-            foreach(var plc in plcs)
+            foreach(var entity in list)
             {
-                var _p = new Plc(DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Rack, plc.Slot);
-                _p.Open();
+                var channel = new Channel(entity.Id, entity.Name);
+                channel.CpuType = entity.CpuType;
+                channel.Slot = entity.Slot;
+                channel.Rack = entity.Rack;
+                channel.Port = entity.Port;
+                channel.IP = entity.Ip;
+                channel.IsAvailable = false;
+                channel.IsConnected = false;
 
-                PlcDic.Add(plc.Id, _p);
-                ChannelList.Add(new Channel(plc.Id, plc.Name));
+                ChannelList.Add(channel);
             }
         }
 
-        public object Read(Int64 plcId, TargetNode node)
+        public async Task ConnectAsync()
         {
-            try
+            foreach(var channel in ChannelList)
             {
-                var plc = PlcDic[plcId];
-                if (node.BitAdr == 0)
-                {
-                    return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count);
-                }
-                else
-                {
-                    return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
-                }
-            }
-            catch(Exception ex)
-            {
-                return null;
+                await ConnectAsync(channel);
             }
         }
 
-        public async Task<object> ReadAsync(Int64 plcId, TargetNode node)
+        public async Task ConnectAsync(Int64 Id)
         {
-            try
+            var channel = (from u in ChannelList where u.Id == Id select u).FirstOrDefault();
+            await ConnectAsync(channel);
+        }
+
+        public async Task ConnectAsync(Channel channel)
+        {
+            if (channel == null) return;
+
+            if (!PlcDic.ContainsKey(channel.Id))
             {
-                var plc = PlcDic[plcId];
-                if (node.BitAdr == 0)
+                try
                 {
-                    return await plc.ReadAsync(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count);
+                    var _p = new Plc(DataTypeHelper.GetPlcType(channel.CpuType), channel.IP, channel.Port, channel.Rack, channel.Slot);
+                    await _p.OpenAsync();
+
+                    PlcDic.Add(channel.Id, _p);
+
+                    channel.IsAvailable = true;
+                    channel.IsConnected = true;//PlcDic[channel.Id].IsConnected;
                 }
-                else
+                catch (Exception ex)
                 {
-                    return await plc.ReadAsync(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
+                    channel.Message = ex.ToString();
+                    channel.IsAvailable = false;
+                    channel.IsConnected = false;
                 }
             }
-            catch(Exception ex)
+            else
             {
-                return null;
+                try
+                {
+                    await PlcDic[channel.Id].OpenAsync();
+                    channel.IsAvailable = true;
+                    channel.IsConnected = true;// PlcDic[channel.Id].IsConnected;
+                }
+                catch (Exception ex)
+                {
+                    channel.Message = ex.ToString();
+                    channel.IsAvailable = false;
+                    channel.IsConnected = false;
+                }
+            }
+        }
+
+        public object Read(Int64 plcId, DataItem node)
+        {
+            var plc = PlcDic[plcId];
+            if (node.BitAdr == 0)
+            {
+                return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count);
+            }
+            else
+            {
+                return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
             }
         }
 
         public void ReadMultipleVars(Int64 plcId, List<DataItem> nodes)
         {
-            try
-            {
-                var plc = PlcDic[plcId];
-                plc.ReadMultipleVars(nodes);
-            }
-            catch(Exception ex)
-            {
-
-            }
-        }
-
-        public async Task<List<DataItem>> ReadMultipleVarsAsync(Int64 plcId, List<DataItem> nodes)
-        {
-            try
-            {
-                var plc = PlcDic[plcId];
-
-                return await plc.ReadMultipleVarsAsync(nodes);
-            }
-            catch(Exception ex)
-            {
-                return new List<DataItem>();
-            }
+            var plc = PlcDic[plcId];
+            plc.ReadMultipleVars(nodes);
         }
 
         public void Write(Int64 plcId, TargetNode node)
         {
-            try
-            {
-                var plc = PlcDic[plcId];
+            var plc = PlcDic[plcId];
 
-                DataItem data = new DataItem();
-                data.BitAdr = node.BitAdr;
-                data.Count = node.Count;
-                data.DataType = node.DataType;
-                data.DB = node.DB;
-                data.StartByteAdr = node.StartByteAdr;
-                data.Value = node.Value;
-                data.VarType = node.VarType;
+            DataItem data = new DataItem();
+            data.BitAdr = node.BitAdr;
+            data.Count = node.Count;
+            data.DataType = node.DataType;
+            data.DB = node.DB;
+            data.StartByteAdr = node.StartByteAdr;
+            data.Value = node.Value;
+            data.VarType = node.VarType;
 
-                plc.Write(data);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public async Task WriteAsync(Int64 plcId, TargetNode node)
-        {
-            try
-            {
-                var plc = PlcDic[plcId];
-
-                DataItem data = new DataItem();
-                data.BitAdr = node.BitAdr;
-                data.Count = node.Count;
-                data.DataType = node.DataType;
-                data.DB = node.DB;
-                data.StartByteAdr = node.StartByteAdr;
-                data.Value = node.Value;
-                data.VarType = node.VarType;
-
-                await plc.WriteAsync(data);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            plc.Write(data);
         }
 
         public void Close()

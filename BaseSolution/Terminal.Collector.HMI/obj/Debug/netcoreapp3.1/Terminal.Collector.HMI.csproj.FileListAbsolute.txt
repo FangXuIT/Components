@@ -97,7 +97,6 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\net
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\Opc.Ua.Server.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\Oracle.ManagedDataAccess.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\S7.Net.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\SQLitePCLRaw.batteries_green.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\SQLitePCLRaw.batteries_v2.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\SQLitePCLRaw.core.dll
@@ -147,3 +146,5 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\net
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\View\TargetPage.baml
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\View\LogPage.g.cs
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\View\LogPage.baml
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb

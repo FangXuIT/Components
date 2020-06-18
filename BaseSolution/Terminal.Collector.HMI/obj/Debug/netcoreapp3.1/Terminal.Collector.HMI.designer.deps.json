@@ -1004,14 +1004,6 @@
           }
         }
       },
-      "S7netplus/0.4.0": {
-        "runtime": {
-          "lib/netstandard2.0/S7.Net.dll": {
-            "assemblyVersion": "0.4.0.0",
-            "fileVersion": "0.4.0.0"
-          }
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.1.12": {
         "dependencies": {
           "SQLitePCLRaw.core": "1.1.12",
@@ -3191,13 +3183,6 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
-    },
-    "S7netplus/0.4.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-RTna3gtkiqLuqF5m5G0Q6B2VHXzlz7AIoWGS3YkMXX779iMxh47dHGNOC+BOEtv4a23yQrPIoA4I7fcSn+welQ==",
-      "path": "s7netplus/0.4.0",
-      "hashPath": "s7netplus.0.4.0.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_green/1.1.12": {
       "type": "package",
