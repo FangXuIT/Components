@@ -36,7 +36,7 @@ namespace Terminal.Collector.HMI
             InitialTray();
 
             Server= new CollectorServer(new CollectorStoreImple());
-            Server.InitScanServerAsync();
+            Server.InitScanServerAsync().Wait();
 
             this.DataContext = Server;
         }

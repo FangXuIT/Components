@@ -30,7 +30,16 @@
         /// <returns></returns>
         public static string FromByteArray(byte[] bytes)
         {
-            return System.Text.Encoding.ASCII.GetString(bytes);
+            var value = System.Text.Encoding.GetEncoding("gb2312")
+                .GetString(bytes)
+                .Replace("\u001e", "")
+                .Replace("\t", "")
+                .Replace("\b", "")
+                .Replace("\0", "")
+                .Replace("?", "")
+                .Trim();
+
+            return value;
         }
 
     }

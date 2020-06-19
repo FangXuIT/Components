@@ -5,17 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Terminal.Collector.IStore;
 using Terminal.Collector.IStore.Models;
-using Terminal.Collector.Store.Entites;
+using Terminal.Collector.IStore.Entites;
+using Coldairarrow.Util;
+using System.Runtime.InteropServices;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Terminal.Collector.Store
 {
     public class CollectorStoreImple : ICollectorStore
     {
-        public Task<List<PlcModel>> GetPlcListAsync()
+        public async Task<List<PlcModel>> GetPlcListAsync()
         {
             using(var db=DBContext.Client())
             {
-                return db.Queryable<PB_Plc>().Where(p => p.Deleted == 0)
+                return await db.Queryable<PB_Plc>().Where(p => p.Deleted == 0)
                     .Select(s => new PlcModel()
                     {
                         CpuType = s.CpuType,
@@ -29,11 +33,11 @@ namespace Terminal.Collector.Store
             }
         }
 
-        public Task<List<TargetModel>> GetTargetListAsync()
+        public async Task<List<TargetModel>> GetTargetListAsync()
         {
             using (var db = DBContext.Client())
             {
-                return db.Queryable<PB_Tag>().Where(p => p.Deleted == 0)
+                return await db.Queryable<PB_Tag>().Where(p => p.Deleted == 0)
                     .Select(s => new TargetModel()
                     {
                         DB = s.DB,
@@ -54,14 +58,28 @@ namespace Terminal.Collector.Store
             }
         }
 
-        public Task SaveMultTargetValues<T>(List<T> data)
+        public async Task<Ps_Batch> GetBatchAsync(Expression<Func<Ps_Batch, bool>> expression)
         {
-            throw new NotImplementedException();
+            using (var db = DBContext.Client())
+            {
+                return await db.Queryable<Ps_Batch>().Where(expression).SingleAsync();
+            }
         }
 
-        public Task SaveTargetValue<T>(T data)
+        public async Task InsertBatchAsync(Ps_Batch data)
         {
-            throw new NotImplementedException();
+            using(var db = DBContext.Client())
+            {
+                await db.Insertable(data).ExecuteCommandAsync();
+            }
+        }
+
+        public async Task UpdateBatchAsync(Ps_Batch data)
+        {
+            using (var db = DBContext.Client())
+            {
+                await db.Updateable(data).ExecuteCommandAsync();
+            }
         }
     }
 }

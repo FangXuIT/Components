@@ -107,7 +107,9 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\ne
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.pdb
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.genruntimeconfig.cache
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\Sharp7.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.csproj.CoreCompileInputs.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\IdHelper.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\IdHelper.Zookeeper.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\ZooKeeperNetEx.dll

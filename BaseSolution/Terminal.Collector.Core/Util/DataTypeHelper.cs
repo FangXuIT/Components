@@ -78,10 +78,10 @@ namespace Terminal.Collector.Core.Util
                     result = float.Parse(value.ToString());
                     break;
                 case VarType.String:
-                    result = value.ToString();
+                    result = value.ToString().Replace("\u001e", "").Replace("\t", "").Replace("\0", "").Trim();
                     break;
                 case VarType.StringEx:
-                    result = value.ToString();
+                    result = value.ToString().Replace("\u001e", "").Replace("\t", "").Replace("\0", "").Trim();
                     break;
                 case VarType.Timer:
                     result = value.ToString();

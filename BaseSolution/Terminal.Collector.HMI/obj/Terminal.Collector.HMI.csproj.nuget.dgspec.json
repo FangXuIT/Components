@@ -342,6 +342,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "IdHelper.Zookeeper": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.20, )"

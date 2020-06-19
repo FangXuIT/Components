@@ -11,7 +11,9 @@ namespace Terminal.Collector.Core.Scan
         /// </summary>
         public Int64 PlcId { private set; get; }
 
-        public Int64 LineId { private set; get; }
+        public int LineId { private set; get; }
+
+        public string PrefixTarget { get { return string.Format("PLC{0}.Line{1}", PlcId, LineId); } }
 
         public object LimitValue { set; get; }
 
@@ -26,7 +28,7 @@ namespace Terminal.Collector.Core.Scan
         {
         }
 
-        public CascadeRelation(Int64 _plcId,Int64 _lineId)
+        public CascadeRelation(Int64 _plcId,int _lineId)
         {
             CascadeTargetKey = new List<string>();
             PlcId = _plcId;

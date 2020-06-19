@@ -21,7 +21,7 @@ namespace Terminal.Collector.Test
                     var _p = new Plc(DataTypeHelper.GetPlcType(entity.CpuType), entity.Ip, entity.Port, entity.Rack, entity.Slot);
                     _p.Open();
 
-                    var _ts = (from u in targetList where u.PlcId == entity.Id select u).ToList();
+                    var _ts = (from u in targetList where u.PlcId == entity.Id && u.VarType==7 select u).ToList();
                     
                     foreach(var tag in _ts)
                     {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Collector.IStore.Entites;
 using Terminal.Collector.IStore.Models;
 
 namespace Terminal.Collector.IStore
@@ -12,8 +14,10 @@ namespace Terminal.Collector.IStore
 
         Task<List<TargetModel>> GetTargetListAsync();
 
-        Task SaveTargetValue<T>(T data);
+        Task InsertBatchAsync(Ps_Batch data);
 
-        Task SaveMultTargetValues<T>(List<T> data);
+        Task UpdateBatchAsync(Ps_Batch data);
+
+        Task<Ps_Batch> GetBatchAsync(Expression<Func<Ps_Batch, bool>> expression);
     }
 }

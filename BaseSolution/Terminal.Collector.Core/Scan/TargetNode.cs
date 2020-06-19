@@ -95,19 +95,46 @@ namespace Terminal.Collector.Core.Scan
         /// <returns></returns>
         public async Task FlushValueAsync(object value, System.DateTime time)
         {
-            Timestamp = time;
-            if(SystemContext!=null)
+            try
             {
-                //当值有变化时，修改OpcUA Node Value
-                var browseName = new QualifiedName(Name, NamespaceIndex);
-                var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
-                if (node != null)
+                Timestamp = time;
+                
+                if (SystemContext != null)
                 {
-                    node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
-                    node.StatusCode = StatusCodes.Good;
-                    node.Timestamp = time;
-                    node.ClearChangeMasks(SystemContext, false);
+                    //当值有变化时，修改OpcUA Node Value
+                    var browseName = new QualifiedName(Name, NamespaceIndex);
+                    var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
+                    if (node != null)
+                    {
+                        if(node.DataType== DataTypeIds.String)
+                        {
+                            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                        }
+                        else
+                        {
+                            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                        }
+                        node.StatusCode = StatusCodes.Good;
+                        node.Timestamp = time;
+                        node.ClearChangeMasks(SystemContext, false);
+                        if(node.Value==null)
+                        {
+                            LogHelper.Instance.Info(string.Format("{0} value is null!", Name));
+                        }
+                    }
+                    else
+                    {
+                        LogHelper.Instance.Info(string.Format("{0} not found!", Name));
+                    }
                 }
+                else
+                {
+                    LogHelper.Instance.Info(string.Format("{0} systemContext is null!", Name));
+                }
+            }
+            catch(Exception ex)
+            {
+                LogHelper.Instance.Error(string.Format("FlushValueAsync {0}:{1}", Name, ex.Message));
             }
         }
     }

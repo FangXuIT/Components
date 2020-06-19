@@ -2,14 +2,8 @@
 using Opc.Ua.Server;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Terminal.Collector.Core.Data;
-using System.Linq;
 using Terminal.Collector.Core.Util;
-using System.Threading.Tasks;
-using Terminal.Collector.IStore.Models;
 using Terminal.Collector.Core.Scan;
-using Terminal.Collector.Store.Entites;
 
 namespace Terminal.Collector.Core.OpcUA
 {
@@ -78,6 +72,7 @@ namespace Terminal.Collector.Core.OpcUA
         {
             lock (Lock)
             {
+                LogHelper.Instance.Info(string.Format("CreateAddressSpace {0} start.", channel.Name));
                 BaseObjectState trigger = new BaseObjectState(null);
 
                 trigger.NodeId = new NodeId(1, NamespaceIndex);
@@ -118,12 +113,15 @@ namespace Terminal.Collector.Core.OpcUA
 
                 // save in dictionary. 
                 AddPredefinedNode(SystemContext, referenceType);
+
+                LogHelper.Instance.Info("CreateAddressSpace.");
             }
         }
 
         private void LoadNodeList(BaseObjectState trigger)
         {
-            foreach(var node in channel.Nodes.Values)
+            LogHelper.Instance.Info(string.Format("Nodes number:{0}.", channel.Nodes.Values.Count));
+            foreach (var node in channel.Nodes.Values)
             {
                 node.SystemContext = this.SystemContext;
                 node.NamespaceIndex = NamespaceIndex;
@@ -131,6 +129,8 @@ namespace Terminal.Collector.Core.OpcUA
 
                 PropertyState property = BuildPropertyState(trigger, node.Key, node.Name, DataTypeHelper.GetDataTypeId(node.OpcNodeType));
                 trigger.AddChild(property);
+
+                LogHelper.Instance.Info(string.Format("Node:{0} is OK.",node.Key));
             }
         }
 
@@ -153,6 +153,7 @@ namespace Terminal.Collector.Core.OpcUA
             property.ValueRank = ValueRanks.Scalar;
             property.DataType = dataTypeId;
             property.OnWriteValue = Property_NodeValueEventHandler;
+            //property.Value = null;
 
             return property;
         }

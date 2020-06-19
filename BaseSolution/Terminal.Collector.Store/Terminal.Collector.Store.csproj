@@ -9,10 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entites\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="IdHelper.Zookeeper" Version="1.5.1" />
     <PackageReference Include="MySql.Data" Version="8.0.20" />
     <PackageReference Include="sqlSugarCore" Version="5.0.0.15" />
   </ItemGroup>

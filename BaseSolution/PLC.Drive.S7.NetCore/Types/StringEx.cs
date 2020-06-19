@@ -24,7 +24,12 @@ namespace PLC.Drive.S7.NetCore.Types
 
             try
             {
-                return Encoding.ASCII.GetString(bytes, 2, length);
+                return Encoding.GetEncoding("gb2312")
+                    .GetString(bytes, 2, length)
+                    .Replace("\u001e", "")
+                    .Replace("\t", "")
+                    .Replace("\0", "")
+                    .Trim();
             }
             catch (Exception e)
             {

@@ -26,6 +26,7 @@ namespace Terminal.Collector.HMI.View
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            btnStart.IsEnabled = false;
             var server = (CollectorServer)Application.Current.MainWindow.DataContext;
             server.StartAsync();
         }

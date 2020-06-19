@@ -26,7 +26,7 @@ namespace Terminal.Collector.Core.Scan
             Relations = new Dictionary<string, CascadeRelation>();
             #region --一号线--
             var rel = new CascadeRelation(1,1);
-            
+
             rel.CascadeTargetKey.Add("PLC1.Line1.CXNCKD");      //车辆车厢内侧宽度
             rel.CascadeTargetKey.Add("PLC1.Line1.CXNCCD");      //车辆车厢内侧长度
             rel.CascadeTargetKey.Add("PLC1.Line1.CKGD");        //车箱大小（高）
@@ -38,6 +38,7 @@ namespace Terminal.Collector.Core.Scan
             Relations.Add("PLC1.Line1.ZCSJ", rel);
 
             rel = new CascadeRelation(1, 1);
+
             rel.CascadeTargetKey.Add("PLC1.Line1.JQRSJZQCS");   //机器人实际抓取次数
             rel.CascadeTargetKey.Add("PLC1.Line1.DQZCZL");      //当前装车重量
             rel.CascadeTargetKey.Add("PLC1.Line1.JQRSJZQBS");   //机器人实际抓取包数
@@ -49,6 +50,7 @@ namespace Terminal.Collector.Core.Scan
 
             #region --二号线--
             rel = new CascadeRelation(1, 2);
+
             rel.CascadeTargetKey.Add("PLC1.Line2.CXNCKD");      //车辆车厢内侧宽度
             rel.CascadeTargetKey.Add("PLC1.Line2.CXNCCD");      //车辆车厢内侧长度
             rel.CascadeTargetKey.Add("PLC1.Line2.CKGD");        //车箱大小（高）
@@ -60,6 +62,7 @@ namespace Terminal.Collector.Core.Scan
             Relations.Add("PLC1.Line2.ZCSJ", rel);
 
             rel = new CascadeRelation(1, 2);
+
             rel.CascadeTargetKey.Add("PLC1.Line2.JQRSJZQCS");   //机器人实际抓取次数
             rel.CascadeTargetKey.Add("PLC1.Line2.DQZCZL");      //当前装车重量
             rel.CascadeTargetKey.Add("PLC1.Line2.JQRSJZQBS");   //机器人实际抓取包数
@@ -71,6 +74,7 @@ namespace Terminal.Collector.Core.Scan
 
             #region --四号线--
             rel = new CascadeRelation(2, 4);
+
             rel.CascadeTargetKey.Add("PLC2.Line4.CXNCKD");      //一车辆车厢内侧宽度
             rel.CascadeTargetKey.Add("PLC2.Line4.CXNCCD");      //车辆车厢内侧长度
             rel.CascadeTargetKey.Add("PLC2.Line4.CKGD");        //车箱大小（高）
@@ -82,6 +86,7 @@ namespace Terminal.Collector.Core.Scan
             Relations.Add("PLC2.Line4.ZCSJ", rel);
 
             rel = new CascadeRelation(2, 4);
+
             rel.CascadeTargetKey.Add("PLC2.Line4.JQRSJZQCS");   //机器人实际抓取次数
             rel.CascadeTargetKey.Add("PLC2.Line4.DQZCZL");      //当前装车重量
             rel.CascadeTargetKey.Add("PLC2.Line4.JQRSJZQBS");   //机器人实际抓取包数
@@ -93,6 +98,7 @@ namespace Terminal.Collector.Core.Scan
 
             #region --五号线--
             rel = new CascadeRelation(2, 5);
+
             rel.CascadeTargetKey.Add("PLC2.Line5.CXNCKD");      //车辆车厢内侧宽度
             rel.CascadeTargetKey.Add("PLC2.Line5.CXNCCD");      //车辆车厢内侧长度
             rel.CascadeTargetKey.Add("PLC2.Line5.CKGD");        //车箱大小（高）
@@ -104,6 +110,7 @@ namespace Terminal.Collector.Core.Scan
             Relations.Add("PLC2.Line5.ZCSJ", rel);
 
             rel = new CascadeRelation(2, 5);
+
             rel.CascadeTargetKey.Add("PLC2.Line5.JQRSJZQCS");   //机器人实际抓取次数
             rel.CascadeTargetKey.Add("PLC2.Line5.DQZCZL");      //当前装车重量
             rel.CascadeTargetKey.Add("PLC2.Line5.JQRSJZQBS");   //机器人实际抓取包数

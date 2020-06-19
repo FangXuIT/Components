@@ -108,21 +108,34 @@ namespace Terminal.Collector.Core.Scan
 
         public object Read(Int64 plcId, DataItem node)
         {
-            var plc = PlcDic[plcId];
-            if (node.BitAdr == 0)
+            if(PlcDic.ContainsKey(plcId))
             {
-                return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count);
+                var plc = PlcDic[plcId];
+                if (node.BitAdr == 0)
+                {
+                    return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count);
+                }
+                else
+                {
+                    return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
+                }
             }
             else
             {
-                return plc.Read(node.DataType, node.DB, node.StartByteAdr, node.VarType, node.Count, node.BitAdr);
+                return null;
             }
         }
 
         public void ReadMultipleVars(Int64 plcId, List<DataItem> nodes)
         {
-            var plc = PlcDic[plcId];
-            plc.ReadMultipleVars(nodes);
+            if(PlcDic.ContainsKey(plcId))
+            {
+                var plc = PlcDic[plcId];
+                if (plc.IsConnected)
+                {
+                    plc.ReadMultipleVars(nodes);
+                }
+            }
         }
 
         public void Write(Int64 plcId, TargetNode node)

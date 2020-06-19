@@ -7,6 +7,6 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\n
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.AssemblyInfo.cs
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.csproj.CopyComplete
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\bin\Debug\netcoreapp3.1\Terminal.Collector.Store.pdb
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.csproj.CoreCompileInputs.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.pdb
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Store\obj\Debug\netcoreapp3.1\Terminal.Collector.Store.csproj.CoreCompileInputs.cache

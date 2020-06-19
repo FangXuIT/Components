@@ -6,4 +6,3 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Debug\
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Debug\netcoreapp3.1\Terminal.Collector.IStore.csproj.CoreCompileInputs.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Debug\netcoreapp3.1\Terminal.Collector.IStore.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Debug\netcoreapp3.1\Terminal.Collector.IStore.pdb
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Debug\netcoreapp3.1\Terminal.Collector.IStore.csprojAssemblyReference.cache

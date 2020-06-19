@@ -1,4 +1,5 @@
-﻿using Opc.Ua;
+﻿using Coldairarrow.Util;
+using Opc.Ua;
 using Opc.Ua.Configuration;
 using PLC.Drive.S7.NetCore;
 using System;
@@ -75,6 +76,7 @@ namespace Terminal.Collector.Core
                                  select new TargetNode(u.Address, u.Name, u.Id, u.Interval, u.IsStoreTarget)
                                  {
                                      DataType = (PLC.Drive.S7.NetCore.DataType)u.DataType,
+                                     OpcNodeType= u.OpcNodeType,
                                      VarType = (VarType)u.VarType,
                                      DB = u.DB,
                                      StartByteAdr = u.StartByteAdr,
@@ -96,30 +98,44 @@ namespace Terminal.Collector.Core
                         var keys = (from u in nodes where u.Interval == inter select u.Key).ToList();
                         logic.TargetNodeIdList.Add(inter, keys);
 
-                        ScanInstance instance = new ScanInstance(ext, logic, inter);
+                        ScanInstance instance = new ScanInstance(ext, logic, inter,store);
                         InstanceList.Add(instance);
                     }
                     ext.LogicGroups.Add(logic);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    LogHelper.Instance.Error("InitScanServerAsync:" + ex.Message);
                 }
             }
         }
 
         private async Task StartOpcUAServerAsync()
         {
-            await application.LoadApplicationConfiguration(false);
-            await application.CheckApplicationInstanceCertificate(false, 0);
-            await application.Start(new OpcUAServer(this));
+            try
+            {
+                await application.LoadApplicationConfiguration(false);
+                await application.CheckApplicationInstanceCertificate(false, 0);
+                await application.Start(new OpcUAServer(this));
+            }
+            catch(Exception ex)
+            {
+                LogHelper.Instance.Error("StartOpcUAServerAsync:" + ex.Message);
+            }
         }
 
         private async Task StartScanAsync()
         {
             foreach(var ins in InstanceList)
             {
-                await ins.StartAsync();
+                try
+                {
+                    await ins.StartAsync();
+                }
+                catch(Exception ex)
+                {
+                    LogHelper.Instance.Error("StartScanAsync:" + ex.Message);
+                }
             }
         }
     }
