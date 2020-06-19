@@ -110,7 +110,7 @@ namespace Terminal.Collector.HMI.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Terminal.Collector.HMI;component/view/hamburgermenu.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Terminal.Collector.HMI;V1.0.0.0;component/view/hamburgermenu.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\HamburgerMenu.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

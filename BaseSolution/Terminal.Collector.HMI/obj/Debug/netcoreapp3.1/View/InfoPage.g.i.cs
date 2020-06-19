@@ -53,7 +53,7 @@ namespace Terminal.Collector.HMI.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Terminal.Collector.HMI;component/view/infopage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Terminal.Collector.HMI;V1.0.0.0;component/view/infopage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\InfoPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
