@@ -53,7 +53,10 @@ namespace PLC.Drive.S7.NetCore.Types
             ByteArray arr = new ByteArray();
             foreach (UInt32 val in value)
                 arr.Add(ToByteArray(val));
-            return arr.Array;
+            var result= arr.Array;
+            arr.Clear();
+            arr = null;
+            return result;
         }
 
         /// <summary>

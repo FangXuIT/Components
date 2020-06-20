@@ -7,3 +7,12 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Releas
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.csproj.CoreCompileInputs.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.pdb
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\bin\Release\netcoreapp3.1\Terminal.Collector.IStore.deps.json
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\bin\Release\netcoreapp3.1\Terminal.Collector.IStore.dll
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\bin\Release\netcoreapp3.1\Terminal.Collector.IStore.pdb
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.csprojAssemblyReference.cache
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.csproj.CoreCompileInputs.cache
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.AssemblyInfoInputs.cache
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.AssemblyInfo.cs
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.dll
+E:\code\Components\BaseSolution\Terminal.Collector.IStore\obj\Release\netcoreapp3.1\Terminal.Collector.IStore.pdb

@@ -24,9 +24,9 @@ E:\code\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\
 E:\code\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.IStore.pdb
 E:\code\Components\BaseSolution\Terminal.Collector.Core\bin\Debug\netcoreapp3.1\Terminal.Collector.Store.pdb
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csprojAssemblyReference.cache
-E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CoreCompileInputs.cache
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.AssemblyInfoInputs.cache
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.AssemblyInfo.cs
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CopyComplete
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.dll
 E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.pdb
+E:\code\Components\BaseSolution\Terminal.Collector.Core\obj\Debug\netcoreapp3.1\Terminal.Collector.Core.csproj.CoreCompileInputs.cache

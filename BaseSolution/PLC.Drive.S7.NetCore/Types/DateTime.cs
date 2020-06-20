@@ -150,7 +150,11 @@ namespace PLC.Drive.S7.NetCore.Types
             var bytes = new List<byte>(dateTimes.Length * 8);
             foreach (var dateTime in dateTimes) bytes.AddRange(ToByteArray(dateTime));
 
-            return bytes.ToArray();
+            var result= bytes.ToArray();
+            bytes.Clear();
+            bytes = null;
+
+            return result;
         }
     }
 }

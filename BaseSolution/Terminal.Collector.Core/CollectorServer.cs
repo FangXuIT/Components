@@ -23,6 +23,10 @@ namespace Terminal.Collector.Core
 
         private ICollectorStore store;
 
+        public bool PushDataToRedis { set; get; }
+
+        public bool EnabledOpcUA { set; get; }
+
         public bool IsRuning { private set; get; }
 
         private CollectorServer()
@@ -32,18 +36,25 @@ namespace Terminal.Collector.Core
 
         public CollectorServer(ICollectorStore _store)
         {
+            try
+            {
+                RedisHelper.Initialization(new CSRedis.CSRedisClient("127.0.0.1:6379,defaultDatabase=0,prefix=CS_"));
+            }
+            catch(Exception ex)
+            {
+            }
+
             InstanceList = new List<ScanInstance>();
-
-            application = new ApplicationInstance();
-            application.ApplicationType = ApplicationType.Server;
-            application.ConfigSectionName = "ZEQP.OpcUAServer";
-
             store = _store;
         }
 
         public async Task StartAsync()
         {
-            await StartOpcUAServerAsync();
+            if(EnabledOpcUA)
+            {
+                await StartOpcUAServerAsync();
+            }
+
             await StartScanAsync();
             IsRuning = true;
         }
@@ -114,6 +125,10 @@ namespace Terminal.Collector.Core
         {
             try
             {
+                application = new ApplicationInstance();
+                application.ApplicationType = ApplicationType.Server;
+                application.ConfigSectionName = "ZEQP.OpcUAServer";
+
                 await application.LoadApplicationConfiguration(false);
                 await application.CheckApplicationInstanceCertificate(false, 0);
                 await application.Start(new OpcUAServer(this));

@@ -109,11 +109,21 @@ namespace PLC.Drive.S7.NetCore
                     segment = TPDU.Read(stream);
                     Array.Resize(ref buffer, buffer.Length + segment.Data.Length);
                     var lastPosition = output.Position;
+
+                    output.Dispose();
+                    output = null;
+
                     output = new MemoryStream(buffer);
                     output.Write(segment.Data, (int) lastPosition, segment.Data.Length);
                 }
 
-                return buffer.Take((int)output.Position).ToArray();
+                var result=buffer.Take((int)output.Position).ToArray();
+
+                output.Dispose();
+                output = null;
+                buffer = null;
+
+                return result;
             }
 
             /// <summary>

@@ -74,12 +74,21 @@ namespace PLC.Drive.S7.NetCore
                 var maxToRead = (int)Math.Min(count, MaxPDUSize - 18);
                 byte[] bytes = await ReadBytesWithSingleRequestAsync(dataType, db, index, maxToRead);
                 if (bytes == null)
-                    return resultBytes.ToArray();
+                {
+                    var result= resultBytes.ToArray();
+                    resultBytes.Clear();
+                    resultBytes = null;
+                    return result;
+                }
                 resultBytes.AddRange(bytes);
                 count -= maxToRead;
                 index += maxToRead;
             }
-            return resultBytes.ToArray();
+
+            var result1 = resultBytes.ToArray();
+            resultBytes.Clear();
+            resultBytes = null;
+            return result1;
         }
 
         /// <summary>
@@ -403,6 +412,9 @@ namespace PLC.Drive.S7.NetCore
             for (int cnt = 0; cnt < count; cnt++)
                 bytes[cnt] = s7data[cnt + 18];
 
+            package.Clear();
+            package = null;
+
             return bytes;
         }
 
@@ -419,6 +431,8 @@ namespace PLC.Drive.S7.NetCore
             var message = new ByteArray();
             var length = S7WriteMultiple.CreateRequest(message, dataItems);
             await stream.WriteAsync(message.Array, 0, length).ConfigureAwait(false);
+            message.Clear();
+            message = null;
 
             var response = await COTP.TSDU.ReadAsync(stream).ConfigureAwait(false);
             S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
@@ -464,6 +478,8 @@ namespace PLC.Drive.S7.NetCore
                 package.Add(value);
 
                 await stream.WriteAsync(package.Array, 0, package.Array.Length);
+                package.Clear();
+                package = null;
 
                 var s7data = await COTP.TSDU.ReadAsync(stream);
                 if (s7data == null || s7data[14] != 0xff)
@@ -510,6 +526,8 @@ namespace PLC.Drive.S7.NetCore
                 package.Add(value);
 
                 await stream.WriteAsync(package.Array, 0, package.Array.Length);
+                package.Clear();
+                package = null;
 
                 var s7data = await COTP.TSDU.ReadAsync(stream);
                 if (s7data == null || s7data[14] != 0xff)

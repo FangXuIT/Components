@@ -60,6 +60,8 @@ namespace Terminal.Collector.Core.Scan
         /// </summary>
         public ushort NamespaceIndex { set; get; }
 
+        public PropertyState OpcNode { set; get; }
+
         /// <summary>
         /// 服务系统上下文
         /// </summary>
@@ -98,41 +100,54 @@ namespace Terminal.Collector.Core.Scan
             try
             {
                 Timestamp = time;
-                
-                if (SystemContext != null)
+                if(OpcNode!=null)
                 {
-                    //当值有变化时，修改OpcUA Node Value
-                    var browseName = new QualifiedName(Name, NamespaceIndex);
-                    var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
-                    if (node != null)
+                    OpcNode.Value = DataTypeHelper.ParseOpcUAValue(OpcNode.DataType, value);
+                    OpcNode.StatusCode = StatusCodes.Good;
+                    OpcNode.Timestamp = time;
+                    OpcNode.ClearChangeMasks(SystemContext, false);
+                    if (OpcNode.Value == null)
                     {
-                        if(node.DataType== DataTypeIds.String)
-                        {
-                            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
-                        }
-                        else
-                        {
-                            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
-                        }
-                        node.StatusCode = StatusCodes.Good;
-                        node.Timestamp = time;
-                        node.ClearChangeMasks(SystemContext, false);
-                        if(node.Value==null)
-                        {
-                            LogHelper.Instance.Info(string.Format("{0} value is null!", Name));
-                        }
-                    }
-                    else
-                    {
-                        LogHelper.Instance.Info(string.Format("{0} not found!", Name));
+                        LogHelper.Instance.Info(string.Format("{0} value is null!", Name));
                     }
                 }
-                else
-                {
-                    LogHelper.Instance.Info(string.Format("{0} systemContext is null!", Name));
-                }
+
+                await RedisHelper.SetAsync(Key, value);
+
+                //if (SystemContext != null)
+                //{
+                //    //当值有变化时，修改OpcUA Node Value
+                //    var browseName = new QualifiedName(Name, NamespaceIndex);
+                //    var node = Trigger.FindChild(SystemContext, browseName) as PropertyState;
+                //    if (node != null)
+                //    {
+                //        if(node.DataType== DataTypeIds.String)
+                //        {
+                //            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                //        }
+                //        else
+                //        {
+                //            node.Value = DataTypeHelper.ParseOpcUAValue(node.DataType, value);
+                //        }
+                //        node.StatusCode = StatusCodes.Good;
+                //        node.Timestamp = time;
+                //        node.ClearChangeMasks(SystemContext, false);
+                //        if(node.Value==null)
+                //        {
+                //            LogHelper.Instance.Info(string.Format("{0} value is null!", Name));
+                //        }
+                //    }
+                //    else
+                //    {
+                //        LogHelper.Instance.Info(string.Format("{0} not found!", Name));
+                //    }
+                //}
+                //else
+                //{
+                //    LogHelper.Instance.Info(string.Format("{0} systemContext is null!", Name));
+                //}
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.Instance.Error(string.Format("FlushValueAsync {0}:{1}", Name, ex.Message));
             }

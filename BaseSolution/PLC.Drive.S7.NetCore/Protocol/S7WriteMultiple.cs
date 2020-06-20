@@ -71,11 +71,17 @@ namespace PLC.Drive.S7.NetCore.Protocol
             }
 
             message.Add(data.Array);
+            data.Clear();
+            data = null;
 
             Serialization.SetWordAt(message, Header.Offsets.MessageLength, (ushort) message.Length);
             Serialization.SetWordAt(message, Header.Offsets.DataLength, (ushort) (message.Length - paramOffset));
 
-            return message.Length;
+            var result= message.Length;
+            message.Clear();
+            message = null;
+
+            return result;
         }
 
         public static void ParseResponse(byte[] message, int length, DataItem[] dataItems)

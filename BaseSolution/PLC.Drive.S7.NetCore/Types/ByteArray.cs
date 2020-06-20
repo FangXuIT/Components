@@ -31,7 +31,10 @@ namespace PLC.Drive.S7.NetCore.Types
         
         public void Clear()
         {
-            list = new List<byte>();
+            if(list!=null)
+            {
+                list.Clear();
+            }
         }
 
         public void Add(byte item)

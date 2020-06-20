@@ -94,12 +94,20 @@ namespace PLC.Drive.S7.NetCore
                 var maxToRead = (int)Math.Min(count, MaxPDUSize - 18);
                 byte[] bytes = ReadBytesWithSingleRequest(dataType, db, index, maxToRead);
                 if (bytes == null)
-                    return resultBytes.ToArray();
+                {
+                    var result = resultBytes.ToArray();
+                    resultBytes.Clear();
+                    resultBytes = null;
+                    return result;
+                }
                 resultBytes.AddRange(bytes);
                 count -= maxToRead;
                 index += maxToRead;
             }
-            return resultBytes.ToArray();
+            var result1 = resultBytes.ToArray();
+            resultBytes.Clear();
+            resultBytes = null;
+            return result1;
         }
 
         /// <summary>
@@ -359,6 +367,8 @@ namespace PLC.Drive.S7.NetCore
                 lock (streamLock)
                 {
                     stream.Write(package.Array, 0, package.Array.Length);
+                    package.Clear();
+                    package = null;
 
                     var s7data = COTP.TSDU.Read(stream);
                     if (s7data == null || s7data[14] != 0xff)
@@ -390,6 +400,8 @@ namespace PLC.Drive.S7.NetCore
             lock (streamLock)
             {
                 stream.Write(message.Array, 0, length);
+                message.Clear();
+                message = null;
 
                 var response = COTP.TSDU.Read(stream);
                 S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
@@ -429,6 +441,8 @@ namespace PLC.Drive.S7.NetCore
                 lock (streamLock)
                 {
                     stream.Write(package.Array, 0, package.Array.Length);
+                    package.Clear();
+                    package = null;
 
                     var s7data = COTP.TSDU.Read(stream);
                     if (s7data == null || s7data[14] != 0xff)
@@ -477,6 +491,8 @@ namespace PLC.Drive.S7.NetCore
                 lock(streamLock)
                 {
                     stream.Write(package.Array, 0, package.Array.Length);
+                    package.Clear();
+                    package = null;
 
                     var s7data = COTP.TSDU.Read(stream);
                     if (s7data == null || s7data[14] != 0xff)
@@ -518,6 +534,8 @@ namespace PLC.Drive.S7.NetCore
                 lock(streamLock)
                 {
                     stream.Write(package.Array, 0, package.Array.Length);
+                    package.Clear();
+                    package = null;
 
                     var s7data = COTP.TSDU.Read(stream); //TODO use Async
                     if (s7data == null || s7data[14] != 0xff)

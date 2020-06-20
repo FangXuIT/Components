@@ -32,10 +32,12 @@ namespace Terminal.Collector.HMI
 
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
             InitialTray();
 
             Server= new CollectorServer(new CollectorStoreImple());
+            Server.EnabledOpcUA = false;
+            Server.PushDataToRedis = true;
             Server.InitScanServerAsync().Wait();
 
             this.DataContext = Server;

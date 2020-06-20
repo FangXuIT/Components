@@ -304,3 +304,4 @@ E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\T
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.dll
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.pdb
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.genruntimeconfig.cache
+E:\code\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\CSRedisCore.dll

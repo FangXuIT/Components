@@ -110,6 +110,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "CSRedisCore": {
+              "target": "Package",
+              "version": "[3.6.5, )"
+            },
             "OPCFoundation.NetStandard.Opc.Ua": {
               "target": "Package",
               "version": "[1.4.361.39, )"
