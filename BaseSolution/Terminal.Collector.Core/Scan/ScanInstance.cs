@@ -251,15 +251,24 @@ namespace Terminal.Collector.Core.Scan
             {
                 var dtNow = System.DateTime.Now;
                 if (refKey.EndsWith(".ZCSJ"))
-                {//装车开始时间                
-                    Ps_Batch entity = new Ps_Batch();
-                    entity.Id = Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
-                    entity.LineId = rel.LineId;
-                    entity.LoadingWeight = 0;
-                    entity.SnatchCount = 0;
-                    entity.Status = 0;
-                    entity.StartTime = dtNow;
-                    entity.ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
+                {//装车开始时间
+                    var TruckLicense = Channel.Nodes[rel.PrefixTarget + ".CPH"].Value.ToString().Trim();
+                    var entity = await store.GetBatchAsync(p => p.LineId == rel.LineId && p.Status == 0 && p.TruckLicense.Trim() == TruckLicense);
+
+                    bool hasRecord = true;
+                    if(entity==null)
+                    {
+                        entity = new Ps_Batch();
+                        entity.Id = Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
+                        entity.LineId = rel.LineId;
+                        entity.LoadingWeight = 0;
+                        entity.SnatchCount = 0;
+                        entity.Status = 0;
+                        entity.StartTime = dtNow;
+                        entity.ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
+
+                        hasRecord = false;
+                    }                    
 
                     entity.TruckSizeWidth = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".CXNCKD"].Value);        //车辆车厢内侧宽度
                     entity.TruckSizeLong = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".CXNCCD"].Value);    //车辆车厢内侧长度
@@ -268,7 +277,10 @@ namespace Terminal.Collector.Core.Scan
                     entity.StackType = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".DXSZ"].Value);         //垛型设置
                     entity.PlanPackages = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".SDZCBS"].Value);    //设定装车包数
 
-                    await store.InsertBatchAsync(entity);
+                    if (hasRecord)
+                        await store.UpdateBatchAsync(entity);
+                    else
+                        await store.InsertBatchAsync(entity);
                 }
                 else if (refKey.EndsWith(".ZCWB"))
                 {//装车完毕

@@ -12,7 +12,7 @@ namespace Terminal.Collector.Store
         {
             return new SqlSugarClient(new ConnectionConfig()
             {
-                ConnectionString = "server=10.76.20.194;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
+                ConnectionString = "server=192.168.11.90;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
                 //ConnectionString = "server=localhost;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
                 DbType = DbType.MySql,//设置数据库类型
                 IsAutoCloseConnection = true,//自动释放数据务，如果存在事务，在事务结束后释放

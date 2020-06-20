@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vRcQ05td4Asqzfr7LkTbyZm1oMgRjaTgYb+0IEkQsckaF2wqFJNBgxn3XlTP+IPVfv1JXFUsVAb0JwTml2KUog==",
+  "dgSpecHash": "KVG81b6UjkNzM/a/ibJhfSEloltZtsSz8P3H+V9BmIrDJRKSbRPTDGOZ9s+apDuE7pv+h8Lv7M+WdBPKG+vegQ==",
   "success": true,
-  "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
-  ],
+  "projectFilePath": "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

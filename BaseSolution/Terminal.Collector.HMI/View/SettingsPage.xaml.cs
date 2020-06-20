@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,15 +20,17 @@ namespace Terminal.Collector.HMI.View
     /// </summary>
     public partial class SettingsPage : Page
     {
+        private CollectorServer server;
+
         public SettingsPage()
         {
             InitializeComponent();
+            server = (CollectorServer)Application.Current.MainWindow.DataContext;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             btnStart.IsEnabled = false;
-            var server = (CollectorServer)Application.Current.MainWindow.DataContext;
             server.StartAsync();
         }
     }

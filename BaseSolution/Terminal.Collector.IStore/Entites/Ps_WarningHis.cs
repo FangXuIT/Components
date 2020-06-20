@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -13,12 +14,13 @@ namespace Terminal.Collector.IStore.Entites
 
 
            }
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:False
-           /// </summary>           
-           public long Id {get;set;}
+        /// <summary>
+        /// Desc:
+        /// Default:
+        /// Nullable:False
+        /// </summary>        
+        [SugarColumn(IsPrimaryKey = true)] //是主键, 还是标识列
+        public long Id {get;set;}
 
            /// <summary>
            /// Desc:设备Id
