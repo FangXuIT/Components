@@ -130,7 +130,7 @@ namespace Terminal.Collector.Core.OpcUA
                 PropertyState property = BuildPropertyState(trigger, node.Key, node.Name, DataTypeHelper.GetDataTypeId(node.OpcNodeType));
                 trigger.AddChild(property);
 
-                LogHelper.Instance.Info(string.Format("Node:{0} is OK.",node.Key));
+                //LogHelper.Instance.Info(string.Format("Node:{0} is OK.",node.Key));
             }
         }
 
