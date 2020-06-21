@@ -36,14 +36,6 @@ namespace Terminal.Collector.Core
 
         public CollectorServer(ICollectorStore _store)
         {
-            try
-            {
-                RedisHelper.Initialization(new CSRedis.CSRedisClient("192.168.11.95:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
-            }
-            catch (Exception ex)
-            {
-            }
-
             InstanceList = new List<ScanInstance>();
             store = _store;
         }

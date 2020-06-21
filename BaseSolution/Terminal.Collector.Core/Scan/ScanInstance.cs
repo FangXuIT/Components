@@ -286,7 +286,11 @@ namespace Terminal.Collector.Core.Scan
                 {//装车完毕
                     var TruckLicense = Channel.Nodes[rel.PrefixTarget + ".CPH"].Value.ToString().Trim();
 
-                    var entity = await store.GetBatchAsync(p => p.LineId == rel.LineId && p.Status == 0 && p.TruckLicense.Trim() == TruckLicense);
+                    var entity = await store.GetBatchAsync(p => 
+                        p.StartTime>= System.DateTime.Now.AddHours(-4)
+                        && p.Status == 0 
+                        && p.TruckLicense.Trim() == TruckLicense);
+
                     if(entity!=null)
                     {
                         entity.Status = 1;
@@ -294,7 +298,7 @@ namespace Terminal.Collector.Core.Scan
 
                         entity.RealPackages = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".JQRSJZQCS"].Value);        //机器人实际抓取次数
                         entity.LoadingWeight = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".DQZCZL"].Value);          //当前装车重量
-                        entity.SnatchCount = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".JQRSJZQBS"].Value);         //机器人实际抓取包数
+                        entity.SnatchCount = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".JQRSJZQBS"].14);         //机器人实际抓取包数
                     }
                 }
             }

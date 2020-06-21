@@ -30,8 +30,7 @@ namespace Terminal.Collector.HMI.View
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            btnStart.IsEnabled = false;
-            server.StartAsync();
+            if(!server.IsRuning) server.StartAsync();
         }
     }
 }

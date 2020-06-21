@@ -187,6 +187,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "CSRedisCore": {
+              "target": "Package",
+              "version": "[3.6.5, )"
+            },
             "MahApps.Metro": {
               "target": "Package",
               "version": "[2.0.1, )"

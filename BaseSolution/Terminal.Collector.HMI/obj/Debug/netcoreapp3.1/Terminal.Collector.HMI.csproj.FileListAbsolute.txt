@@ -297,7 +297,6 @@ E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\V
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\View\SettingsPage.baml
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\View\TargetPage.baml
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.g.resources
-E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.csproj.CoreCompileInputs.cache
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.AssemblyInfoInputs.cache
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.AssemblyInfo.cs
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.csproj.CopyComplete
@@ -305,3 +304,4 @@ E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\T
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.pdb
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.genruntimeconfig.cache
 E:\code\Components\BaseSolution\Terminal.Collector.HMI\bin\Debug\netcoreapp3.1\CSRedisCore.dll
+E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\Terminal.Collector.HMI.csproj.CoreCompileInputs.cache

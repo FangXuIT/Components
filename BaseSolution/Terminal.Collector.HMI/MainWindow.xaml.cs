@@ -34,11 +34,41 @@ namespace Terminal.Collector.HMI
         {
             //InitializeComponent();
             InitialTray();
+            InitServer();
+        }
 
-            Server= new CollectorServer(new CollectorStoreImple());
+        private async Task InitServer()
+        {
+            Server = new CollectorServer(new CollectorStoreImple());
             Server.EnabledOpcUA = false;
-            Server.PushDataToRedis = true;
-            Server.InitScanServerAsync().Wait();
+
+            try
+            {
+                RedisHelper.Initialization(new CSRedis.CSRedisClient("127.0.0.1:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
+                Server.PushDataToRedis = true;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.Error(string.Format("Initialization Redis:{0}", ex.Message));
+            }
+
+            try
+            {
+                await Server.InitScanServerAsync();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.Error(string.Format("Init Scan Server:{0}", ex.Message));
+            }
+
+            try
+            {
+                await Server.StartAsync();
+            }
+            catch(Exception ex)
+            {
+                LogHelper.Instance.Error(string.Format("Server Start:{0}", ex.Message));
+            }
 
             this.DataContext = Server;
         }

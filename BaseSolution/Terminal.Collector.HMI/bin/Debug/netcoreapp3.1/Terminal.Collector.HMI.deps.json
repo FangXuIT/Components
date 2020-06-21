@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "Terminal.Collector.HMI/1.0.0": {
         "dependencies": {
+          "CSRedisCore": "3.6.5",
           "MahApps.Metro": "2.0.1",
           "MahApps.Metro.IconPacks": "4.2.0",
           "System.Drawing.Common": "4.7.0",
