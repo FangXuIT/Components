@@ -25,7 +25,7 @@ namespace Terminal.Collector.HMI.View
             InitializeComponent();
 
             var server = (CollectorServer)Application.Current.MainWindow.DataContext;
-            gdIntance.ItemsSource = (from u in server.InstanceList select u.Channel).ToList();
+            if(server!=null) gdIntance.ItemsSource = (from u in server.InstanceList select u.Channel).ToList();
         }
     }
 }

@@ -1,52 +1,75 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using Terminal.Collector.Store;
+using System.Collections.Generic;
 using System.Linq;
-using PLC.Drive.S7.NetCore;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Sharp7;
 
-namespace Terminal.Collector.Test
+namespace Sharp7Example
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var store = new CollectorStoreImple();
-
-            var plcList = store.GetPlcListAsync().Result;
-            var targetList = store.GetTargetListAsync().Result;
-            foreach(var entity in plcList)
+            //-------------- Create and connect the client
+            var client = new S7Client();
+            int result = client.ConnectTo("192.168.11.95", 0, 1);
+            if (result == 0)
             {
-                try
-                {
-                    var _p = new Plc(DataTypeHelper.GetPlcType(entity.CpuType), entity.Ip, entity.Port, entity.Rack, entity.Slot);
-                    _p.Open();
-
-                    var _ts = (from u in targetList where u.PlcId == entity.Id && u.VarType==7 select u).ToList();
-                    
-                    foreach(var tag in _ts)
-                    {
-                        try
-                        {
-                            var type = DataTypeHelper.GetVarType(tag.VarType);
-                            object obj = _p.Read(DataTypeHelper.GetDataType(tag.DataType), tag.DB, tag.StartByteAdr, type, tag.Count, (byte)tag.BitAdr);
-                            string message = string.Format(@"{0}={1}", tag.Address, DataTypeHelper.ParseVarValue(type, obj, tag.Count));
-                            Console.WriteLine(message);
-                        }
-                        catch(Exception ex)
-                        {
-                            Console.WriteLine(string.Format("{0}:取值错误", tag.Address));
-                        }
-                    }
-                    _p.Close();
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(string.Format("无法连接上PLC:{0},ID={1}.", entity.Name, entity.Id));
-                }
-
-                Console.WriteLine("处理完毕!");
-                Console.ReadLine();
+                Console.WriteLine("Connected to 192.168.11.95");
             }
+            else
+            {
+                Console.WriteLine(client.ErrorText(result));
+                Console.ReadKey();
+                return;
+            }
+
+            byte[] Buffer = new byte[65536];
+            client.DBRead(7, 0, 65536, Buffer);
+
+            var val1 = S7.GetBitAt(Buffer, 0, 5);
+            Console.WriteLine(string.Format("val1={0}", val1));
+            //while(true)
+            //{
+            //    byte[] Buffer = new byte[65536];
+            //    client.DBRead(1006, 0, 65536, Buffer);
+            //    int Line5_LLJS = S7.GetIntAt(Buffer, 48);
+            //    Console.WriteLine(string.Format("Line5_LLJS={0}", Line5_LLJS));
+
+            //    int Line5_SDZCBS= S7.GetIntAt(Buffer, 36);
+            //    Console.WriteLine(string.Format("Line5_SDZCBS={0}", Line5_SDZCBS));
+
+            //    Thread.Sleep(1000);
+            //}
+
+            client.Disconnect();
+
+
+            //int CXNCCD = S7.GetIntAt(Buffer, 40);
+            //Console.WriteLine(string.Format("CXNCCD={0}", CXNCCD));
+
+            //int CKGD = S7.GetIntAt(Buffer, 6);
+            //Console.WriteLine(string.Format("CKGD={0}", CKGD));
+
+            //int SDZCBS = S7.GetIntAt(Buffer, 36);
+            //Console.WriteLine(string.Format("SDZCBS={0}", SDZCBS));
+
+            //int JHZQCS = S7.GetIntAt(Buffer, 34);
+            //Console.WriteLine(string.Format("JHZQCS={0}", JHZQCS));
+
+            //int DQZCSKZL = S7.GetIntAt(Buffer, 176);
+            //Console.WriteLine(string.Format("DQZCSKZL={0}", DQZCSKZL));
+
+            //byte[] Buffer2 = new byte[65536];
+            //client.ABRead(0, 65536, Buffer2);
+            //int ZCSJ = S7.GetDIntAt(Buffer2, 0);
+            //Console.WriteLine(string.Format("ZCSJ={0}", ZCSJ));
+
+
+
+            Console.ReadLine();
         }
     }
 }

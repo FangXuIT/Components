@@ -15,6 +15,14 @@ namespace Terminal.Collector.Store
 {
     public class CollectorStoreImple : ICollectorStore
     {
+        public async Task<List<Pb_Line>> GetLineListAsync()
+        {
+            using (var db = DBContext.Client())
+            {
+                return await db.Queryable<Pb_Line>().ToListAsync();
+            }
+        }
+
         public async Task<List<PlcModel>> GetPlcListAsync()
         {
             using(var db=DBContext.Client())
@@ -62,7 +70,7 @@ namespace Terminal.Collector.Store
         {
             using (var db = DBContext.Client())
             {
-                return await db.Queryable<Ps_Batch>().Where(expression).SingleAsync();
+                return await db.Queryable<Ps_Batch>().Where(expression).FirstAsync();
             }
         }
 
@@ -74,7 +82,7 @@ namespace Terminal.Collector.Store
             }
         }
 
-        public async Task UpdateBatchAsync(Ps_Batch data)
+        public async Task UpdateBatchAsync(List<Ps_Batch> data)
         {
             using (var db = DBContext.Client())
             {

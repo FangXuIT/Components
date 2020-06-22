@@ -44,6 +44,7 @@ namespace Terminal.Collector.HMI
 
             try
             {
+                //RedisHelper.Initialization(new CSRedis.CSRedisClient("192.168.11.95:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
                 RedisHelper.Initialization(new CSRedis.CSRedisClient("127.0.0.1:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
                 Server.PushDataToRedis = true;
             }

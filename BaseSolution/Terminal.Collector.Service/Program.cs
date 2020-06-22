@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using S7.Net;
 using Terminal.Collector.Core;
 using Terminal.Collector.Core.Scan;
 using Terminal.Collector.Store;

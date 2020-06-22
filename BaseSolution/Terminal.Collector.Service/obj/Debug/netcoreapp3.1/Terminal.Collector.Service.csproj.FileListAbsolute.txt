@@ -31,7 +31,6 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\S7.Net.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\System.Diagnostics.EventLog.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.EventLog.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\Terminal.Collector.Core.dll
@@ -126,3 +125,9 @@ E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\System.ServiceProcess.ServiceController.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\obj\Debug\netcoreapp3.1\Terminal.Collector.Service.csproj.CoreCompileInputs.cache
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\CSRedisCore.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\IdHelper.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\IdHelper.Zookeeper.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\ZooKeeperNetEx.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Service\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb

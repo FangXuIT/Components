@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\code\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\obj\Debug\netcoreapp3.1\
 Terminal.Collector.HMI
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
-E:\code\Components\BaseSolution\Terminal.Collector.HMI\App.xaml
+E:\工作目录\git\Components\BaseSolution\Terminal.Collector.HMI\App.xaml
 7-1257677772
 2-1935306999
 9-547575558
-288-1489906593
+288-2013023654
 MainWindow.xaml;View\HamburgerMenu.xaml;View\InfoPage.xaml;View\InstancePage.xaml;View\LogPage.xaml;View\SettingsPage.xaml;View\TargetPage.xaml;
 
 False

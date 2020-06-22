@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Terminal.Collector.Core.Data;
 using Terminal.Collector.IStore;
 using Terminal.Collector.IStore.Entites;
 
@@ -177,12 +178,12 @@ namespace Terminal.Collector.Core.Scan
                     }
                 }
             }
-            FlushValueAsync();
+            FlushValue();
         }
 
-        private async Task FlushValueAsync()
+        private async Task FlushValue()
         {
-            var time = System.DateTime.UtcNow;
+            var time = System.DateTime.Now;
             try
             {
                 foreach(var dir in DataList)
@@ -200,8 +201,8 @@ namespace Terminal.Collector.Core.Scan
                                     && node.DB == data.DB
                                     && node.StartByteAdr == data.StartByteAdr)
                                 {
-                                    await node.FlushValueAsync(data.Value, time);
-                                    await FlushCascadeRelationNodes(time, data, node);
+                                    DataCenter.Instance.SetValue(node.Key, data.Value, time);
+                                    node.FlushValue(data.Value, time);
                                 }
                             }
                         }
@@ -211,100 +212,6 @@ namespace Terminal.Collector.Core.Scan
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-        }
-
-        private async Task FlushCascadeRelationNodes(System.DateTime time, DataItem data, TargetNode node)
-        {
-            if (CascadeConfig.Instance.Relations.ContainsKey(node.Key))
-            {
-                var rel = CascadeConfig.Instance.Relations[node.Key];
-                if (rel.OldValue != data.Value)
-                {
-                    if (rel.LimitValue != data.Value)
-                    {
-                        foreach (var relkey in rel.CascadeTargetKey)
-                        {
-                            try
-                            {
-                                var target = Channel.Nodes[relkey];
-                                target.Value = TerminalClient.Instance.Read(Channel.Id, target);
-                                await target.FlushValueAsync(target.Value, time);
-                            }
-                            catch (Exception ex)
-                            {
-                                LogHelper.Instance.Error(string.Format("FlushCascadeRelationNodes {0}:{1}", relkey, ex.Message));
-                                ErrorCount += 1;
-                            }
-                        }
-
-                        rel.OldValue = data.Value;
-                        await SaveBatchDataAsync(node.Key, rel);
-                    }
-                }
-            }
-        }
-
-        private async Task SaveBatchDataAsync(string refKey,CascadeRelation rel)
-        {
-            try
-            {
-                var dtNow = System.DateTime.Now;
-                if (refKey.EndsWith(".ZCSJ"))
-                {//装车开始时间
-                    var TruckLicense = Channel.Nodes[rel.PrefixTarget + ".CPH"].Value.ToString().Trim();
-                    var entity = await store.GetBatchAsync(p => p.LineId == rel.LineId && p.Status == 0 && p.TruckLicense.Trim() == TruckLicense);
-
-                    bool hasRecord = true;
-                    if(entity==null)
-                    {
-                        entity = new Ps_Batch();
-                        entity.Id = Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
-                        entity.LineId = rel.LineId;
-                        entity.LoadingWeight = 0;
-                        entity.SnatchCount = 0;
-                        entity.Status = 0;
-                        entity.StartTime = dtNow;
-                        entity.ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
-
-                        hasRecord = false;
-                    }                    
-
-                    entity.TruckSizeWidth = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".CXNCKD"].Value);        //车辆车厢内侧宽度
-                    entity.TruckSizeLong = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".CXNCCD"].Value);    //车辆车厢内侧长度
-                    entity.TruckSizeHeight = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".CKGD"].Value);   //车箱大小（高）
-                    entity.TruckLicense = Channel.Nodes[rel.PrefixTarget + ".CPH"].Value.ToString();             //车牌号
-                    entity.StackType = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".DXSZ"].Value);         //垛型设置
-                    entity.PlanPackages = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".SDZCBS"].Value);    //设定装车包数
-
-                    if (hasRecord)
-                        await store.UpdateBatchAsync(entity);
-                    else
-                        await store.InsertBatchAsync(entity);
-                }
-                else if (refKey.EndsWith(".ZCWB"))
-                {//装车完毕
-                    var TruckLicense = Channel.Nodes[rel.PrefixTarget + ".CPH"].Value.ToString().Trim();
-
-                    var entity = await store.GetBatchAsync(p => 
-                        p.StartTime>= System.DateTime.Now.AddHours(-4)
-                        && p.Status == 0 
-                        && p.TruckLicense.Trim() == TruckLicense);
-
-                    if(entity!=null)
-                    {
-                        entity.Status = 1;
-                        entity.EndTime = dtNow;
-
-                        entity.RealPackages = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".JQRSJZQCS"].Value);        //机器人实际抓取次数
-                        entity.LoadingWeight = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".DQZCZL"].Value);          //当前装车重量
-                        entity.SnatchCount = Convert.ToInt32(Channel.Nodes[rel.PrefixTarget + ".JQRSJZQBS"].14);         //机器人实际抓取包数
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                LogHelper.Instance.Error(string.Format("SaveBatchDataAsync {0}:{1}", refKey, ex.Message));
             }
         }
     }

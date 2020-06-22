@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,14 +26,13 @@ namespace Terminal.Collector.Core
 
         private LogHelper()
         {
-            Logs = new List<LogInfo>();
+            Logs = new ConcurrentQueue<LogInfo>();
         }
 
         #endregion
-        private readonly object listLock = new object();
 
-        public List<LogInfo> Logs { private set; get; }
-        private int MaxCount = 500;
+        public ConcurrentQueue<LogInfo> Logs { private set; get; }
+        private int MaxCount = 100;
 
         public void Error(string content)
         {
@@ -41,19 +41,17 @@ namespace Terminal.Collector.Core
 
         public void Error(DateTime time, string content)
         {
-            try
+            Logs.Enqueue(new LogInfo(time, "error", content));
+            while(Logs.Count>MaxCount)
             {
-                lock (listLock)
+                LogInfo item = null;
+                Logs.TryDequeue(out item);
+                if(item!=null)
                 {
-                    Logs.Insert(0, new LogInfo(time, "error", content));
-                    if (Logs.Count > MaxCount)
-                    {
-                        Logs.RemoveRange(Logs.Count - 101, 100);
-                    }
-                }
+                    item.Msg = string.Empty;
+                    item = null;
+                }                
             }
-            catch(Exception ex)
-            { }
         }
 
         public void Info(string content)
@@ -63,21 +61,16 @@ namespace Terminal.Collector.Core
 
         public void Info(DateTime time, string content)
         {
-            try
+            Logs.Enqueue(new LogInfo(time, "info", content));
+            while (Logs.Count > MaxCount)
             {
-                lock (listLock)
+                LogInfo item = null;
+                Logs.TryDequeue(out item);
+                if (item != null)
                 {
-                    Logs.Insert(0, new LogInfo(time, "info", content));
-
-                    if (Logs.Count > MaxCount)
-                    {
-                        Logs.RemoveRange(Logs.Count - 101, 100);
-                    }
+                    item.Msg = string.Empty;
+                    item = null;
                 }
-            }
-            catch(Exception ex)
-            {
-
             }
         }
     }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vvNJKuG/Q6873rxp8+7AhzepDkuPraGqm8SyHrxg9ykwpQ394qfmazkg958/Dq84CMO52hHu0thRZHJ9S1+LPQ==",
+  "dgSpecHash": "5OlmI+LkerYTHroqKv7Ms4XJnk4XSWHmUSqXfka3N9BYn1MfC6uk407bgYlZwww6wZB/5yOvrvws8peugZ9fQA==",
   "success": true,
-  "projectFilePath": "E:\\code\\Components\\BaseSolution\\Test.ThreadTimer\\Test.ThreadTimer.csproj",
+  "projectFilePath": "E:\\工作目录\\git\\Components\\BaseSolution\\Test.ThreadTimer\\Test.ThreadTimer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tzjac\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\google.protobuf\\3.6.1\\google.protobuf.3.6.1.nupkg.sha512",
@@ -11,7 +11,7 @@
     "C:\\Users\\tzjac\\.nuget\\packages\\k4os.compression.lz4\\1.1.11\\k4os.compression.lz4.1.1.11.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\k4os.compression.lz4.streams\\1.1.11\\k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.data.sqlite\\2.2.4\\microsoft.data.sqlite.2.2.4.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.data.sqlite.core\\2.2.4\\microsoft.data.sqlite.core.2.2.4.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
@@ -54,7 +54,7 @@
     "C:\\Users\\tzjac\\.nuget\\packages\\ssh.net\\2016.1.0\\ssh.net.2016.1.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\sshnet.security.cryptography\\1.2.0\\sshnet.security.cryptography.1.2.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
@@ -62,7 +62,7 @@
     "C:\\Users\\tzjac\\.nuget\\packages\\system.data.common\\4.3.0\\system.data.common.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.data.sqlclient\\4.4.0\\system.data.sqlclient.4.4.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.diagnostics.tracesource\\4.0.0\\system.diagnostics.tracesource.4.0.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
@@ -116,7 +116,7 @@
     "C:\\Users\\tzjac\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.tasks.extensions\\4.3.0\\system.threading.tasks.extensions.4.3.0.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.tasks.extensions\\4.3.0\\system.threading.tasks.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.thread\\4.0.0\\system.threading.thread.4.0.0.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.threadpool\\4.0.10\\system.threading.threadpool.4.0.10.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
@@ -126,7 +126,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.0.1\\system.xml.xmldocument.4.0.1.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.xml.xpath\\4.0.1\\system.xml.xpath.4.0.1.nupkg.sha512",
     "C:\\Users\\tzjac\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.0.1\\system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
-    "C:\\Users\\tzjac\\.nuget\\packages\\zookeepernetex\\3.4.12.4\\zookeepernetex.3.4.12.4.nupkg.sha512"
+    "C:\\Users\\tzjac\\.nuget\\packages\\zookeepernetex\\3.4.12.4\\zookeepernetex.3.4.12.4.nupkg.sha512",
+    "C:\\Users\\tzjac\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
   ],
   "logs": []
 }

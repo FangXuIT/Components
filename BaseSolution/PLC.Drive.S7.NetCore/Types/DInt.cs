@@ -16,6 +16,7 @@ namespace PLC.Drive.S7.NetCore.Types
             {
                 throw new ArgumentException("Wrong number of bytes. Bytes array must contain 4 bytes.");
             }
+            //return BitConverter.ToInt32(bytes);
             return bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3];
         }
 

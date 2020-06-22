@@ -9,10 +9,10 @@ namespace Test.ThreadTimer
     {
         static void Main(string[] args)
         {
-            using (var db=DBContext.Client())
-            {
-                db.DbFirst.CreateClassFile("E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Entites\\", "Terminal.Collector.Store.Entites");
-            }
+            //using (var db=DBContext.Client())
+            //{
+            //    db.DbFirst.CreateClassFile("E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Entites\\", "Terminal.Collector.Store.Entites");
+            //}
             //CollectorPool pool = new CollectorPool();
             //int idx = 1;
             //while (true)

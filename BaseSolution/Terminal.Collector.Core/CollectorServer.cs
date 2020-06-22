@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Collector.Core.Data;
 using Terminal.Collector.Core.OpcUA;
 using Terminal.Collector.Core.Scan;
 using Terminal.Collector.Core.Util;
@@ -38,6 +39,7 @@ namespace Terminal.Collector.Core
         {
             InstanceList = new List<ScanInstance>();
             store = _store;
+            DataCenter.Instance.StartSaveData();
         }
 
         public async Task StartAsync()

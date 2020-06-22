@@ -64,3 +64,6 @@ E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreap
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Terminal.Collector.Store.pdb
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\Terminal.Collector.IStore.pdb
 E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\obj\Debug\netcoreapp3.1\Test.ThreadTimer.csproj.CopyComplete
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\IdHelper.dll
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\IdHelper.Zookeeper.dll
+E:\工作目录\git\Components\BaseSolution\Test.ThreadTimer\bin\Debug\netcoreapp3.1\ZooKeeperNetEx.dll

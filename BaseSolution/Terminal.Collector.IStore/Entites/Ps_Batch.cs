@@ -11,8 +11,6 @@ namespace Terminal.Collector.IStore.Entites
     public partial class Ps_Batch
     {
         public Ps_Batch() {
-
-
         }
         /// <summary>
         /// Desc:主键

@@ -1,11 +1,3 @@
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.csproj.CoreCompileInputs.cache
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.AssemblyInfoInputs.cache
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.AssemblyInfo.cs
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.deps.json
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
-E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.deps.json
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
@@ -15,3 +7,12 @@ E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.AssemblyInfo.cs
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
 E:\code\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.deps.json
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\bin\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.AssemblyInfoInputs.cache
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.AssemblyInfo.cs
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.csproj.CoreCompileInputs.cache
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.dll
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.pdb
+E:\工作目录\git\Components\BaseSolution\PLC.Drive.S7.NetCore\obj\Debug\netcoreapp3.1\PLC.Drive.S7.NetCore.csprojAssemblyReference.cache

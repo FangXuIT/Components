@@ -215,12 +215,14 @@ namespace PLC.Drive.S7.NetCore
                 offset += 4;
 
                 int byteCnt = VarTypeToByteLength(dataItem.VarType, dataItem.Count);
-                dataItem.Value = ParseBytes(
+                var value= ParseBytes(
                     dataItem.VarType,
                     s7data.Skip(offset).Take(byteCnt).ToArray(),
                     dataItem.Count,
                     dataItem.BitAdr
                 );
+                if (dataItem.VarType == VarType.DInt && Convert.ToInt32(value) >= 0) dataItem.Value = value;
+                else dataItem.Value = value;
 
                 // next Item
                 offset += byteCnt;
