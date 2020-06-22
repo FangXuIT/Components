@@ -229,3 +229,4 @@ E:\code\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\
 E:\code\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.pdb
 E:\code\Components\BaseSolution\Terminal.Collector.Test\obj\Debug\netcoreapp3.1\Terminal.Collector.Test.genruntimeconfig.cache
 E:\工作目录\git\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\CSRedisCore.dll
+E:\code\Components\BaseSolution\Terminal.Collector.Test\bin\Debug\netcoreapp3.1\CSRedisCore.dll

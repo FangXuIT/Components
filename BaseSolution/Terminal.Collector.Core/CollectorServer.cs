@@ -30,6 +30,8 @@ namespace Terminal.Collector.Core
 
         public bool IsRuning { private set; get; }
 
+        private DataCenter ins;
+
         private CollectorServer()
         {
 
@@ -39,7 +41,7 @@ namespace Terminal.Collector.Core
         {
             InstanceList = new List<ScanInstance>();
             store = _store;
-            DataCenter.Instance.StartSaveData();
+            ins = DataCenter.Instance;
         }
 
         public async Task StartAsync()

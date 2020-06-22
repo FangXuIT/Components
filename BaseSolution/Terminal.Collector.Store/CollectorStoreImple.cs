@@ -82,7 +82,7 @@ namespace Terminal.Collector.Store
             }
         }
 
-        public async Task UpdateBatchAsync(List<Ps_Batch> data)
+        public async Task UpdateBatchAsync(Ps_Batch data)
         {
             using (var db = DBContext.Client())
             {

@@ -181,7 +181,7 @@ namespace Terminal.Collector.Core.Scan
             FlushValue();
         }
 
-        private async Task FlushValue()
+        private void FlushValue()
         {
             var time = System.DateTime.Now;
             try

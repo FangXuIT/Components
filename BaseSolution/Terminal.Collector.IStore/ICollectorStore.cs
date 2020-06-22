@@ -18,7 +18,7 @@ namespace Terminal.Collector.IStore
 
         Task InsertBatchAsync(Ps_Batch data);
 
-        Task UpdateBatchAsync(List<Ps_Batch> data);
+        Task UpdateBatchAsync(Ps_Batch data);
 
         Task<Ps_Batch> GetBatchAsync(Expression<Func<Ps_Batch, bool>> expression);
     }

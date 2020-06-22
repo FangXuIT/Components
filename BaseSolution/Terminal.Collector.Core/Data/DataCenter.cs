@@ -50,28 +50,11 @@ namespace Terminal.Collector.Core.Data
         /// </summary>
         public Dictionary<string,int> KeyLineRelation { private set; get; }
 
-        /// <summary>
-        /// 待保存的数据列表
-        /// </summary>
-        public ConcurrentQueue<Ps_Batch> Data { private set; get; }
-
-        /// <summary>
-        /// 扫描频率(默认值：60000,单位：毫秒)
-        /// </summary>
-        public int Interval { set; get; }
-        /// <summary>
-        /// 扫描定时器
-        /// </summary>
-        private System.Threading.Timer timerScan;
-        private AutoResetEvent autoEvent;
-
         private DataCenter()
         {
             successed = false;
-            Interval = 60000;
             store = new CollectorStoreImple();
             Lines = new Dictionary<int, LineManager>();
-            Data = new ConcurrentQueue<Ps_Batch>();
 
 
             InitKeyLineRelation();
@@ -90,7 +73,7 @@ namespace Terminal.Collector.Core.Data
             KeyLineRelation.Add("PLC1.Line1.CPH", LineID);            //车牌号
             KeyLineRelation.Add("PLC1.Line1.DXSZ", LineID);           //垛型设置
             KeyLineRelation.Add("PLC1.Line1.SDZCBS", LineID);         //设定装车包数
-            KeyLineRelation.Add("PLC1.Line1.ZCSJ", LineID);          //装车时间
+            KeyLineRelation.Add("PLC1.Line1.ZCZT", LineID);          //装车状态
             KeyLineRelation.Add("PLC1.Line1.JQRSJZQCS", LineID);     //机器人实际抓取次数
             KeyLineRelation.Add("PLC1.Line1.DQZCZL", LineID);        //当前装车重量
             KeyLineRelation.Add("PLC1.Line1.JQRSJZQBS", LineID);     //机器人实际抓取包数
@@ -104,7 +87,7 @@ namespace Terminal.Collector.Core.Data
             KeyLineRelation.Add("PLC1.Line2.CPH", LineID);            //车牌号
             KeyLineRelation.Add("PLC1.Line2.DXSZ", LineID);           //垛型设置
             KeyLineRelation.Add("PLC1.Line2.SDZCBS", LineID);         //设定装车包数
-            KeyLineRelation.Add("PLC1.Line2.ZCSJ", LineID);          //装车时间
+            KeyLineRelation.Add("PLC1.Line2.ZCZT", LineID);          //装车状态
             KeyLineRelation.Add("PLC1.Line2.JQRSJZQCS", LineID);     //机器人实际抓取次数
             KeyLineRelation.Add("PLC1.Line2.DQZCZL", LineID);        //当前装车重量
             KeyLineRelation.Add("PLC1.Line2.JQRSJZQBS", LineID);     //机器人实际抓取包数
@@ -118,7 +101,7 @@ namespace Terminal.Collector.Core.Data
             KeyLineRelation.Add("PLC2.Line4.CPH", LineID);            //车牌号
             KeyLineRelation.Add("PLC2.Line4.DXSZ", LineID);           //垛型设置
             KeyLineRelation.Add("PLC2.Line4.SDZCBS", LineID);         //设定装车包数
-            KeyLineRelation.Add("PLC2.Line4.ZCSJ", LineID);          //装车时间
+            KeyLineRelation.Add("PLC2.Line4.ZCZT", LineID);          //装车状态
             KeyLineRelation.Add("PLC2.Line4.JQRSJZQCS", LineID);     //机器人实际抓取次数
             KeyLineRelation.Add("PLC2.Line4.DQZCZL", LineID);        //当前装车重量
             KeyLineRelation.Add("PLC2.Line4.JQRSJZQBS", LineID);     //机器人实际抓取包数
@@ -132,7 +115,7 @@ namespace Terminal.Collector.Core.Data
             KeyLineRelation.Add("PLC2.Line5.CPH", LineID);            //车牌号
             KeyLineRelation.Add("PLC2.Line5.DXSZ", LineID);           //垛型设置
             KeyLineRelation.Add("PLC2.Line5.SDZCBS", LineID);         //设定装车包数
-            KeyLineRelation.Add("PLC2.Line5.ZCSJ", LineID);          //装车时间
+            KeyLineRelation.Add("PLC2.Line5.ZCZT", LineID);          //装车状态
             KeyLineRelation.Add("PLC2.Line5.JQRSJZQCS", LineID);     //机器人实际抓取次数
             KeyLineRelation.Add("PLC2.Line5.DQZCZL", LineID);        //当前装车重量
             KeyLineRelation.Add("PLC2.Line5.JQRSJZQBS", LineID);     //机器人实际抓取包数
@@ -148,57 +131,6 @@ namespace Terminal.Collector.Core.Data
                 Lines.Add(line.Id, new LineManager());
             }
             successed = true;            
-        }
-
-        public void StartSaveData()
-        {
-            try
-            {
-                autoEvent = new AutoResetEvent(false);
-                timerScan = new System.Threading.Timer(new TimerCallback(TimeCall), autoEvent, 0, Interval);
-            }
-            catch(Exception ex)
-            {
-                LogHelper.Instance.Error(string.Format("DataCenter StartSaveData:", ex.Message));
-            }
-        }
-
-        /// <summary>
-        /// 定时存储数据
-        /// </summary>
-        /// <param name="stateInfo"></param>
-        void TimeCall(Object stateInfo)
-        {
-            TimeCallHandle();
-        }
-
-        private async Task TimeCallHandle()
-        {
-            if (Data.Count > 0)
-            {
-                List<Ps_Batch> list = new List<Ps_Batch>();
-                while (Data.Count > 0)
-                {
-                    Ps_Batch batch = null;
-                    Data.TryDequeue(out batch);
-
-                    if (batch != null) list.Add(batch);
-                }
-
-                if (list != null && list.Count > 0)
-                {
-                    try
-                    {
-                        await store.UpdateBatchAsync(list);
-                    }
-                    catch (Exception ex)
-                    {
-                        LogHelper.Instance.Error(string.Format("UpdateBatchAsync:{0}", ex.Message));
-                    }
-                }
-                list.Clear();
-                list = null;
-            }
         }
 
         public void SetValue(string key,object value,DateTime dtNow)
@@ -218,11 +150,8 @@ namespace Terminal.Collector.Core.Data
 
             switch(simpleKey)
             {
-                case "ZCSJ"://装车时间
-                    ZCSJChanged(lineId, value, dtNow);
-                    break;
-                case "ZCWB"://装车完毕
-                    ZCWBChanged(lineId, value, dtNow);
+                case "ZCZT"://装车状态
+                    ZCZTChanged(lineId, value, dtNow);
                     break;
                 default:
                     ModifyBatchProperty(lineId, simpleKey, value, dtNow);
@@ -242,34 +171,6 @@ namespace Terminal.Collector.Core.Data
         private void ModifyBatchProperty(int lineId, string simpleKey, object value, DateTime dtNow)
         {
             var line = Lines[lineId];
-            var batch = line.Peek();
-            if(batch==null)
-            {
-                lock (insertLock)
-                {
-                    batch = line.Peek();
-                    if (batch == null)
-                    {
-                        Ps_Batch old = null;
-
-                        old = store.GetBatchAsync(p => p.LineId == lineId
-                                      && p.TruckLicense == value.ToString()
-                                      && p.Status == 0
-                                      && p.StartTime >= DateTime.Now.AddMinutes(30)).Result;
-
-
-                        if (old == null)
-                        {
-                            TruckStartLoading(lineId, line, dtNow);
-                        }
-                        else
-                        {
-                            line.Enqueue(old);
-                        }
-                    }
-                    batch = line.Peek();
-                }
-            }
 
             int ival = 0;
             switch (simpleKey)
@@ -277,147 +178,93 @@ namespace Terminal.Collector.Core.Data
                 case "CXNCKD":
                     //车辆车厢内侧宽度
                     ival = Convert.ToInt32(value);
-                    if (ival > 0) batch.TruckSizeWidth = Convert.ToInt32(value);
+                    if (ival >= 0) line.Item.TruckSizeWidth = Convert.ToInt32(value);
                     break;
                 case "CXNCCD":
                     //车辆车厢内侧长度
                     ival = Convert.ToInt32(value);
-                    if (ival > 0) batch.TruckSizeLong = Convert.ToInt32(value);
+                    if (ival >= 0) line.Item.TruckSizeLong = Convert.ToInt32(value);
                     break;
                 case "CKGD":
                     //车箱大小（高）
                     ival = Convert.ToInt32(value);
-                    if (ival > 0) batch.TruckSizeHeight = Convert.ToInt32(value);
+                    if (ival >= 0) line.Item.TruckSizeHeight = Convert.ToInt32(value);
                     break;
                 case "CPH":
                     //车牌号
-                    string truck = batch.TruckLicense;
-                    if (truck == "loading")
+                    if(string.IsNullOrWhiteSpace(line.Item.TruckLicense))
                     {
-                        lock (updateLock)
-                        {
-                            truck = batch.TruckLicense;
-                            batch.TruckLicense = value.ToString();
-                            if (truck == "loading" && !string.IsNullOrWhiteSpace(batch.TruckLicense))
-                            {
-                                Ps_Batch entity = new Ps_Batch();
-                                entity.Id = batch.Id;
-                                entity.EndTime = batch.EndTime;
-                                entity.LineId = batch.LineId;
-                                entity.LoadingWeight = batch.LoadingWeight;
-                                entity.PicBehind = batch.PicBehind;
-                                entity.PicFront = batch.PicFront;
-                                entity.PlanPackages = batch.PlanPackages;
-                                entity.ProduceDate = batch.ProduceDate;
-                                entity.Product = batch.Product;
-                                entity.RealPackages = batch.RealPackages;
-                                entity.SnatchCount = batch.SnatchCount;
-                                entity.StackType = batch.StackType;
-                                entity.StartTime = batch.StartTime;
-                                entity.Status = batch.Status;
-                                entity.TruckLicense = batch.TruckLicense;
-                                entity.TruckSizeHeight = batch.TruckSizeHeight;
-                                entity.TruckSizeLong = batch.TruckSizeLong;
-                                entity.TruckSizeWidth = batch.TruckSizeWidth;
-                                List<Ps_Batch> data = new List<Ps_Batch>();
-                                data.Add(entity);
-                                store.UpdateBatchAsync(data).Wait();
-                            }
-                        }
-                    }            
+                        line.Item.TruckLicense = value.ToString();
+                        store.InsertBatchAsync(line.Item);
+                    }
+                    line.Item.TruckLicense = value.ToString();
                     break;
                 case "DXSZ":
                     //垛型设置
-                    batch.StackType = Convert.ToInt32(value);                    
+                    line.Item.StackType = Convert.ToInt32(value);                    
                     break;
                 case "SDZCBS":
                     //设定装车包数
-                    batch.PlanPackages = Convert.ToInt32(value);
+                    line.Item.PlanPackages = Convert.ToInt32(value);
                     break;
                 case "JQRSJZQCS":
                     //机器人实际抓取次数
-                    batch.RealPackages = Convert.ToInt32(value);
+                    line.Item.RealPackages = Convert.ToInt32(value);
                     break;
                 case "DQZCZL":
                     //当前装车重量
-                    batch.LoadingWeight = Convert.ToInt32(value);
+                    line.Item.LoadingWeight = Convert.ToInt32(value);
                     break;
                 case "JQRSJZQBS":
                     //机器人实际抓取包数
-                    batch.SnatchCount = Convert.ToInt32(value);
+                    line.Item.SnatchCount = Convert.ToInt32(value);
                     break;
             }
         }
 
         /// <summary>
-        /// 装车时间发生变化
+        /// 装车状态发生变化
         /// </summary>
         /// <param name="lineId"></param>
         /// <param name="value"></param>
-        private void ZCSJChanged(int lineId, object value, DateTime dtNow)
+        private void ZCZTChanged(int lineId, object value, DateTime dtNow)
         {
             var line = Lines[lineId];
-            var zcsj = Convert.ToInt32(value);
-            if (zcsj == 0)
+            var ZCZT = Convert.ToBoolean(value);
+            if (line.ZCZT!=ZCZT)
             {//装车开始
-                TruckStartLoading(lineId, line, dtNow);
-            }
-            //装车时间有时为负数,所以取绝对值
-            line.ZCSJ = System.Math.Abs(zcsj);
-        }
+                if(ZCZT)
+                {//开始装车
+                    if(line.Item.Id>0 && line.Item.Status==0)
+                    {
+                        line.Item.Status = 1;
+                        line.Item.EndTime = DateTime.Now;
 
-        /// <summary>
-        /// 装车完毕发生变化
-        /// </summary>
-        /// <param name="lineId"></param>
-        /// <param name="value"></param>
-        private void ZCWBChanged(int lineId, object value, DateTime dtNow)
-        {
-            var line = Lines[lineId];
-            if (Convert.ToBoolean(value))
-            {
-                var batch = line.Dequeue();
-                if (batch != null)
-                {
-                    batch.Status = 1;
-                    batch.EndTime = dtNow;
-                    Data.Enqueue(batch);
+                        store.UpdateBatchAsync(line.Item);
+                    }
+
+                    line.Item = new Ps_Batch();
+                    line.Item.Id = Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
+                    line.Item.LineId = lineId;
+                    line.Item.TruckLicense = "";
+                    line.Item.StartTime = dtNow;
+                    line.Item.ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
+                    line.Item.Status = 0;
+                    line.Item.PlanPackages = 0;
+                    line.Item.RealPackages = 0;
+                    line.Item.LoadingWeight = 0;
+                    line.Item.StackType = 0;
+                    line.Item.SnatchCount = 0;
+                }
+                else
+                {//结束装车
+                    line.Item.Status = 1;
+                    line.Item.EndTime = DateTime.Now;
+
+                    store.UpdateBatchAsync(line.Item);
                 }
             }
-        }
-
-        /// <summary>
-        /// 开始装车
-        /// </summary>
-        /// <param name="lineId"></param>
-        /// <param name="dtNow"></param>
-        /// <param name="line"></param>
-        private void TruckStartLoading(int lineId, LineManager line, DateTime dtNow)
-        {
-            var batch = line.Dequeue();
-
-            var append = new Ps_Batch();
-            append.Id= Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
-            append.LineId = lineId;
-            append.TruckLicense = "loading";
-            append.StartTime = dtNow;
-            append.ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
-            append.Status = 0;
-            append.PlanPackages = 0;
-            append.RealPackages = 0;
-            append.LoadingWeight = 0;
-            append.StackType = 0;
-            append.SnatchCount = 0;
-            line.Enqueue(append);
-
-            store.InsertBatchAsync(append).Wait();
-
-            if (batch != null)
-            {
-                batch.Status = 1;
-                batch.EndTime = dtNow;
-                Data.Enqueue(batch);
-            }
+            line.ZCZT = ZCZT;
         }
     }
 }

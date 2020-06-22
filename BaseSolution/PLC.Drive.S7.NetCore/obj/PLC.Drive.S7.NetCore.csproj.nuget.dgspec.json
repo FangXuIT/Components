@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {}
+    "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {}
   },
   "projects": {
-    "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {
+    "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
+        "projectUniqueName": "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
         "projectName": "PLC.Drive.S7.NetCore",
-        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
+        "projectPath": "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\PLC.Drive.S7.NetCore.csproj",
         "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\obj\\",
+        "outputPath": "E:\\code\\Components\\BaseSolution\\PLC.Drive.S7.NetCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -52,18 +52,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
