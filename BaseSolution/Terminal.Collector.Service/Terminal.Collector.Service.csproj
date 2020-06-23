@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
-    <ProjectReference Include="..\Terminal.Collector.SiemensS7\Terminal.Collector.SiemensS7.csproj" />
+    <ProjectReference Include="..\Terminal.Collector.S7Net\Terminal.Collector.S7Net.csproj" />
     <ProjectReference Include="..\Terminal.Collector.Store\Terminal.Collector.Store.csproj" />
   </ItemGroup>
 </Project>

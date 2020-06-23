@@ -867,6 +867,15 @@
           }
         }
       },
+      "S7netplus/0.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/S7.Net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/S7.Net.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_green/1.1.12": {
         "type": "package",
         "dependencies": {
@@ -2424,14 +2433,17 @@
           "bin/placeholder/Terminal.Collector.IStore.dll": {}
         }
       },
-      "Terminal.Collector.SiemensS7/1.0.0": {
+      "Terminal.Collector.S7Net/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "S7netplus": "0.4.0"
+        },
         "compile": {
-          "bin/placeholder/Terminal.Collector.SiemensS7.dll": {}
+          "bin/placeholder/Terminal.Collector.S7Net.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Terminal.Collector.SiemensS7.dll": {}
+          "bin/placeholder/Terminal.Collector.S7Net.dll": {}
         }
       },
       "Terminal.Collector.Store/1.0.0": {
@@ -3448,7 +3460,7 @@
       ]
     },
     "runtime.native.System.Security.Cryptography.Apple/4.3.0": {
-      "sha512": "DloMk88juo0OuOWr56QG7MNchmafTLYWvABy36izkrLI5VledI0rq28KGs1i9wbpeT9NPQrx/wTf8U2vazqQ3Q==",
+      "sha512": "jwjwlEL0Elv6gwoyaokRn12nv/JE+UW/DXJEbzhjCPvGbef36StnHKc9XaZD/rGWqYicrphZ7eumR/jdmNcjRg==",
       "type": "package",
       "path": "runtime.native.system.security.cryptography.apple/4.3.0",
       "files": [
@@ -3488,7 +3500,7 @@
       ]
     },
     "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "KeLz4HClKf+nFS7p/6Fi/CqyLXh81FpiGzcmuS8DGi9lUqSnZ6Es23/gv2O+1XVGfrbNmviF7CckBpavkBoIFQ==",
+      "sha512": "G2+96gYRbzp1JZCID6B+u2XJ0bs2wCubd6rE3+Tj436dKfnciF7YgsLi2VvLeJq6kxYyU4IJrVrpCvC8Yf6bhA==",
       "type": "package",
       "path": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -3501,7 +3513,7 @@
       ]
     },
     "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple/4.3.0": {
-      "sha512": "kVXCuMTrTlxq4XOOMAysuNwsXWpYeboGddNGpIgNSZmv1b6r/s/DPk0fYMB7Q5Qo4bY68o48jt4T4y5BVecbCQ==",
+      "sha512": "Kh9W4agE0r/hK8AX1LvyQI2NrKHBL8pO0gRoDTdDb0LL6Ta1Z2OtFx3lOaAE0ZpCUc/dt9Wzs3rA7a3IsKdOVA==",
       "type": "package",
       "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.apple/4.3.0",
       "files": [
@@ -3528,7 +3540,7 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
+      "sha512": "T5NvFgmHX0WH4c7lP72krsnk+IJI10vJf2j2twGE+5QBRA4RyRAgD+ZjEgdmpLOjW4B+nZGaadewTCUcR899OQ==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -3541,7 +3553,7 @@
       ]
     },
     "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "ytoewC6wGorL7KoCAvRfsgoJPJbNq+64k2SqW6JcOAebWsFUvCCYgfzQMrnpvPiEl4OrblUlhF2ji+Q1+SVLrQ==",
+      "sha512": "JGc0pAWRE8lB4Ucygk2pYSKbUPLlAIq6Bczf5/WF2D/VKJEPtYlVUMxk8fbl1zRfTWzSHi+VcFZlaPlWiNxeKg==",
       "type": "package",
       "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -3622,6 +3634,23 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "S7netplus/0.4.0": {
+      "sha512": "RTna3gtkiqLuqF5m5G0Q6B2VHXzlz7AIoWGS3YkMXX779iMxh47dHGNOC+BOEtv4a23yQrPIoA4I7fcSn+welQ==",
+      "type": "package",
+      "path": "s7netplus/0.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/S7.Net.dll",
+        "lib/net452/S7.Net.pdb",
+        "lib/netstandard1.3/S7.Net.dll",
+        "lib/netstandard1.3/S7.Net.pdb",
+        "lib/netstandard2.0/S7.Net.dll",
+        "lib/netstandard2.0/S7.Net.pdb",
+        "s7netplus.0.4.0.nupkg.sha512",
+        "s7netplus.nuspec"
       ]
     },
     "SQLitePCLRaw.bundle_green/1.1.12": {
@@ -7756,10 +7785,10 @@
       "path": "../Terminal.Collector.IStore/Terminal.Collector.IStore.csproj",
       "msbuildProject": "../Terminal.Collector.IStore/Terminal.Collector.IStore.csproj"
     },
-    "Terminal.Collector.SiemensS7/1.0.0": {
+    "Terminal.Collector.S7Net/1.0.0": {
       "type": "project",
-      "path": "../Terminal.Collector.SiemensS7/Terminal.Collector.SiemensS7.csproj",
-      "msbuildProject": "../Terminal.Collector.SiemensS7/Terminal.Collector.SiemensS7.csproj"
+      "path": "../Terminal.Collector.S7Net/Terminal.Collector.S7Net.csproj",
+      "msbuildProject": "../Terminal.Collector.S7Net/Terminal.Collector.S7Net.csproj"
     },
     "Terminal.Collector.Store/1.0.0": {
       "type": "project",
@@ -7774,7 +7803,7 @@
       "Microsoft.Extensions.Hosting.WindowsServices >= 3.1.5",
       "MySql.Data >= 8.0.20",
       "Terminal.Collector.IStore >= 1.0.0",
-      "Terminal.Collector.SiemensS7 >= 1.0.0",
+      "Terminal.Collector.S7Net >= 1.0.0",
       "Terminal.Collector.Store >= 1.0.0"
     ]
   },
@@ -7786,11 +7815,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
+      "projectUniqueName": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
       "projectName": "Terminal.Collector.Service",
-      "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
+      "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
       "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-      "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\obj\\",
+      "outputPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -7811,14 +7840,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
-              "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
+            "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
+              "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
             },
-            "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj": {
-              "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj"
+            "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj": {
+              "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj"
             },
-            "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
-              "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj"
+            "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
+              "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj"
             }
           }
         }
@@ -7859,18 +7888,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.2, 3.1.2]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

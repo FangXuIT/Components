@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,27 +10,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Org.BouncyCastle.Asn1.X509;
+using S7.Net.Types;
 using Terminal.Collector.IStore;
 using Terminal.Collector.IStore.Models;
-using Terminal.Collector.SiemensS7;
+using Terminal.Collector.S7Net;
 using Terminal.Collector.Store;
 
 namespace Terminal.Collector.Service
 {
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private ICollectorStore _store;
         private string ConnectionString;
         private string RedisConnectionString;
 
         private List<ScanLine> Lines;
-        private Dictionary<string, List<TargetModel>> Targets;
 
-        public Worker(ILogger<Worker> logger, IServiceScopeFactory serviceScopeFactory)
+        public Worker(IServiceScopeFactory serviceScopeFactory)
         {
-            _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;            
         }
 
@@ -40,8 +39,6 @@ namespace Terminal.Collector.Service
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            Targets = new Dictionary<string, List<TargetModel>>();
-
             var _configuration = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IConfiguration>();
 
             ConnectionString = _configuration["Configurations:ConnectionString"];
@@ -63,11 +60,7 @@ namespace Terminal.Collector.Service
             }
             Lines.Clear();
             Lines = null;
-
             _store = null;
-
-            Targets.Clear();
-            Targets = null;
 
             await base.StopAsync(cancellationToken);
         }
@@ -78,47 +71,84 @@ namespace Terminal.Collector.Service
             var plcs = await _store.GetPlcListAsync();
             var targets = await _store.GetTargetListAsync();
 
+            int iPageSize = 10;
+
             foreach(var plc in plcs)
             {
-                AreaRegist(targets, plc, 132);
-                AreaRegist(targets, plc, 129);
+                var line = new ScanLine(DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Slot, plc.Rack);
+                line.Connect();
+
+                var nomaltgs = (from u in targets where u.PlcId == plc.Id && u.VarType != 7 select u).ToList();
+                var stringtgs= (from u in targets where u.PlcId == plc.Id && u.VarType == 7 select u).ToList();
+
+                RegistReader(line, nomaltgs, iPageSize);
+                RegistStringReader(line, stringtgs); 
+                Lines.Add(line);
+                line.Start(1000);
             }
         }
 
-        private void AreaRegist(List<TargetModel> targets, PlcModel plc,int dataType)
+        private void RegistReader(ScanLine line, List<TargetModel> targets,int pageSize)
         {
-            var line = new ScanLine(plc.Ip, plc.Port, plc.Slot, plc.Rack);
-            var dbs = (from u in targets where u.PlcId == plc.Id && u.Interval > 0 && u.DataType == dataType select u.DB)
-                .Distinct()
-                .ToList();
-
-            foreach (var db in dbs)
+            int iPageCount = 0;
+            if (targets.Count == 0)
             {
-                var dicValue = (from u in targets
-                                where u.PlcId == plc.Id && u.DB == db && u.DataType == dataType
-                                && u.Interval > 0 
-                                select u)
-                                .ToList();
-
-                if(dataType == 132)
-                {//DBReader DB
-                    var reader = new DBReader(db);
-                    reader.ReadHandler += Reader_ReadHandler;
-                    Targets.Add(reader.ID, dicValue);
-                    line.RegistReader(reader);
-                }
-                else if(dataType == 129)
-                {//PEReader  Input
-                    var reader = new PEReader(db);
-                    reader.ReadHandler += Reader_ReadHandler;
-                    Targets.Add(reader.ID, dicValue);
-                    line.RegistReader(reader);
-                }
+                iPageCount = 0;
+            }
+            else if (targets.Count <= pageSize)
+            {
+                iPageCount = 1;
+            }
+            else if (targets.Count% pageSize == 0)
+            {
+                iPageCount = targets.Count / pageSize;
+            }
+            else
+            {
+                iPageCount = targets.Count / pageSize;
+                iPageCount += 1;
             }
 
-            line.Connect();
-            line.Start(1000);
-            Lines.Add(line);
+            int currentPage = 1;
+            while (currentPage <= iPageCount)
+            {
+                var reader = new Reader();
+                reader.ReadHandler += Reader_ReadHandler;
+                var data = (targets.Skip((currentPage - 1) * pageSize).Take(pageSize)).ToList();
+                foreach(var target in data)
+                {
+                    DataItem item = new DataItem();
+                    item.DataType = DataTypeHelper.GetDataType(target.DataType);
+                    item.VarType = DataTypeHelper.GetVarType(target.VarType);
+                    item.DB = target.DB;
+                    item.StartByteAdr = target.StartByteAdr;
+                    item.BitAdr = System.BitConverter.GetBytes(target.BitAdr)[0];
+                    item.Count = target.Count;                    
+                    reader.Items.Add(target.Address, item);
+                }
+
+                line.RegistReader(reader);
+                currentPage += 1;
+            }
+        }
+
+        private void RegistStringReader(ScanLine line, List<TargetModel> targets)
+        {
+            var reader = new StringReader();
+            reader.ReadHandler += Reader_ReadHandler;
+            foreach (var target in targets)
+            {
+                DataItem item = new DataItem();
+                item.DataType = DataTypeHelper.GetDataType(target.DataType);
+                item.VarType = DataTypeHelper.GetVarType(target.VarType);
+                item.DB = target.DB;
+                item.StartByteAdr = target.StartByteAdr;
+                item.BitAdr = System.BitConverter.GetBytes(target.BitAdr)[0];
+                item.Count = target.Count;
+                reader.Items.Add(target.Address, item);
+            }
+
+            line.RegistReader(reader);            
         }
 
         private void Reader_ReadHandler(object sender, ReadEventArgs e)
@@ -128,51 +158,24 @@ namespace Terminal.Collector.Service
 
         private async Task ReadHandlerAsync(ReadEventArgs arg)
         {
-            if(arg.Result==0 || arg.Result==5)
+            if(arg.Result)
             {
-                if (Targets.ContainsKey(arg.ReadID))
+                //_logger.LogInformation(string.Format("{0}={1}", arg.ReadID, arg.Data.Count));
+                foreach (var data in arg.Data)
                 {
-                    foreach (var target in Targets[arg.ReadID])
+                    if (data.Value != null)
                     {
-                        object value = ParseValue(target, arg.Data);
-                        if (value != null)
-                        {
-                            await RedisHelper.SetAsync(target.Address, ParseValue(target, arg.Data));
-                        }
+                        await RedisHelper.SetAsync(data.Key, data.Value);
                     }
                 }
             }
             else
             {
-                _logger.LogDebug(string.Format("DB{0} Read Error Code:{1}", arg.DBNumber, arg.Result));
+               //_logger.LogError(arg.ErrorMsg);
             }
+
             arg.Dispose();
             arg = null;
-        }
-
-        private object ParseValue(TargetModel target,byte[] data)
-        {
-            try
-            {
-                switch (target.VarType)
-                {
-                    case 0: return S7.GetBitAt(data, target.StartByteAdr, target.BitAdr);
-                    case 1: return S7.GetByteAt(data, target.StartByteAdr);
-                    case 2: return S7.GetWordAt(data, target.StartByteAdr);
-                    case 3: return S7.GetDWordAt(data, target.StartByteAdr);
-                    case 4: return S7.GetIntAt(data, target.StartByteAdr);
-                    case 5: return S7.GetDIntAt(data, target.StartByteAdr);
-                    case 6: return S7.GetRealAt(data, target.StartByteAdr);
-                    case 7: return S7.GetStringAt(data, target.StartByteAdr, Encoding.GetEncoding("GB2312"));
-                    case 11: return S7.GetDateTimeAt(data, target.StartByteAdr);
-                    default: return null;
-                }
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return null;
-            }
         }
     }
 }

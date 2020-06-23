@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj": {}
+    "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj": {}
   },
   "projects": {
-    "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
+    "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj",
+        "projectUniqueName": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj",
         "projectName": "Terminal.Collector.IStore",
-        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj",
+        "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj",
         "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\obj\\",
+        "outputPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -58,29 +58,86 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj": {
+    "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
-        "projectName": "Terminal.Collector.Service",
-        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
+        "projectUniqueName": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj",
+        "projectName": "Terminal.Collector.S7Net",
+        "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj",
         "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Service\\obj\\",
+        "outputPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tzjac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "S7netplus": {
+              "target": "Package",
+              "version": "[0.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
+        "projectName": "Terminal.Collector.Service",
+        "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\Terminal.Collector.Service.csproj",
+        "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
+        "outputPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -101,14 +158,14 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
-                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
+              "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
+                "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
               },
-              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj": {
-                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj"
+              "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj": {
+                "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.S7Net\\Terminal.Collector.S7Net.csproj"
               },
-              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
-                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj"
+              "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
+                "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj"
               }
             }
           }
@@ -149,92 +206,23 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj": {
+    "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj",
-        "projectName": "Terminal.Collector.SiemensS7",
-        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\Terminal.Collector.SiemensS7.csproj",
-        "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.SiemensS7\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\tzjac\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj",
+        "projectUniqueName": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj",
         "projectName": "Terminal.Collector.Store",
-        "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj",
+        "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\Terminal.Collector.Store.csproj",
         "packagesPath": "C:\\Users\\tzjac\\.nuget\\packages\\",
-        "outputPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\obj\\",
+        "outputPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.Store\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -255,8 +243,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
-                "projectPath": "E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
+              "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj": {
+                "projectPath": "E:\\code\\Components\\BaseSolution\\Terminal.Collector.IStore\\Terminal.Collector.IStore.csproj"
               }
             }
           }
@@ -293,18 +281,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
