@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PLC.Drive.S7.NetCore\PLC.Drive.S7.NetCore.csproj" />
     <ProjectReference Include="..\Terminal.Collector.Core\Terminal.Collector.Core.csproj" />
     <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />

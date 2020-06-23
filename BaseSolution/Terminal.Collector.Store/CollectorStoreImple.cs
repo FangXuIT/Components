@@ -15,6 +15,13 @@ namespace Terminal.Collector.Store
 {
     public class CollectorStoreImple : ICollectorStore
     {
+        public string ConnectionString { set; get; }
+
+        public CollectorStoreImple(string _connectionString = "server=192.168.11.90;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;")
+        {
+            ConnectionString = _connectionString;
+        }
+
         public async Task<List<Pb_Line>> GetLineListAsync()
         {
             using (var db = DBContext.Client())
@@ -25,7 +32,7 @@ namespace Terminal.Collector.Store
 
         public async Task<List<PlcModel>> GetPlcListAsync()
         {
-            using(var db=DBContext.Client())
+            using(var db=DBContext.Client(ConnectionString))
             {
                 return await db.Queryable<PB_Plc>().Where(p => p.Deleted == 0)
                     .Select(s => new PlcModel()
@@ -43,7 +50,7 @@ namespace Terminal.Collector.Store
 
         public async Task<List<TargetModel>> GetTargetListAsync()
         {
-            using (var db = DBContext.Client())
+            using (var db = DBContext.Client(ConnectionString))
             {
                 return await db.Queryable<PB_Tag>().Where(p => p.Deleted == 0)
                     .Select(s => new TargetModel()
@@ -68,7 +75,7 @@ namespace Terminal.Collector.Store
 
         public async Task<Ps_Batch> GetBatchAsync(Expression<Func<Ps_Batch, bool>> expression)
         {
-            using (var db = DBContext.Client())
+            using (var db = DBContext.Client(ConnectionString))
             {
                 return await db.Queryable<Ps_Batch>().Where(expression).FirstAsync();
             }
@@ -76,7 +83,7 @@ namespace Terminal.Collector.Store
 
         public async Task InsertBatchAsync(Ps_Batch data)
         {
-            using(var db = DBContext.Client())
+            using(var db = DBContext.Client(ConnectionString))
             {
                 await db.Insertable(data).ExecuteCommandAsync();
             }
@@ -84,7 +91,7 @@ namespace Terminal.Collector.Store
 
         public async Task UpdateBatchAsync(Ps_Batch data)
         {
-            using (var db = DBContext.Client())
+            using (var db = DBContext.Client(ConnectionString))
             {
                 await db.Updateable(data).ExecuteCommandAsync();
             }

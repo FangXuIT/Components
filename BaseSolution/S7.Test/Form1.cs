@@ -130,7 +130,7 @@ namespace S7.Test
         {
             button1.Enabled = false;
             try
-            {
+            {                
                 lbVarValue.Items.Clear();
                 plc = new Plc(GetPlcType(), txtIP.Text.Trim(),102, Convert.ToInt16(nudRack.Value), Convert.ToInt16(nudSlot.Value));
                 plc.Open();
@@ -197,8 +197,21 @@ namespace S7.Test
             {
                 if (plc.IsConnected)
                 {
-                    var result = plc.Read(GetDataType(), Convert.ToInt32(nudDB.Value), 45, GetVarType(), Convert.ToInt32(nudVarLength.Value));
-                    lbVarValue.Items.Add("test result:" + result.ToString());
+                    var type = GetVarType();
+                    var result = plc.Read(GetDataType(), Convert.ToInt32(nudDB.Value), Convert.ToInt32(nudStartAdr.Value), type, Convert.ToInt32(nudVarLength.Value));
+                    
+                    if(type== VarType.Bit)
+                    {
+                        lbVarValue.Items.Add("test result:" + Convert.ToBoolean(result));
+                    }
+                    else if(type== VarType.Int || type== VarType.DInt)
+                    {
+                        lbVarValue.Items.Add("test result:" + Convert.ToInt32(result));
+                    }
+                    else if (type == VarType.Real)
+                    {
+                        lbVarValue.Items.Add("test result:" + Convert.ToDecimal(result));
+                    }
                 }
                 else
                 {

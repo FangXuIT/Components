@@ -1,4 +1,5 @@
-﻿using System;
+﻿using org.apache.zookeeper.data;
+using System;
 using System.Runtime.CompilerServices;
 using Terminal.Collector.Store;
 using Test.ThreadTimer.Scan;
@@ -9,6 +10,28 @@ namespace Test.ThreadTimer
     {
         static void Main(string[] args)
         {
+            Executer exc = new Executer();
+            exc.Start();
+            Console.WriteLine("Executer Started.");
+                        
+            
+
+            while(true)
+            {
+                var key = Console.ReadKey().KeyChar;
+                switch(key)
+                {
+                    case 'S':
+                    case 's':
+                        exc.Start();
+                        break;
+                    case 'E':
+                    case 'e':
+                        exc.Stop();
+                        break;
+                }
+
+            }
             //using (var db=DBContext.Client())
             //{
             //    db.DbFirst.CreateClassFile("E:\\工作目录\\git\\Components\\BaseSolution\\Terminal.Collector.Store\\Entites\\", "Terminal.Collector.Store.Entites");

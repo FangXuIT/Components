@@ -1186,17 +1186,17 @@ namespace Sharp7
 
         #region Get/Set String (S7 String)
         // Thanks to Pablo Agirre 
-        public static string GetStringAt(byte[] Buffer, int Pos)
+        public static string GetStringAt(byte[] Buffer, int Pos, Encoding encoding)
         {
             int size = (int)Buffer[Pos + 1];
-            return Encoding.UTF8.GetString(Buffer, Pos + 2, size);
+            return encoding.GetString(Buffer, Pos + 2, size);
         }
-        public static void SetStringAt(byte[] Buffer, int Pos, int MaxLen, string Value)
+        public static void SetStringAt(byte[] Buffer, int Pos, int MaxLen, string Value, Encoding encoding)
         {
             int size = Value.Length;
             Buffer[Pos] = (byte)MaxLen;
             Buffer[Pos + 1] = (byte)size;
-            Encoding.UTF8.GetBytes(Value, 0, size, Buffer, Pos + 2);
+            encoding.GetBytes(Value, 0, size, Buffer, Pos + 2);
         }
         #endregion
 
