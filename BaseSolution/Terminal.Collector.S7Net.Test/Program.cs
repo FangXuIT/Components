@@ -24,41 +24,6 @@ namespace Terminal.Collector.S7Net.Test
             Reader reader = new Reader();
 
             DataItem item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.DInt;
-            item.DB = 1006;
-            item.BitAdr = 0;
-            item.Count = 1;
-            item.StartByteAdr = 138;
-            reader.Items.Add("PLC2.Line5.ZZCS", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Int;
-            item.DB = 1006;
-            item.StartByteAdr = 142;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.DTZCS", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Real;
-            item.DB = 1006;
-            item.StartByteAdr = 158;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.ZZCZL", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Real;
-            item.DB = 1006;
-            item.StartByteAdr = 162;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.DTZCZL", item);
-
             item = new DataItem();
             item.DataType = DataType.DataBlock;
             item.VarType = VarType.Bit;
@@ -77,95 +42,23 @@ namespace Terminal.Collector.S7Net.Test
             item.Count = 1;
             reader.Items.Add("PLC2.Line5.ZCZT", item);
 
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1006;
-            item.StartByteAdr = 42;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.CXNCKD", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1006;
-            item.StartByteAdr = 40;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.CXNCCD", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1006;
-            item.StartByteAdr = 446;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.CKGD", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1001;
-            item.StartByteAdr = 12;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.SDZCCS", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1006;
-            item.StartByteAdr = 36;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.SDZCBS", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 200;
-            item.StartByteAdr = 484;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("PLC2.Line5.DXSZ", item);
-
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.Word;
-            item.DB = 1006;
-            item.StartByteAdr = 34;
-            item.BitAdr = 0;
-            item.Count = 1;
-            reader.Items.Add("Line5.JHZQCS", item);
-
-            item = new DataItem();
-            item.DataType = DataType.Input;
-            item.VarType = VarType.Bit;
-            item.DB = 9;
-            item.StartByteAdr = 0;
-            item.BitAdr = 1;
-            item.Count = 1;
-            reader.Items.Add("Line5.ZQ1CYL", item);
-
             reader.ReadHandler += Reader_ReadHandler;
             line.RegistReader(reader);
 
-            StringReader sreader = new StringReader();
-            item = new DataItem();
-            item.DataType = DataType.DataBlock;
-            item.VarType = VarType.StringEx;
-            item.DB = 1006;
-            item.StartByteAdr = 180;
-            item.BitAdr = 0;
-            item.Count = 100;
-            sreader.Items.Add("PLC2.Line5.CPH", item);
+            //StringReader sreader = new StringReader();
+            //item = new DataItem();
+            //item.DataType = DataType.DataBlock;
+            //item.VarType = VarType.StringEx;
+            //item.DB = 1006;
+            //item.StartByteAdr = 180;
+            //item.BitAdr = 0;
+            //item.Count = 100;
+            //sreader.Items.Add("PLC2.Line5.CPH", item);
 
-            sreader.ReadHandler += Reader_ReadHandler;
-            line.RegistReader(sreader);
+            //sreader.ReadHandler += Reader_ReadHandler;
+            //line.RegistReader(sreader);
 
-            line.Start(1000);
+            line.Start(2000);
         }
 
         private static void Reader_ReadHandler(object sender, ReadEventArgs e)

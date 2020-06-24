@@ -198,7 +198,12 @@ namespace S7.Test
                 if (plc.IsConnected)
                 {
                     var type = GetVarType();
-                    var result = plc.Read(GetDataType(), Convert.ToInt32(nudDB.Value), Convert.ToInt32(nudStartAdr.Value), type, Convert.ToInt32(nudVarLength.Value));
+                    var result = plc.Read(GetDataType()
+                        , Convert.ToInt32(nudDB.Value)
+                        , Convert.ToInt32(nudStartAdr.Value)
+                        , type
+                        , Convert.ToInt32(nudVarLength.Value)
+                        , BitConverter.GetBytes(Convert.ToInt32(nudBitAdr.Value))[0]);
                     
                     if(type== VarType.Bit)
                     {

@@ -69,6 +69,10 @@ namespace Terminal.Collector.S7Net
                 {
                     e.Result = false;
                     e.ErrorMsg = ex.Message;
+                    foreach(var item in Items)
+                    {
+                        Console.WriteLine(item.Key);
+                    }
                 }
                 e.EndTime = System.DateTime.Now;
                 e.Data = new Dictionary<string, object>();

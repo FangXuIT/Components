@@ -41,6 +41,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nudStartAdr = new System.Windows.Forms.NumericUpDown();
             this.lbVarValue = new System.Windows.Forms.ListBox();
             this.nudVarLength = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -51,13 +52,14 @@
             this.button3 = new System.Windows.Forms.Button();
             this.cbDataType = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.nudStartAdr = new System.Windows.Forms.NumericUpDown();
+            this.nudBitAdr = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudRack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSlot)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStartAdr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVarLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStartAdr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBitAdr)).BeginInit();
             this.SuspendLayout();
             // 
             // cbPlcType
@@ -183,6 +185,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.nudBitAdr);
             this.panel1.Controls.Add(this.nudStartAdr);
             this.panel1.Controls.Add(this.lbVarValue);
             this.panel1.Controls.Add(this.nudVarLength);
@@ -199,6 +202,18 @@
             this.panel1.Size = new System.Drawing.Size(770, 364);
             this.panel1.TabIndex = 12;
             // 
+            // nudStartAdr
+            // 
+            this.nudStartAdr.Location = new System.Drawing.Point(409, 15);
+            this.nudStartAdr.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudStartAdr.Name = "nudStartAdr";
+            this.nudStartAdr.Size = new System.Drawing.Size(39, 21);
+            this.nudStartAdr.TabIndex = 10;
+            // 
             // lbVarValue
             // 
             this.lbVarValue.FormattingEnabled = true;
@@ -211,7 +226,7 @@
             // nudVarLength
             // 
             this.nudVarLength.Enabled = false;
-            this.nudVarLength.Location = new System.Drawing.Point(614, 15);
+            this.nudVarLength.Location = new System.Drawing.Point(535, 14);
             this.nudVarLength.Name = "nudVarLength";
             this.nudVarLength.Size = new System.Drawing.Size(42, 21);
             this.nudVarLength.TabIndex = 8;
@@ -219,7 +234,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(531, 20);
+            this.label10.Location = new System.Drawing.Point(452, 19);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 12);
             this.label10.TabIndex = 7;
@@ -313,17 +328,17 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "DataType:";
             // 
-            // nudStartAdr
+            // nudBitAdr
             // 
-            this.nudStartAdr.Location = new System.Drawing.Point(430, 15);
-            this.nudStartAdr.Maximum = new decimal(new int[] {
+            this.nudBitAdr.Location = new System.Drawing.Point(596, 15);
+            this.nudBitAdr.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.nudStartAdr.Name = "nudStartAdr";
-            this.nudStartAdr.Size = new System.Drawing.Size(80, 21);
-            this.nudStartAdr.TabIndex = 10;
+            this.nudBitAdr.Name = "nudBitAdr";
+            this.nudBitAdr.Size = new System.Drawing.Size(39, 21);
+            this.nudBitAdr.TabIndex = 11;
             // 
             // Form1
             // 
@@ -349,9 +364,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSlot)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStartAdr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVarLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStartAdr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBitAdr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,6 +399,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lbVarValue;
         private System.Windows.Forms.NumericUpDown nudStartAdr;
+        private System.Windows.Forms.NumericUpDown nudBitAdr;
     }
 }
 

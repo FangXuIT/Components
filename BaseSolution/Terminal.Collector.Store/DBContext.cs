@@ -11,6 +11,7 @@ namespace Terminal.Collector.Store
         {
             return new SqlSugarClient(new ConnectionConfig()
             {
+                //ConnectionString = "server=192.168.11.90;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
                 ConnectionString = "server=192.168.11.90;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
                 //ConnectionString = "server=localhost;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;",
                 DbType = DbType.MySql,//设置数据库类型

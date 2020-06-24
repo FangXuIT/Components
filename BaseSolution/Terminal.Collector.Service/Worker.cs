@@ -21,14 +21,19 @@ namespace Terminal.Collector.Service
     public class Worker : BackgroundService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private ILogger<Worker> _logger;
         private ICollectorStore _store;
         private string ConnectionString;
         private string RedisConnectionString;
 
-        private List<ScanLine> Lines;
+        private BatchHelper _helper;
 
-        public Worker(IServiceScopeFactory serviceScopeFactory)
+        private List<ScanLine> Lines;
+        private Dictionary<string, object> Data;
+
+        public Worker(ILogger<Worker> logger,IServiceScopeFactory serviceScopeFactory)
         {
+            _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;            
         }
 
@@ -39,14 +44,16 @@ namespace Terminal.Collector.Service
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
+            Data = new Dictionary<string, object>();
             var _configuration = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IConfiguration>();
 
             ConnectionString = _configuration["Configurations:ConnectionString"];
-            RedisConnectionString = _configuration["Configurations:ConnectionString"];
+            RedisConnectionString = _configuration["Configurations:Redis"];
 
             _store = new CollectorStoreImple(ConnectionString);
             RedisHelper.Initialization(new CSRedis.CSRedisClient(RedisConnectionString));
 
+            _helper = new BatchHelper(_store);
 
             await LoadLinesAsync();
             await base.StartAsync(cancellationToken);
@@ -54,12 +61,15 @@ namespace Terminal.Collector.Service
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            foreach(var line in Lines)
+            Data.Clear();
+            foreach (var line in Lines)
             {
                 line.Stop();
             }
             Lines.Clear();
             Lines = null;
+
+            _helper = null;
             _store = null;
 
             await base.StopAsync(cancellationToken);
@@ -67,7 +77,7 @@ namespace Terminal.Collector.Service
 
         private async Task LoadLinesAsync()
         {
-            Lines = new List<ScanLine>();
+            Lines = new List<ScanLine>();            
             var plcs = await _store.GetPlcListAsync();
             var targets = await _store.GetTargetListAsync();
 
@@ -76,6 +86,8 @@ namespace Terminal.Collector.Service
             foreach(var plc in plcs)
             {
                 var line = new ScanLine(DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Slot, plc.Rack);
+                line.PlcId = plc.Id;
+                line.RunHandler += Line_RunHandler;
                 line.Connect();
 
                 var nomaltgs = (from u in targets where u.PlcId == plc.Id && u.VarType != 7 select u).ToList();
@@ -86,6 +98,11 @@ namespace Terminal.Collector.Service
                 Lines.Add(line);
                 line.Start(1000);
             }
+        }
+
+        private void Line_RunHandler(object sender, RunEventArgs e)
+        {
+            RunHandlerAsync(e);            
         }
 
         private void RegistReader(ScanLine line, List<TargetModel> targets,int pageSize)
@@ -153,29 +170,74 @@ namespace Terminal.Collector.Service
 
         private void Reader_ReadHandler(object sender, ReadEventArgs e)
         {
-            ReadHandlerAsync(e);
+            try
+            {
+                ReadHandlerAsync(e);
+            }
+            catch(Exception ex)
+            {
+                LogError("Read Handler:" + ex.Message);
+            }
         }
 
         private async Task ReadHandlerAsync(ReadEventArgs arg)
         {
             if(arg.Result)
             {
-                //_logger.LogInformation(string.Format("{0}={1}", arg.ReadID, arg.Data.Count));
                 foreach (var data in arg.Data)
                 {
-                    if (data.Value != null)
+                    if (data.Key == "PLC1.Line1.ZCZT"
+                        || data.Key == "PLC1.Line2.ZCZT"
+                        || data.Key == "PLC2.Line4.ZCZT"
+                        || data.Key == "PLC2.Line5.ZCZT")
                     {
-                        await RedisHelper.SetAsync(data.Key, data.Value);
+                        LogError(string.Format("Ê±¼ä:{0} Öµ:{1}={2}"
+                            , arg.StartTime.ToString("HH:mm:ss")
+                            , data.Key
+                            , data.Value));                      
                     }
+
+                    if(!Data.ContainsKey(data.Key))
+                    {
+                        Data.Add(data.Key, data.Value);
+                    }
+                    else
+                    {
+                        Data[data.Key] = data.Value;
+                    }
+
+                    await RedisHelper.SetAsync(data.Key, data.Value);
                 }
             }
             else
             {
-               //_logger.LogError(arg.ErrorMsg);
+                LogError(string.Format("Read Failed! Error Code:{0}", arg.ErrorMsg));
             }
 
             arg.Dispose();
             arg = null;
+        }
+
+        private async Task RunHandlerAsync(RunEventArgs arg)
+        {
+            try
+            {
+                _helper.SaveBatchData(arg.PlcId, Data);
+
+                await RedisHelper.SetAsync(string.Format("PLC{0}_ST", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                await RedisHelper.SetAsync(string.Format("PLC{0}_ED", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                await RedisHelper.SetAsync(string.Format("PLC{0}_TS", arg.PlcId), (arg.EndTime - arg.StartTime).TotalMinutes);
+            }
+            catch (Exception ex)
+            {
+                LogError("Run Handler:" + ex.Message);
+            }
+        }
+
+        private void LogError(string Message)
+        {
+            Console.WriteLine(Message);
+            Console.WriteLine("------------");
         }
     }
 }

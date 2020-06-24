@@ -21,5 +21,9 @@ namespace Terminal.Collector.IStore
         Task UpdateBatchAsync(Ps_Batch data);
 
         Task<Ps_Batch> GetBatchAsync(Expression<Func<Ps_Batch, bool>> expression);
+
+        Task<List<Ps_Batch>> GetBatchListAsync(Expression<Func<Ps_Batch, bool>> expression);
+
+        Task UpdateBatchListAsync(List<Ps_Batch> data);
     }
 }

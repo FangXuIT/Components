@@ -81,6 +81,22 @@ namespace Terminal.Collector.Store
             }
         }
 
+        public async Task<List<Ps_Batch>> GetBatchListAsync(Expression<Func<Ps_Batch, bool>> expression)
+        {
+            using (var db = DBContext.Client(ConnectionString))
+            {
+                return await db.Queryable<Ps_Batch>().Where(expression).ToListAsync();
+            }
+        }
+
+        public async Task UpdateBatchListAsync(List<Ps_Batch> data)
+        {
+            using (var db = DBContext.Client(ConnectionString))
+            {
+                await db.Updateable(data).ExecuteCommandAsync();
+            }
+        }
+
         public async Task InsertBatchAsync(Ps_Batch data)
         {
             using(var db = DBContext.Client(ConnectionString))

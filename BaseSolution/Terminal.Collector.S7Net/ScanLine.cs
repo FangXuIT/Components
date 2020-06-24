@@ -1,15 +1,27 @@
 ﻿using S7.Net;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Terminal.Collector.S7Net
 {
+    public class RunEventArgs : EventArgs
+    {
+        public Int64 PlcId { set; get; }
+
+        public System.DateTime StartTime { set; get; }
+
+        public System.DateTime EndTime { set; get; }
+    }
+
     /// <summary>
     /// 扫描管理道
     /// </summary>
     public class ScanLine
     {
+        public Int64 PlcId { set; get; }
+
         /// <summary>
         /// Plc
         /// </summary>
@@ -21,6 +33,18 @@ namespace Terminal.Collector.S7Net
         /// 扫描状态
         /// </summary>
         public bool IsRuning { private set; get; }
+
+        /// <summary>
+        /// 读取完成
+        /// </summary>
+        /// <param name="sender">Reader</param>
+        /// <param name="e">ReadEventArgs</param>
+        public delegate void RunEventHandler(object sender, RunEventArgs e);
+
+        /// <summary>
+        /// 读取完成事件
+        /// </summary>
+        public event RunEventHandler RunHandler;
 
 
         private ScanLine()
@@ -87,14 +111,22 @@ namespace Terminal.Collector.S7Net
             {
                 while (IsRuning)
                 {
+                    RunEventArgs e = new RunEventArgs();
+                    e.PlcId = PlcId;
+                    e.StartTime = DateTime.Now;
                     if (Connect())
                     {
                         foreach (var reader in ReaderList)
                         {
                             reader.Read(Client);
+                            Thread.Sleep(200);
                         }
                     }
-
+                    e.EndTime = DateTime.Now;
+                    if (this.RunHandler != null)
+                    {
+                        this.RunHandler(this, e);
+                    }
                     Thread.Sleep(interval);
                 };
             });

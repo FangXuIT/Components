@@ -33,9 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.SiemensS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.SiemensS7.Test", "Terminal.Collector.SiemensS7.Test\Terminal.Collector.SiemensS7.Test.csproj", "{21B995A8-4D0B-4994-9165-61195AFBD82C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.S7Net", "Terminal.Collector.S7Net\Terminal.Collector.S7Net.csproj", "{DC46015B-A437-4F07-A9D2-FCF1BC68293C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.S7Net", "Terminal.Collector.S7Net\Terminal.Collector.S7Net.csproj", "{DC46015B-A437-4F07-A9D2-FCF1BC68293C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Collector.S7Net.Test", "Terminal.Collector.S7Net.Test\Terminal.Collector.S7Net.Test.csproj", "{12BB07FE-5E86-4BEE-A3DF-64A4CFE23428}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Collector.S7Net.Test", "Terminal.Collector.S7Net.Test\Terminal.Collector.S7Net.Test.csproj", "{12BB07FE-5E86-4BEE-A3DF-64A4CFE23428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S7.Net", "S7.Net\S7.Net.csproj", "{03B6BDCD-0BAA-4E51-BF23-FE0C1EE77973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{12BB07FE-5E86-4BEE-A3DF-64A4CFE23428}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12BB07FE-5E86-4BEE-A3DF-64A4CFE23428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12BB07FE-5E86-4BEE-A3DF-64A4CFE23428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B6BDCD-0BAA-4E51-BF23-FE0C1EE77973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B6BDCD-0BAA-4E51-BF23-FE0C1EE77973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B6BDCD-0BAA-4E51-BF23-FE0C1EE77973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B6BDCD-0BAA-4E51-BF23-FE0C1EE77973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
