@@ -1,9 +1,0 @@
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\bin\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.deps.json
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\bin\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.dll
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.AssemblyInfoInputs.cache
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.AssemblyInfo.cs
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.csprojAssemblyReference.cache
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.csproj.CoreCompileInputs.cache
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\bin\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.pdb
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.dll
-E:\工作目录\git\Components\BaseSolution\Terminal.Collector.OpcUa\obj\Debug\netcoreapp3.1\Terminal.Collector.OpcUa.pdb
