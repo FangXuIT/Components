@@ -220,7 +220,7 @@ namespace S7.Net
                 {
                     package.Add(CreateReadDataRequestPackage(dataItem.DataType, dataItem.DB, dataItem.StartByteAdr, VarTypeToByteLength(dataItem.VarType, dataItem.Count)));
                 }
-
+                                
                 await stream.WriteAsync(package.Array, 0, package.Array.Length);
 
                 var s7data = await COTP.TSDU.ReadAsync(stream); //TODO use Async

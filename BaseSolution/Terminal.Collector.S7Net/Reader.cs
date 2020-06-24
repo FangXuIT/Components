@@ -3,6 +3,7 @@ using S7.Net.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Terminal.Collector.S7Net
 {
@@ -67,13 +68,12 @@ namespace Terminal.Collector.S7Net
                 }
                 catch (Exception ex)
                 {
+                    //出现异常断开连接(超时),并休眠1秒
+                    _plc.Close();
                     e.Result = false;
                     e.ErrorMsg = ex.Message;
-                    foreach(var item in Items)
-                    {
-                        Console.WriteLine(item.Key);
-                    }
                 }
+                
                 e.EndTime = System.DateTime.Now;
                 e.Data = new Dictionary<string, object>();
                 foreach (var dic in Items)

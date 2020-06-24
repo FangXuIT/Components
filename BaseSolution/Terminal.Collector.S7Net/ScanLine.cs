@@ -10,6 +10,8 @@ namespace Terminal.Collector.S7Net
     {
         public Int64 PlcId { set; get; }
 
+        public bool Result { set; get; }
+
         public System.DateTime StartTime { set; get; }
 
         public System.DateTime EndTime { set; get; }
@@ -55,6 +57,7 @@ namespace Terminal.Collector.S7Net
         {
             ReaderList = new List<AbstractReader>();
             Client = new Plc(type, ip, port, slot, rack);
+            Client.ReadTimeout = 5000;
         }
 
         /// <summary>
@@ -89,6 +92,7 @@ namespace Terminal.Collector.S7Net
         public void Stop()
         {
             IsRuning = false;
+            Client.Close();
         }
 
         /// <summary>
@@ -114,14 +118,20 @@ namespace Terminal.Collector.S7Net
                     RunEventArgs e = new RunEventArgs();
                     e.PlcId = PlcId;
                     e.StartTime = DateTime.Now;
-                    if (Connect())
+                    e.Result = true;
+
+                    foreach (var reader in ReaderList)
                     {
-                        foreach (var reader in ReaderList)
+                        if (Connect())
                         {
                             reader.Read(Client);
-                            Thread.Sleep(200);
                         }
-                    }
+                        else
+                        {
+                            e.Result = false;
+                        }
+                    } 
+
                     e.EndTime = DateTime.Now;
                     if (this.RunHandler != null)
                     {

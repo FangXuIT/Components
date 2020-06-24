@@ -37,11 +37,21 @@ namespace Terminal.Collector.Service
             _serviceScopeFactory = serviceScopeFactory;            
         }
 
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await Task.Delay(500);
         }
 
+        /// <summary>
+        /// 启动
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
             Data = new Dictionary<string, object>();
@@ -59,6 +69,11 @@ namespace Terminal.Collector.Service
             await base.StartAsync(cancellationToken);
         }
 
+        /// <summary>
+        /// 停止
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             Data.Clear();
@@ -75,6 +90,7 @@ namespace Terminal.Collector.Service
             await base.StopAsync(cancellationToken);
         }
 
+        #region --私有成员--
         private async Task LoadLinesAsync()
         {
             Lines = new List<ScanLine>();            
@@ -100,12 +116,7 @@ namespace Terminal.Collector.Service
             }
         }
 
-        private void Line_RunHandler(object sender, RunEventArgs e)
-        {
-            RunHandlerAsync(e);            
-        }
-
-        private void RegistReader(ScanLine line, List<TargetModel> targets,int pageSize)
+        private void RegistReader(ScanLine line, List<TargetModel> targets, int pageSize)
         {
             int iPageCount = 0;
             if (targets.Count == 0)
@@ -116,7 +127,7 @@ namespace Terminal.Collector.Service
             {
                 iPageCount = 1;
             }
-            else if (targets.Count% pageSize == 0)
+            else if (targets.Count % pageSize == 0)
             {
                 iPageCount = targets.Count / pageSize;
             }
@@ -132,7 +143,7 @@ namespace Terminal.Collector.Service
                 var reader = new Reader();
                 reader.ReadHandler += Reader_ReadHandler;
                 var data = (targets.Skip((currentPage - 1) * pageSize).Take(pageSize)).ToList();
-                foreach(var target in data)
+                foreach (var target in data)
                 {
                     DataItem item = new DataItem();
                     item.DataType = DataTypeHelper.GetDataType(target.DataType);
@@ -140,7 +151,7 @@ namespace Terminal.Collector.Service
                     item.DB = target.DB;
                     item.StartByteAdr = target.StartByteAdr;
                     item.BitAdr = System.BitConverter.GetBytes(target.BitAdr)[0];
-                    item.Count = target.Count;                    
+                    item.Count = target.Count;
                     reader.Items.Add(target.Address, item);
                 }
 
@@ -165,19 +176,34 @@ namespace Terminal.Collector.Service
                 reader.Items.Add(target.Address, item);
             }
 
-            line.RegistReader(reader);            
+            line.RegistReader(reader);
         }
 
+        private void LogError(string Message)
+        {
+            Console.WriteLine(Message);
+        }
+        #endregion
+
+        #region --事件处理--
+        /// <summary>
+        /// PLC当次采数完成(Line Run Event)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Line_RunHandler(object sender, RunEventArgs e)
+        {
+            RunHandlerAsync(e);            
+        }
+
+        /// <summary>
+        /// 批次采数完成(Reader Read Event)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Reader_ReadHandler(object sender, ReadEventArgs e)
         {
-            try
-            {
-                ReadHandlerAsync(e);
-            }
-            catch(Exception ex)
-            {
-                LogError("Read Handler:" + ex.Message);
-            }
+            ReadHandlerAsync(e);
         }
 
         private async Task ReadHandlerAsync(ReadEventArgs arg)
@@ -211,7 +237,7 @@ namespace Terminal.Collector.Service
             }
             else
             {
-                LogError(string.Format("Read Failed! Error Code:{0}", arg.ErrorMsg));
+                LogError(string.Format("读取超时:{0}", arg.ErrorMsg));
             }
 
             arg.Dispose();
@@ -220,24 +246,28 @@ namespace Terminal.Collector.Service
 
         private async Task RunHandlerAsync(RunEventArgs arg)
         {
-            try
+            if (arg.Result)
             {
-                _helper.SaveBatchData(arg.PlcId, Data);
+                try
+                {
 
-                await RedisHelper.SetAsync(string.Format("PLC{0}_ST", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                await RedisHelper.SetAsync(string.Format("PLC{0}_ED", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                await RedisHelper.SetAsync(string.Format("PLC{0}_TS", arg.PlcId), (arg.EndTime - arg.StartTime).TotalMinutes);
+                    _helper.SaveBatchData(arg.PlcId, Data);
+
+                    await RedisHelper.SetAsync(string.Format("PLC{0}_ST", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                    await RedisHelper.SetAsync(string.Format("PLC{0}_ED", arg.PlcId), arg.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                    await RedisHelper.SetAsync(string.Format("PLC{0}_TS", arg.PlcId), (arg.EndTime - arg.StartTime).TotalMinutes);
+
+                }
+                catch (Exception ex)
+                {
+                    LogError("Run Handler:" + ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                LogError("Run Handler:" + ex.Message);
+                LogError("PLC长时间无反应,连接已断开,下次重试!");
             }
         }
-
-        private void LogError(string Message)
-        {
-            Console.WriteLine(Message);
-            Console.WriteLine("------------");
-        }
+        #endregion
     }
 }
