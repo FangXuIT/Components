@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -62,9 +63,8 @@ namespace Terminal.Collector.Service
 
             _store = new CollectorStoreImple(ConnectionString);
             RedisHelper.Initialization(new CSRedis.CSRedisClient(RedisConnectionString));
-
             _helper = new BatchHelper(_store);
-
+            
             await LoadLinesAsync();
             await base.StartAsync(cancellationToken);
         }
@@ -104,7 +104,6 @@ namespace Terminal.Collector.Service
                 var line = new ScanLine(DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Slot, plc.Rack);
                 line.PlcId = plc.Id;
                 line.RunHandler += Line_RunHandler;
-                line.Connect();
 
                 var nomaltgs = (from u in targets where u.PlcId == plc.Id && u.VarType != 7 select u).ToList();
                 var stringtgs= (from u in targets where u.PlcId == plc.Id && u.VarType == 7 select u).ToList();
@@ -181,7 +180,7 @@ namespace Terminal.Collector.Service
 
         private void LogError(string Message)
         {
-            Console.WriteLine(Message);
+            RedisHelper.PublishAsync("Collector_Error", string.Format("{0}  {1}", System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), Message));
         }
         #endregion
 
@@ -210,19 +209,9 @@ namespace Terminal.Collector.Service
         {
             if(arg.Result)
             {
+                StringBuilder sbSendValue = new StringBuilder();
                 foreach (var data in arg.Data)
                 {
-                    if (data.Key == "PLC1.Line1.ZCZT"
-                        || data.Key == "PLC1.Line2.ZCZT"
-                        || data.Key == "PLC2.Line4.ZCZT"
-                        || data.Key == "PLC2.Line5.ZCZT")
-                    {
-                        LogError(string.Format("时间:{0} 值:{1}={2}"
-                            , arg.StartTime.ToString("HH:mm:ss")
-                            , data.Key
-                            , data.Value));                      
-                    }
-
                     if(!Data.ContainsKey(data.Key))
                     {
                         Data.Add(data.Key, data.Value);
@@ -231,13 +220,18 @@ namespace Terminal.Collector.Service
                     {
                         Data[data.Key] = data.Value;
                     }
-
+                    sbSendValue.AppendFormat("{0}={1};", data.Key, data.Value);
                     await RedisHelper.SetAsync(data.Key, data.Value);
                 }
+
+                if(sbSendValue.Length>0) await RedisHelper.PublishAsync("Collector_Value", sbSendValue.ToString());
+
+                sbSendValue.Clear();
+                sbSendValue = null;
             }
             else
             {
-                LogError(string.Format("读取超时:{0}", arg.ErrorMsg));
+                LogError(string.Format("读取超时：{0}。", arg.ErrorMsg));
             }
 
             arg.Dispose();
@@ -260,12 +254,12 @@ namespace Terminal.Collector.Service
                 }
                 catch (Exception ex)
                 {
-                    LogError("Run Handler:" + ex.Message);
+                    LogError(string.Format("保存历史数据出错：{0}。", ex.Message));
                 }
             }
             else
             {
-                LogError("PLC长时间无反应,连接已断开,下次重试!");
+                LogError(string.Format("{1}# PLC长时间无反应或连接已断开。", arg.PlcId));
             }
         }
         #endregion

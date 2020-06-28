@@ -17,14 +17,14 @@ namespace Terminal.Collector.Store
     {
         public string ConnectionString { set; get; }
 
-        public CollectorStoreImple(string _connectionString = "server=192.168.11.90;user id=root;password=ABCabc123;persistsecurityinfo=True;database=zeqp_hlsn;SslMode=none;")
+        public CollectorStoreImple(string _connectionString)
         {
             ConnectionString = _connectionString;
         }
 
         public async Task<List<Pb_Line>> GetLineListAsync()
         {
-            using (var db = DBContext.Client())
+            using (var db = DBContext.Client(ConnectionString))
             {
                 return await db.Queryable<Pb_Line>().ToListAsync();
             }
@@ -62,7 +62,7 @@ namespace Terminal.Collector.Store
                         Id = s.Id,
                         Interval = s.Interval,
                         IsStoreTarget = s.SaveHistory == 1,
-                        Name = s.Tag,
+                        Name = s.TagName,
                         PlcId = s.PlcId,
                         StartByteAdr = s.StartByteAdr,
                         VarType = s.VarType,

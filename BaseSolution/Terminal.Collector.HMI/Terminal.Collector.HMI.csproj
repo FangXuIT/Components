@@ -165,7 +165,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
@@ -174,11 +174,12 @@
     <PackageReference Include="CSRedisCore" Version="3.6.5" />
     <PackageReference Include="MahApps.Metro" Version="2.0.1" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Terminal.Collector.Core\Terminal.Collector.Core.csproj" />
     <ProjectReference Include="..\Terminal.Collector.IStore\Terminal.Collector.IStore.csproj" />
     <ProjectReference Include="..\Terminal.Collector.Store\Terminal.Collector.Store.csproj" />
   </ItemGroup>

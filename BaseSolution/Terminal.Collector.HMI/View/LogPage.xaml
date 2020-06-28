@@ -9,12 +9,6 @@
       Title="LogPage">
 
     <Grid>
-        <DataGrid x:Name="gdLog" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="类型" Width="100" Binding="{ Binding Path=Type}" />
-                <DataGridTextColumn Header="时间" Width="150" Binding="{ Binding Path=LogTime}" />
-                <DataGridTextColumn Header="详细信息" Width="700" Binding="{ Binding Path=Msg}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox x:Name="errors" DisplayMemberPath="Content" Margin="10"/>
     </Grid>
 </Page>

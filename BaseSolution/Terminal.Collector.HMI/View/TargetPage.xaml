@@ -13,12 +13,15 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.Column="0">
-            <ComboBox x:Name="cbChannelList" Width="300" 
-                  HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  SelectionChanged="cbChannelList_SelectionChanged"/>
-        </Border>
-
-        <DataGrid Grid.Row="1" x:Name="dgTargetList" IsReadOnly="True" Margin="0 30 0 0"></DataGrid>
+        <DataGrid Grid.Row="1" x:Name="dgTargetList" IsReadOnly="True" Margin="10" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PLC编号" Width="70" Binding="{Binding PlcID}"/>
+                <DataGridTextColumn Header="变量名称" Width="200" Binding="{Binding TagName}"/>
+                <DataGridTextColumn Header="变量地址" Width="200" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="变量类型" Width="80" Binding="{Binding VarType}"/>
+                <DataGridTextColumn Header="变量值" Width="140" Binding="{Binding Value , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="更新时间" Width="140" Binding="{Binding ReadTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

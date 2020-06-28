@@ -9,7 +9,7 @@ namespace S7.Net
     {
         public ErrorCode ErrorCode { get; }
 
-        public PlcException(ErrorCode errorCode) : this(errorCode, $"PLC communication failed with error '{errorCode}'.")
+        public PlcException(ErrorCode errorCode) : this(errorCode, $"PLC communication failed with error '{errorCode}'")
         {
         }
 

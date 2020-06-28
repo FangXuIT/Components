@@ -11,8 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Terminal.Collector.Core;
-
 namespace Terminal.Collector.HMI.View
 {
     /// <summary>
@@ -20,17 +18,14 @@ namespace Terminal.Collector.HMI.View
     /// </summary>
     public partial class SettingsPage : Page
     {
-        private CollectorServer server;
-
         public SettingsPage()
         {
             InitializeComponent();
-            server = (CollectorServer)Application.Current.MainWindow.DataContext;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if(!server.IsRuning) server.StartAsync();
+
         }
     }
 }

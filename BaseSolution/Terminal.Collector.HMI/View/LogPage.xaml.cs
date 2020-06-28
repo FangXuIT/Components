@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Terminal.Collector.Core;
+using Terminal.Collector.HMI.Core;
 
 namespace Terminal.Collector.HMI.View
 {
@@ -24,7 +24,7 @@ namespace Terminal.Collector.HMI.View
         {
             InitializeComponent();
 
-            gdLog.ItemsSource = LogHelper.Instance.Logs.ToList();
+            errors.ItemsSource = LogHelper.Instance.Errors;
         }
     }
 }

@@ -68,7 +68,14 @@ namespace Terminal.Collector.S7Net
         {
             if(!Client.IsConnected)
             {
-                Client.Open();
+                try
+                {
+                    Client.Open();
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
             }
             return Client.IsConnected;
         }

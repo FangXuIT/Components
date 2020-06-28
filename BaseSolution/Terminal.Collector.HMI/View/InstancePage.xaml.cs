@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Terminal.Collector.Core;
 using System.Linq;
 
 namespace Terminal.Collector.HMI.View
@@ -23,9 +22,6 @@ namespace Terminal.Collector.HMI.View
         public InstancePage()
         {
             InitializeComponent();
-
-            var server = (CollectorServer)Application.Current.MainWindow.DataContext;
-            if(server!=null) gdIntance.ItemsSource = (from u in server.InstanceList select u.Channel).ToList();
         }
     }
 }

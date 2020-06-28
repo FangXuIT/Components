@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using Terminal.Collector.HMI.Core;
 
 namespace Terminal.Collector.HMI
 {
@@ -14,7 +16,8 @@ namespace Terminal.Collector.HMI
         private static bool createdNew;
 
         public App()
-        {            
+        {
+            RedisHelper.Initialization(new CSRedis.CSRedisClient(ConfigManager.Configuration["Configurations:Redis"]));
         }
 
         static App()

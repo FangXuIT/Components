@@ -66,12 +66,12 @@ namespace Terminal.Collector.S7Net
                     _plc.ReadMultipleVars(Items.Values.ToList());
                     e.Result = true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     //出现异常断开连接(超时),并休眠1秒
                     _plc.Close();
                     e.Result = false;
-                    e.ErrorMsg = ex.Message;
+                    e.ErrorMsg = "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败";
                 }
                 
                 e.EndTime = System.DateTime.Now;

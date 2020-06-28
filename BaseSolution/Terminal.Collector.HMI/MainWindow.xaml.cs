@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Terminal.Collector.Core;
+using Terminal.Collector.HMI.Core;
 using Terminal.Collector.Store;
 
 namespace Terminal.Collector.HMI
@@ -28,50 +29,33 @@ namespace Terminal.Collector.HMI
         //实例化notifyIOC控件最小化托盘
         private NotifyIcon _notifyIcon = null;
 
-        public CollectorServer Server { set; get; }
-
         public MainWindow()
         {
-            //InitializeComponent();
             InitialTray();
-            InitServer();
+
+            RedisHelper.Subscribe(("Collector_Error", msg => LogError(msg.Body)));
+            RedisHelper.Subscribe(("Collector_Value", msg => UpdateTarget(msg.Body)));
         }
 
-        private async Task InitServer()
+        private void LogError(string msg)
         {
-            Server = new CollectorServer(new CollectorStoreImple());
-            Server.EnabledOpcUA = false;
+            LogHelper.Instance.Error(msg);
+        }
 
-            try
+        private void UpdateTarget(string content)
+        {
+            if(!string.IsNullOrWhiteSpace(content))
             {
-                RedisHelper.Initialization(new CSRedis.CSRedisClient("192.168.11.95:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
-                //RedisHelper.Initialization(new CSRedis.CSRedisClient("127.0.0.1:6379,password=zeqp,defaultDatabase=0,prefix=CS_"));
-                Server.PushDataToRedis = true;
+                var targets = content.Split(";");
+                foreach (var target in targets)
+                {
+                    if(!string.IsNullOrWhiteSpace(target))
+                    {
+                        var kv = target.Split("=");
+                        TargetHelper.Instance.ModifyValue(kv[0], kv[1]);
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                LogHelper.Instance.Error(string.Format("Initialization Redis:{0}", ex.Message));
-            }
-
-            try
-            {
-                await Server.InitScanServerAsync();
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Instance.Error(string.Format("Init Scan Server:{0}", ex.Message));
-            }
-
-            try
-            {
-                await Server.StartAsync();
-            }
-            catch(Exception ex)
-            {
-                LogHelper.Instance.Error(string.Format("Server Start:{0}", ex.Message));
-            }
-
-            this.DataContext = Server;
         }
 
         #region 最小化系统托盘
