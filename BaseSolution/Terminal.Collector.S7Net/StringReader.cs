@@ -3,6 +3,7 @@ using S7.Net.Types;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Terminal.Collector.S7Net
 {
@@ -50,6 +51,8 @@ namespace Terminal.Collector.S7Net
                 }
                 catch (Exception ex)
                 {
+                    //出现异常断开连接(超时)
+                    _plc.Close();
                     e.Result = false;
                     e.ErrorMsg = ex.Message;
                 }
