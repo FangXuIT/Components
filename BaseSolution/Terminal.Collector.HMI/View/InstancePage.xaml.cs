@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
+using Terminal.Collector.HMI.Core;
 
 namespace Terminal.Collector.HMI.View
 {
@@ -22,6 +23,8 @@ namespace Terminal.Collector.HMI.View
         public InstancePage()
         {
             InitializeComponent();
+
+            gdIntance.ItemsSource = PlcHelper.Instance.Plcs;
         }
     }
 }

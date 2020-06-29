@@ -45,7 +45,7 @@ namespace Terminal.Collector.Service
         /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Delay(500);
+            await Task.Delay(10000);
         }
 
         /// <summary>
@@ -104,6 +104,7 @@ namespace Terminal.Collector.Service
                 var line = new ScanLine(DataTypeHelper.GetPlcType(plc.CpuType), plc.Ip, plc.Port, plc.Slot, plc.Rack);
                 line.PlcId = plc.Id;
                 line.RunHandler += Line_RunHandler;
+                line.StatusChangeHandler += Line_StatusChangeHandler;
 
                 var nomaltgs = (from u in targets where u.PlcId == plc.Id && u.VarType != 7 select u).ToList();
                 var stringtgs= (from u in targets where u.PlcId == plc.Id && u.VarType == 7 select u).ToList();
@@ -113,6 +114,11 @@ namespace Terminal.Collector.Service
                 Lines.Add(line);
                 line.Start(1000);
             }
+        }
+
+        private void Line_StatusChangeHandler(object sender, StatusChangeEventArgs e)
+        {
+            RedisHelper.PublishAsync("Collector_Status", string.Format("{0}={1}", e.PlcID, e.Status));
         }
 
         private void RegistReader(ScanLine line, List<TargetModel> targets, int pageSize)

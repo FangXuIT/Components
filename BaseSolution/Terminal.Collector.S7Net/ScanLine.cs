@@ -17,6 +17,13 @@ namespace Terminal.Collector.S7Net
         public System.DateTime EndTime { set; get; }
     }
 
+    public class StatusChangeEventArgs : EventArgs
+    {
+        public Int64 PlcID { set; get; }
+
+        public bool Status { set; get; }
+    }
+
     /// <summary>
     /// 扫描管理道
     /// </summary>
@@ -44,9 +51,21 @@ namespace Terminal.Collector.S7Net
         public delegate void RunEventHandler(object sender, RunEventArgs e);
 
         /// <summary>
+        /// 连接状态改变
+        /// </summary>
+        /// <param name="sender">Reader</param>
+        /// <param name="e">ReadEventArgs</param>
+        public delegate void StatusChangeEventHandler(object sender, StatusChangeEventArgs e);
+
+        /// <summary>
         /// 读取完成事件
         /// </summary>
         public event RunEventHandler RunHandler;
+
+        /// <summary>
+        /// 连接状态改变件
+        /// </summary>
+        public event StatusChangeEventHandler StatusChangeHandler;
 
 
         private ScanLine()
@@ -76,6 +95,14 @@ namespace Terminal.Collector.S7Net
                 {
                     return false;
                 }
+
+                if (this.StatusChangeHandler != null)
+                {
+                    var arg = new StatusChangeEventArgs();
+                    arg.PlcID = this.PlcId;
+                    arg.Status = Client.IsConnected;
+                    this.StatusChangeHandler(this, arg);
+                }
             }
             return Client.IsConnected;
         }
@@ -100,6 +127,14 @@ namespace Terminal.Collector.S7Net
         {
             IsRuning = false;
             Client.Close();
+
+            if (this.StatusChangeHandler != null)
+            {
+                var arg = new StatusChangeEventArgs();
+                arg.PlcID = this.PlcId;
+                arg.Status = Client.IsConnected;
+                this.StatusChangeHandler(this, arg);
+            }
         }
 
         /// <summary>

@@ -31,10 +31,11 @@ namespace Terminal.Collector.HMI
 
         public MainWindow()
         {
-            InitialTray();
+            //InitialTray();
 
             RedisHelper.Subscribe(("Collector_Error", msg => LogError(msg.Body)));
             RedisHelper.Subscribe(("Collector_Value", msg => UpdateTarget(msg.Body)));
+            RedisHelper.Subscribe(("Collector_Status", msg => ModifyStatus(msg.Body)));
         }
 
         private void LogError(string msg)
@@ -55,6 +56,15 @@ namespace Terminal.Collector.HMI
                         TargetHelper.Instance.ModifyValue(kv[0], kv[1]);
                     }
                 }
+            }
+        }
+
+        private void ModifyStatus(string content)
+        {
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                var kv = content.Split("=");
+                PlcHelper.Instance.ModifyStatus(Convert.ToInt64(kv[0]), Convert.ToBoolean(kv[1]));
             }
         }
 
@@ -105,5 +115,10 @@ namespace Terminal.Collector.HMI
             }
         }
         #endregion
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(-2);
+        }
     }
 }

@@ -11,15 +11,13 @@
     <Grid>
         <DataGrid x:Name="gdIntance" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="PLC名称" Width="100" Binding="{ Binding Path=Name}" />
-                <DataGridTextColumn Header="PLC类型" Width="100" Binding="{ Binding Path=CpuType}" />
-                <DataGridTextColumn Header="IP" Width="100" Binding="{ Binding Path=IP}" />
-                <DataGridTextColumn Header="Port" Width="100" Binding="{ Binding Path=Port}" />
-                <DataGridTextColumn Header="Slot" Width="100" Binding="{ Binding Path=Slot}" />
-                <DataGridTextColumn Header="Rack" Width="100" Binding="{ Binding Path=Rack}" />
-                <DataGridCheckBoxColumn Header="连接状态" Width="100" Binding="{ Binding Path=IsConnected}" />
-                <DataGridTextColumn Header="读取错误次数" Width="100" Binding="{ Binding Path=Rack}" />
-                <DataGridTextColumn Header="备注信息" Width="100" Binding="{ Binding Path=Message}" />
+                <DataGridTextColumn Header="PLC名称" Width="100" Binding="{ Binding Name}" />
+                <DataGridTextColumn Header="PLC类型" Width="100" Binding="{ Binding CpuType}" />
+                <DataGridTextColumn Header="IP" Width="100" Binding="{ Binding IP}" />
+                <DataGridTextColumn Header="Port" Width="100" Binding="{ Binding Port}" />
+                <DataGridTextColumn Header="Slot" Width="100" Binding="{ Binding Slot}" />
+                <DataGridTextColumn Header="Rack" Width="100" Binding="{ Binding Rack}" />
+                <DataGridTextColumn Header="连接状态" Width="100" Binding="{ Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -15,8 +15,7 @@
                  Width="1000"
                  BorderThickness="1" 
                  ResizeMode="CanResizeWithGrip"
-                 WindowStartupLocation="CenterScreen"
-                 ShowCloseButton="False">
+                 WindowStartupLocation="CenterScreen" Closing="MetroWindow_Closing">
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Image Width="24" Height="24" Margin="10 0 10 0" Source="/Favorites/icons8-pinterest-100.png"></Image>

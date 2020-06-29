@@ -64,8 +64,7 @@ namespace Terminal.Collector.Service
                 string truck_heigth = "PLC1.Line1.CXNCCD";      //车箱高
                 string truck_long = "PLC1.Line1.CKGD";          //车箱长
 
-                int line_id = 1;
-                await SaveLineBatchData(readData, dtNow, line1_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, line_id);
+                await SaveLineBatchData(readData, dtNow, line1_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, 1);
                 #endregion
 
                 #region --2号线--
@@ -80,8 +79,7 @@ namespace Terminal.Collector.Service
                 truck_heigth = "PLC1.Line2.CXNCCD";      //车箱高
                 truck_long = "PLC1.Line2.CKGD";          //车箱长
 
-                line_id = 2;
-                await SaveLineBatchData(readData, dtNow, line2_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, line_id);
+                await SaveLineBatchData(readData, dtNow, line2_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, 2);
                 #endregion
             }
             else if(plcId==2)
@@ -97,8 +95,8 @@ namespace Terminal.Collector.Service
                 string truck_width = "PLC2.Line4.CXNCKD";       //车箱宽
                 string truck_heigth = "PLC2.Line4.CXNCCD";      //车箱高
                 string truck_long = "PLC2.Line4.CKGD";          //车箱长
-                int line_id = 4;
-                await SaveLineBatchData(readData, dtNow, line4_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, line_id);
+
+                await SaveLineBatchData(readData, dtNow, line4_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, 4);
                 #endregion
 
                 #region --5号线--
@@ -113,8 +111,7 @@ namespace Terminal.Collector.Service
                 truck_heigth = "PLC2.Line5.CXNCCD";      //车箱高
                 truck_long = "PLC2.Line5.CKGD";          //车箱长
 
-                line_id = 5;
-                await SaveLineBatchData(readData, dtNow, line5_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, line_id);
+                await SaveLineBatchData(readData, dtNow, line5_key, line_zt, line_chp, line_sdzcbs, line_skzl, line_dxsz, line_jhzqcs, line_sjzqbs, truck_width, truck_heigth, truck_long, 5);
                 #endregion
             }
         }
@@ -152,7 +149,6 @@ namespace Terminal.Collector.Service
             {//当前正在装车中
                 if (Convert.ToInt32(readData[line_sjzqbs]) > 0) LineBatch[line_key].RealPackages = Convert.ToInt32(readData[line_sjzqbs]);
                 if (Convert.ToInt32(readData[line_jhzqcs])>0) LineBatch[line_key].SnatchCount = Convert.ToInt32(readData[line_jhzqcs]);
-                if (Convert.ToInt32(readData[line_sjzqbs])==0) LineBatch[line_key].RealPackages = Convert.ToInt32(readData[line_sjzqbs]);
 
                 if (LineBatch[line_key].LoadingWeight == 0) LineBatch[line_key].LoadingWeight = Convert.ToDecimal(readData[line_skzl]);
                 if (LineBatch[line_key].PlanPackages == 0) LineBatch[line_key].PlanPackages = Convert.ToInt32(readData[line_sdzcbs]);
@@ -165,28 +161,31 @@ namespace Terminal.Collector.Service
                 if (Convert.ToBoolean(readData[line_zt]) == false)
                 {//结束装车
                     LineBatch[line_key].Status = 1;
+                    LineBatch[line_key].RealPackages = LineBatch[line_key].PlanPackages;                    
                     LineBatch[line_key].EndTime = dtNow;
-                    await _store.UpdateBatchAsync(LineBatch[line1_key]);
+                    await _store.UpdateBatchAsync(LineBatch[line_key]);
                 }
             }
             else
             {//当前车道装车完毕
                 var cph = readData[line_chp].ToString();
                 if (Convert.ToBoolean(readData[line_zt]) == true && !string.IsNullOrWhiteSpace(cph))
-                {//开始装车
+                {
                     if (cph== LineBatch[line_key].TruckLicense
                         && LineBatch[line_key].Status==1
-                        && LineBatch[line_key].StartTime>=DateTime.Now.AddMinutes(30))
-                    {
+                        && LineBatch[line_key].StartTime>=DateTime.Now.AddMinutes(-30))
+                    {//继续装车
                         LineBatch[line_key].Status = 0;
                         await _store.UpdateBatchAsync(LineBatch[line_key]);
                     }
                     else
-                    {
+                    {//开始装车
+                        LineBatch[line_key] = null;
+                        LineBatch[line_key] = new Ps_Batch();
                         LineBatch[line_key].Id = Convert.ToInt64(System.DateTime.Now.ToString("yyMMddHHmmssfff") + new Random().Next(0, 9999).ToString());
                         LineBatch[line_key].ProduceDate = Convert.ToInt32(dtNow.ToString("yyyyMMdd"));
                         LineBatch[line_key].LineId = line_id;
-                        LineBatch[line_key].StartTime = dtNow;
+                        LineBatch[line_key].StartTime = dtNow;                        
                         LineBatch[line_key].Status = 0;
 
                         LineBatch[line_key].TruckLicense = cph;

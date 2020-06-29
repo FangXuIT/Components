@@ -23,17 +23,17 @@ namespace Terminal.Collector.HMI
         static App()
         {
             // Ensure other instances of this application are not running.
-            singleInstanceWatcher = new Semaphore(
-                0, // Initial count.
-                1, // Maximum count.
-                Assembly.GetExecutingAssembly().GetName().Name,
-                out createdNew);
+            //singleInstanceWatcher = new Semaphore(
+            //    0, // Initial count.
+            //    1, // Maximum count.
+            //    Assembly.GetExecutingAssembly().GetName().Name,
+            //    out createdNew);
 
-            if (!createdNew)
-            {
-                MessageBox.Show("已有一个实例在运行!");
-                Environment.Exit(-2);
-            }
+            //if (!createdNew)
+            //{
+            //    MessageBox.Show("已有一个实例在运行!");
+            //    Environment.Exit(-2);
+            //}
         }
     }
 }

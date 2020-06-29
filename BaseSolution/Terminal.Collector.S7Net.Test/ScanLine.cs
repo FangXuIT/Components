@@ -1,4 +1,5 @@
 ﻿using S7.Net;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,20 @@ using System.Threading.Tasks;
 
 namespace Terminal.Collector.S7Net.Test
 {
+    public class StatusChangeEventArgs : EventArgs
+    {
+        public Int64 PlcID { set; get; }
+
+        public bool Status { set; get; }
+    }
+
     /// <summary>
     /// 扫描管理道
     /// </summary>
     public class ScanLine
     {
+        public Int64 PlcID { set; get; }
+
         /// <summary>
         /// Plc
         /// </summary>
@@ -25,6 +35,17 @@ namespace Terminal.Collector.S7Net.Test
         /// </summary>
         public bool IsRuning { private set; get; }
 
+        /// <summary>
+        /// 连接状态改变
+        /// </summary>
+        /// <param name="sender">Reader</param>
+        /// <param name="e">ReadEventArgs</param>
+        public delegate void StatusChangeEventHandler(object sender, StatusChangeEventArgs e);
+
+        /// <summary>
+        /// 连接状态改变件
+        /// </summary>
+        public event StatusChangeEventHandler StatusChangeHandler;
 
         private ScanLine()
         { 
@@ -45,6 +66,13 @@ namespace Terminal.Collector.S7Net.Test
             if(!Client.IsConnected)
             {
                 Client.Open();
+                if(this.StatusChangeHandler!=null)
+                {
+                    var arg = new StatusChangeEventArgs();
+                    arg.PlcID = this.PlcID;
+                    arg.Status = Client.IsConnected;
+                    this.StatusChangeHandler(this, arg);
+                }
             }
             return Client.IsConnected;
         }
@@ -68,6 +96,20 @@ namespace Terminal.Collector.S7Net.Test
         public void Stop()
         {
             IsRuning = false;
+            try
+            {
+                Client.Close();
+                if (this.StatusChangeHandler != null)
+                {
+                    var arg = new StatusChangeEventArgs();
+                    arg.PlcID = this.PlcID;
+                    arg.Status = Client.IsConnected;
+                    this.StatusChangeHandler(this, arg);
+                }
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
