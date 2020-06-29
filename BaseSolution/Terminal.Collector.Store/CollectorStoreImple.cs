@@ -109,7 +109,7 @@ namespace Terminal.Collector.Store
         {
             using (var db = DBContext.Client(ConnectionString))
             {
-                await db.Updateable(data).ExecuteCommandAsync();
+                await db.Updateable(data).IgnoreColumns("PicFront", "PicBehind").ExecuteCommandAsync();
             }
         }
     }
